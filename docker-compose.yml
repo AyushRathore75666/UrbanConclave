@@ -1,0 +1,21 @@
+# Optional. Use this when you prefer Docker Postgres over the built-in database.
+# Then set USE_EMBEDDED_PG=false and DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:5432/mpgis
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: mpgis
+    ports:
+      - "5432:5432"
+    volumes:
+      - mpgis-pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d mpgis"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mpgis-pg:

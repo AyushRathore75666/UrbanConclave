@@ -1,0 +1,290 @@
+{
+  "meta": {
+    "siteName": "MP Conclave GIS",
+    "description": "Global Investors Summit, Madhya Pradesh. Register your investment interest with the summit helpdesk."
+  },
+  "hero": {
+    "kicker": "Government of Madhya Pradesh",
+    "organiser": "MP Industrial Development Corporation Ltd.",
+    "title": "MP Conclave GIS",
+    "subtitle": "Global Investors Summit",
+    "dates": "24–25 February 2027",
+    "venue": "Bhopal, Madhya Pradesh",
+    "theme": "Infinite Possibilities",
+    "startISO": "2027-02-24T09:00:00+05:30",
+    "endISO": "2027-02-25T18:00:00+05:30"
+  },
+  "statsDisclaimer": "These figures are illustrative placeholders for the page layout. Replace them with published numbers before the site goes live.",
+  "stats": [
+    { "value": "2,400", "label": "Proposals received" },
+    { "value": "350", "label": "MoUs signed" },
+    { "value": "45", "label": "Countries" },
+    { "value": "6,000", "label": "Delegates" },
+    { "value": "9", "label": "Sectors" },
+    { "value": "1,50,000", "label": "Expected jobs" }
+  ],
+  "whyInvest": {
+    "title": "Why invest in Madhya Pradesh",
+    "intro": "Madhya Pradesh sits in the centre of India. The points below describe the case for investment in plain language. Replace them with the approved investment narrative.",
+    "items": [
+      {
+        "icon": "location",
+        "title": "Central location",
+        "summary": "The state sits on major north–south and east–west routes, which shortens travel to several large markets.",
+        "detail": "Use this space for the approved note on location, catchment markets, and logistics time. Do not add unpublished travel-time claims."
+      },
+      {
+        "icon": "connectivity",
+        "title": "Connectivity",
+        "summary": "Road, rail, and air links connect Bhopal, Indore, Gwalior, Jabalpur, and other cities to the rest of the country.",
+        "detail": "Add approved facts on airports, freight corridors, and industrial corridors when the organising team publishes them."
+      },
+      {
+        "icon": "land",
+        "title": "Land bank",
+        "summary": "The state maintains a process for identifying industrial land. Project teams can ask the helpdesk for current plots.",
+        "detail": "Describe how an investor requests land, which department replies, and what documents are needed. Leave acreage figures blank until they are official."
+      },
+      {
+        "icon": "power",
+        "title": "Power",
+        "summary": "Power supply for industry is handled through the state utilities. New projects can flag their load in the interest form.",
+        "detail": "Add the approved process for a power connection and any published capacity notes. Do not invent megawatt figures."
+      },
+      {
+        "icon": "workforce",
+        "title": "Skilled workforce",
+        "summary": "Universities, ITIs, and industrial towns across the state are a base for hiring. Training needs can be raised with the helpdesk.",
+        "detail": "Replace this with the approved note on skills, institutions, and any published training programmes."
+      },
+      {
+        "icon": "policy",
+        "title": "Investor-friendly policies",
+        "summary": "Incentives and approvals are explained in the downloadable policy set. The interest form tells the team what support you need.",
+        "detail": "Name the current industrial policy only after the legal text is confirmed, and link the signed PDF from Downloads."
+      }
+    ]
+  },
+  "sectors": {
+    "title": "Priority sectors",
+    "intro": "Tell us which sectors your project touches. You can select more than one on the interest form.",
+    "items": [
+      {
+        "slug": "industry",
+        "title": "Industry",
+        "summary": "Manufacturing, engineering, and industrial parks.",
+        "detail": "For plant, component, and industrial-cluster projects. Describe the product, capacity, and land need in the form."
+      },
+      {
+        "slug": "agriculture-food",
+        "title": "Agriculture and food processing",
+        "summary": "Processing, cold chain, and agri-business.",
+        "detail": "For grain, horticulture, dairy, and food units. Mention raw-material catchment if you already know it."
+      },
+      {
+        "slug": "it-electronics",
+        "title": "IT and electronics",
+        "summary": "Software, IT services, electronics, and data centres.",
+        "detail": "For technology centres, electronics assembly, and related services. Note power and talent needs in the form."
+      },
+      {
+        "slug": "tourism",
+        "title": "Tourism",
+        "summary": "Hotels, experiences, and destination projects.",
+        "detail": "For hospitality and tourism assets. Heritage and forest locations may need extra clearances — flag this under support needed."
+      },
+      {
+        "slug": "renewable-energy",
+        "title": "Renewable energy",
+        "summary": "Solar, wind, and other clean-energy projects.",
+        "detail": "For generation, storage, and component manufacturing. Land and evacuation should be described in the project note."
+      },
+      {
+        "slug": "mining",
+        "title": "Mining",
+        "summary": "Minerals and mineral-based industry.",
+        "detail": "For responsible mining and downstream processing. Auctions and clearances follow separate rules; the form only registers interest."
+      },
+      {
+        "slug": "textiles",
+        "title": "Textiles",
+        "summary": "Fibre, fabric, apparel, and technical textiles.",
+        "detail": "For spinning, weaving, processing, and garmenting. Mention water and effluent needs if they are material."
+      },
+      {
+        "slug": "pharma",
+        "title": "Pharma",
+        "summary": "Formulations, bulk drugs, and medical products.",
+        "detail": "For pharmaceutical and medical-product units. Environmental and drug approvals stay with the competent authorities."
+      },
+      {
+        "slug": "logistics",
+        "title": "Logistics",
+        "summary": "Warehousing, ICDs, and freight services.",
+        "detail": "For parks, warehouses, and freight services that support other industries in the state."
+      }
+    ]
+  },
+  "leadership": {
+    "title": "Leadership",
+    "intro": "Messages from the leadership will be published here. The text below is a placeholder, not an official statement.",
+    "people": [
+      {
+        "name": "Narendra Modi",
+        "role": "Hon'ble Prime Minister, India",
+        "message": "Official message to be published here. Edit this text from the admin panel before the site goes live.",
+        "crop": "left"
+      },
+      {
+        "name": "Dr. Mohan Yadav",
+        "role": "Hon'ble Chief Minister, Madhya Pradesh",
+        "message": "Official message to be published here. Edit this text from the admin panel before the site goes live.",
+        "crop": "right"
+      }
+    ]
+  },
+  "agendaHighlights": [
+    { "track": "Conferences", "text": "Plenary sessions on the investment climate and state priorities." },
+    { "track": "Roundtables", "text": "Sector rooms for investors, departments, and institutions." },
+    { "track": "Exhibition", "text": "A display of districts, agencies, and project opportunities." },
+    { "track": "MoU signing", "text": "A scheduled window for agreements that are already cleared." },
+    { "track": "Side events", "text": "Country sessions, site-visit briefings, and partner meetings." }
+  ],
+  "agenda": {
+    "title": "Agenda and events",
+    "intro": "The timetable below is a sample structure. Times and halls will be confirmed in the final programme.",
+    "items": [
+      { "day": "Day 1", "time": "10:00", "track": "Conferences", "title": "Inaugural session", "detail": "Opening of the summit and welcome to delegations." },
+      { "day": "Day 1", "time": "12:00", "track": "Conferences", "title": "Investment climate session", "detail": "How a project moves from interest to approval in the state." },
+      { "day": "Day 1", "time": "14:00", "track": "Roundtables", "title": "Sector roundtables", "detail": "Parallel rooms for the priority sectors." },
+      { "day": "Day 1", "time": "11:00", "track": "Exhibition", "title": "Exhibition opens", "detail": "District and agency stalls remain open through both days." },
+      { "day": "Day 1", "time": "16:00", "track": "Side events", "title": "Country sessions", "detail": "Meetings grouped by visiting delegations." },
+      { "day": "Day 2", "time": "10:00", "track": "Roundtables", "title": "One-to-one meetings", "detail": "Pre-booked meetings between investors and departments." },
+      { "day": "Day 2", "time": "12:30", "track": "MoU signing", "title": "Agreement window", "detail": "Signing slot for proposals that have completed internal clearance." },
+      { "day": "Day 2", "time": "15:00", "track": "Side events", "title": "Site-visit briefings", "detail": "Short briefings for investors who have asked for a location visit." },
+      { "day": "Day 2", "time": "17:00", "track": "Conferences", "title": "Closing session", "detail": "Summary of the summit and the follow-up process." }
+    ]
+  },
+  "journey": [
+    { "step": "01", "title": "Register", "body": "Share company and contact details, and confirm your email and mobile with a one-time code." },
+    { "step": "02", "title": "Submit proposal", "body": "Describe the project, sector, investment, and the support you need. You receive a reference number." },
+    { "step": "03", "title": "Get approvals", "body": "The investment team reviews the file and connects you with the departments that handle clearances." },
+    { "step": "04", "title": "Set up", "body": "Move into land, utilities, and implementation with a single officer as your point of contact." }
+  ],
+  "testimonials": {
+    "title": "What investors say",
+    "intro": "These cards are templates. Replace them with approved statements. Do not publish a quotation that has not been cleared.",
+    "items": [
+      { "quote": "Placeholder testimonial. Replace this with an approved investor statement.", "name": "Name to be added", "organisation": "Organisation to be added" },
+      { "quote": "Placeholder testimonial. Replace this with an approved investor statement.", "name": "Name to be added", "organisation": "Organisation to be added" }
+    ]
+  },
+  "partners": {
+    "title": "Partners",
+    "intro": "Partner names are placeholders. Add confirmed partners from the admin panel.",
+    "items": [
+      { "name": "Partner A" },
+      { "name": "Partner B" },
+      { "name": "Partner C" },
+      { "name": "Partner D" },
+      { "name": "Partner E" },
+      { "name": "Partner F" }
+    ]
+  },
+  "media": {
+    "title": "Media",
+    "intro": "Films, photographs, and updates will be added here as the summit office releases them.",
+    "videos": [
+      { "title": "Summit film", "caption": "Video link to be added.", "url": "" },
+      { "title": "Invest in Madhya Pradesh", "caption": "Video link to be added.", "url": "" }
+    ],
+    "gallery": [
+      { "src": "/brand/gis-mark.png", "alt": "MP Conclave GIS emblem", "caption": "Summit emblem" },
+      { "src": "/brand/invest-wordmark.jpg", "alt": "Invest Madhya Pradesh wordmark", "caption": "Invest Madhya Pradesh" },
+      { "src": "/brand/summit-banner.jpg", "alt": "Summit banner with leadership portraits", "caption": "Summit banner" },
+      { "src": "/brand/leaders.png", "alt": "Portraits of the Prime Minister and the Chief Minister", "caption": "Leadership portraits" }
+    ],
+    "news": [
+      { "date": "1 September 2026", "title": "Sample update: interest form is open", "summary": "Investors can file an interest from this website. This item is sample copy for the layout." },
+      { "date": "15 September 2026", "title": "Sample update: helpdesk hours", "summary": "The helpdesk answers queries on the phone number and email published on the contact page." },
+      { "date": "30 September 2026", "title": "Sample update: programme to follow", "summary": "The session list on the agenda page is a sample. The final programme will replace it." }
+    ]
+  },
+  "downloads": {
+    "title": "Downloads",
+    "intro": "These files are short placeholders so the links work. Replace them with the approved PDFs.",
+    "items": [
+      { "title": "Summit brochure", "description": "Overview of the summit, dates, and how to register interest.", "file": "/downloads/brochure.pdf" },
+      { "title": "Incentive guide", "description": "A placeholder for the approved incentive note.", "file": "/downloads/incentive-guide.pdf" },
+      { "title": "Policy documents", "description": "A placeholder for the policy compendium.", "file": "/downloads/policy-documents.pdf" }
+    ]
+  },
+  "contact": {
+    "title": "Contact",
+    "intro": "Write to the summit helpdesk for registration, meetings, and project queries. The details below are placeholders.",
+    "email": "invest@mpconclave.example",
+    "phone": "+91 755 000 0000",
+    "whatsapp": "+91 755 000 0000",
+    "whatsappUrl": "",
+    "address": "Summit Helpdesk, Bhopal, Madhya Pradesh, India",
+    "hours": "Monday to Friday, 10:00–17:30 IST",
+    "socials": [
+      { "label": "LinkedIn", "url": "" },
+      { "label": "X", "url": "" },
+      { "label": "Facebook", "url": "" },
+      { "label": "YouTube", "url": "" }
+    ]
+  },
+  "about": {
+    "title": "About the summit",
+    "paragraphs": [
+      "MP Conclave GIS is the Global Investors Summit of Madhya Pradesh. It is a meeting place for companies, institutions, and departments of the state government.",
+      "This website explains the summit and collects investment interest. Filing the form does not by itself approve a project, allot land, or release an incentive. Those steps follow the relevant rules and a review by the investment team.",
+      "The organising line on the summit material names the Government of Madhya Pradesh and the MP Industrial Development Corporation Ltd.",
+      "Dates, venue details, figures, messages, and downloadable files on this website are editable from the admin panel. Replace every placeholder before the site is announced."
+    ]
+  },
+  "support": {
+    "title": "Investor support",
+    "intro": "A short path from the first form to a working project, plus answers to common questions.",
+    "helpdeskNote": "Quote your reference number in every email or call so the team can open the right file."
+  },
+  "faqs": [
+    { "q": "How do I register interest?", "a": "Open Submit Investment Interest, complete the four steps, and confirm your email and mobile with the one-time codes. You will receive a reference number on the confirmation page." },
+    { "q": "Is there a fee to file the form?", "a": "The interest form on this website has no fee. Fees charged by other departments, if any, are separate and will be told to you during review." },
+    { "q": "How will the team contact me?", "a": "On the official email and mobile number you verified. Keep both available until your proposal is closed." },
+    { "q": "Can I check the status later?", "a": "Yes. Use Check status and enter the reference number together with the email used on the form." },
+    { "q": "Can I change the proposal after sending it?", "a": "The form cannot be edited online after submission. Email the helpdesk with your reference number and the change you need." },
+    { "q": "What file types can I attach?", "a": "One PDF or DOCX file, up to 10 MB, such as a company profile or a project note. The file is checked before it is stored." }
+  ],
+  "form": {
+    "title": "Submit investment interest",
+    "intro": "Four short steps. Fields marked with an asterisk are required. You can save a draft of this form in this browser."
+  },
+  "privacy": {
+    "title": "Privacy policy",
+    "paragraphs": [
+      "This is a working draft for the organising team to review with its legal adviser before publication.",
+      "The interest form collects company details, a contact person’s name, designation, official email, and mobile number, the project description, and an optional document. Email addresses and mobile numbers are stored in encrypted form.",
+      "The information is used to review the investment interest, contact the person named on the form, and produce internal reports for the investment team. It is not sold.",
+      "A confirmation message is sent to the email and mobile number you verified. A notice is also sent to the investment team inbox configured for this website.",
+      "You may ask the helpdesk, quoting your reference number, what information is held and request a correction. Access inside the admin panel is limited by role, and admin actions are written to an audit log.",
+      "Replace this draft with the policy cleared by the competent authority before the site is announced."
+    ]
+  },
+  "terms": {
+    "title": "Terms of use",
+    "paragraphs": [
+      "This is a working draft for the organising team to review with its legal adviser before publication.",
+      "The pages on this website give general information about MP Conclave GIS. They are not an offer of land, incentive, or approval.",
+      "You must give accurate information in the interest form and use an official email and mobile number that you can access. Filing the form does not create a right to a meeting, an MoU, or an allotment.",
+      "Do not upload a file you are not allowed to share. Files are scanned and may be rejected if they are not a valid PDF or DOCX within the size limit.",
+      "The organising team may update page text, dates, and documents without notice. The reference number is the record of your submission.",
+      "Replace this draft with the terms cleared by the competent authority before the site is announced."
+    ]
+  },
+  "governmentLinks": [
+    { "label": "Government of Madhya Pradesh", "url": "https://mp.gov.in/" },
+    { "label": "National Portal of India", "url": "https://www.india.gov.in/" }
+  ]
+}

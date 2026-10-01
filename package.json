@@ -1,0 +1,25 @@
+{
+  "name": "mp-conclave-gis",
+  "private": true,
+  "version": "1.0.0",
+  "description": "MP Conclave GIS — Global Investors Summit, Madhya Pradesh",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "concurrently -n api,web -c blue,magenta \"npm run dev -w @mpgis/api\" \"npm run dev -w @mpgis/web\"",
+    "dev:api": "npm run dev -w @mpgis/api",
+    "dev:web": "npm run dev -w @mpgis/web",
+    "build": "npm run build -w @mpgis/web",
+    "start": "concurrently -n api,web -c blue,magenta \"npm run start -w @mpgis/api\" \"npm run start -w @mpgis/web\"",
+    "setup": "npm install && npm run prisma:generate -w @mpgis/api",
+    "smoke": "node scripts/smoke.mjs"
+  },
+  "workspaces": [
+    "apps/api",
+    "apps/web"
+  ],
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}
