@@ -6,6 +6,42 @@ export const TIMELINES = ["0-6", "6-12", "12-24", "24+"] as const;
 
 export const SUPPORT = ["land", "power", "approvals", "incentives", "other"] as const;
 
+export const ATTENDING_AS = [
+  "investor",
+  "developer",
+  "infrastructure",
+  "startup",
+  "association",
+  "consultant",
+  "government",
+  "academia",
+  "other",
+] as const;
+
+export const REGISTRATION_SECTORS = [
+  "government-public",
+  "real-estate",
+  "urban-infrastructure",
+  "sustainability",
+  "finance",
+  "technology",
+  "other",
+] as const;
+
+export const SESSIONS = ["plenary", "panel-1", "panel-2", "panel-3", "panel-4"] as const;
+
+export const ATTENDING_ORG: Record<(typeof ATTENDING_AS)[number], (typeof ORG_TYPES)[number]> = {
+  investor: "PRIVATE",
+  developer: "PRIVATE",
+  infrastructure: "PRIVATE",
+  startup: "STARTUP",
+  association: "OTHER",
+  consultant: "OTHER",
+  government: "PUBLIC",
+  academia: "OTHER",
+  other: "OTHER",
+};
+
 export const LEAD_STATUSES = [
   "RECEIVED",
   "UNDER_REVIEW",

@@ -9,7 +9,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return { title: pageTitle(content.form.title, content.meta.siteName), description: content.form.intro };
 }
 
-export default async function InvestPage({ searchParams }: { searchParams: Promise<{ sector?: string }> }) {
+export default async function InvestPage({ searchParams }: { searchParams: Promise<{ sector?: string; session?: string; hcm?: string }> }) {
   const locale = await getLocale();
   const content = await getContent(locale);
   const ui = getUi(locale);
@@ -17,7 +17,15 @@ export default async function InvestPage({ searchParams }: { searchParams: Promi
   return (
     <>
       <InnerHero title={content.form.title} lede={content.form.intro} />
-      <InvestForm ui={ui} sectors={content.sectors.items} initialSector={params.sector} />
+      <InvestForm
+        ui={ui}
+        sectors={content.registrationSectors}
+        panels={content.sectors.items}
+        disclaimer={content.form.disclaimer}
+        hcmNote={content.form.hcmNote}
+        initialSession={params.session || params.sector}
+        requestHcm={params.hcm === "1"}
+      />
     </>
   );
 }

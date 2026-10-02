@@ -27,7 +27,7 @@ export function InnerHero({ kicker, title, lede }: { kicker?: string; title: str
   return (
     <section className="bg-navy-950 text-white">
       <div className="page py-12 sm:py-16">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#F6D3B8]">{kicker || "MP Conclave GIS"}</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#F6D3B8]">{kicker || "Urban Growth Conclave 2.0"}</p>
         <h1 className="mt-3 max-w-3xl font-serif text-4xl font-semibold sm:text-5xl">{title}</h1>
         {lede ? <p className="mt-4 max-w-2xl text-lg text-white/80">{lede}</p> : null}
       </div>

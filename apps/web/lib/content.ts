@@ -16,7 +16,9 @@ export async function getContent(locale: Locale): Promise<SiteContent> {
   try {
     const response = await fetch(`http://127.0.0.1:4000/api/content/${locale}`, { cache: "no-store" });
     if (!response.ok) return fallbacks[locale];
-    return (await response.json()) as SiteContent;
+    const data = (await response.json()) as SiteContent;
+    if (!data?.microsite || !data.registrationSectors || !data.form?.disclaimer) return fallbacks[locale];
+    return data;
   } catch {
     return fallbacks[locale];
   }

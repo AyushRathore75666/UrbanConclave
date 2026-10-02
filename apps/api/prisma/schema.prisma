@@ -79,6 +79,15 @@ model Submission {
   timeline           String
   description        String
   supportNeeded      String[]
+  attendingAs        String   @default("")
+  sessions           String[] @default([])
+  hcmRequested       Boolean  @default(false)
+  hcmOrganization    String?
+  hcmSector          String?
+  hcmAmount          Decimal? @db.Decimal(14, 2)
+  hcmLocation        String?
+  hcmAgenda          String?
+  updatesConsent     Boolean  @default(false)
   documentPath       String?
   documentName       String?
   scanResult         String?

@@ -32,6 +32,14 @@ type Lead = {
   notes: Note[];
   isSample: boolean;
   cmVisitFixed: boolean;
+  attendingAs?: string;
+  sessions?: string[];
+  hcmRequested?: boolean;
+  hcmOrganization?: string | null;
+  hcmSector?: string | null;
+  hcmAmount?: number | null;
+  hcmLocation?: string | null;
+  hcmAgenda?: string | null;
 };
 
 const STATUSES = ["RECEIVED", "UNDER_REVIEW", "CONTACTED", "MEETING_SCHEDULED", "CLOSED"];
@@ -113,6 +121,13 @@ export default function SubmissionDetailPage() {
           <Item label="Contact" value={`${lead.contactName}, ${lead.designation}`} />
           <Item label="Email" value={lead.email} />
           <Item label="Mobile" value={lead.mobile} />
+          <Item label="Attending as" value={lead.attendingAs || "—"} />
+          <Item label="Sessions" value={lead.sessions?.join(", ") || "—"} />
+          <Item label="HCM meeting" value={lead.hcmRequested ? "Requested" : "No"} />
+          <Item label="HCM organisation" value={lead.hcmOrganization || "—"} />
+          <Item label="HCM sector" value={lead.hcmSector || "—"} />
+          <Item label="HCM amount (₹ crore)" value={lead.hcmAmount == null ? "—" : String(lead.hcmAmount)} />
+          <Item label="HCM location" value={lead.hcmLocation || "—"} />
           <Item label="Sectors" value={lead.sectors.join(", ")} />
           <Item label="Amount" value={`${lead.amountValue} ${lead.amountUnit}`} />
           <Item label="District" value={lead.district || "—"} />
@@ -122,6 +137,12 @@ export default function SubmissionDetailPage() {
           <Item label="Support" value={lead.supportNeeded.join(", ") || "—"} />
           <Item label="Scan" value={lead.scanResult || "No file"} />
         </dl>
+        {lead.hcmAgenda ? (
+          <>
+            <h3 className="mt-6 font-semibold">Meeting agenda</h3>
+            <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-mute">{lead.hcmAgenda}</p>
+          </>
+        ) : null}
         <h3 className="mt-6 font-semibold">Project description</h3>
         <p className="mt-2 whitespace-pre-wrap text-sm leading-relaxed text-mute">{lead.description}</p>
         {lead.hasDocument && canEdit ? (

@@ -11,12 +11,8 @@ import type { Ui } from "@/lib/ui";
 const LINKS: Array<[keyof Ui["nav"], string]> = [
   ["home", "/"],
   ["about", "/about"],
-  ["why", "/why-invest"],
-  ["sectors", "/sectors"],
   ["agenda", "/agenda"],
-  ["support", "/support"],
-  ["downloads", "/downloads"],
-  ["media", "/media"],
+  ["sessions", "/sectors"],
   ["contact", "/contact"],
 ];
 
@@ -41,12 +37,15 @@ export function SiteHeader({ ui, locale }: { ui: Ui; locale: Locale }) {
     <header className="sticky top-0 z-40 border-b border-navy-900/10 bg-white/95 backdrop-blur">
       <div className="h-1 bg-saffron-700" />
       <div className="page flex items-center gap-3 py-2">
-        <Link href="/" className="flex shrink-0 items-center gap-3">
-          <Image src="/brand/invest-wordmark.jpg" alt="Invest Madhya Pradesh" width={148} height={64} priority className="h-14 w-auto" />
-          <span className="hidden border-l border-navy-900/15 pl-3 text-sm font-semibold leading-tight text-navy-900 2xl:block">
-            MP Conclave GIS
-            <span className="mt-0.5 block text-xs font-medium text-mute">Global Investors Summit</span>
-          </span>
+        <Link href="/" className="flex shrink-0 items-center">
+          <Image
+            src="/brand/primary-logo-v2.png"
+            alt="Madhya Pradesh Urban Growth Conclave 2.0"
+            width={659}
+            height={197}
+            priority
+            className="h-16 w-auto max-w-[78vw] object-contain object-left sm:h-20"
+          />
         </Link>
         <nav className="ml-auto hidden items-center lg:flex" aria-label="Primary">
           {LINKS.map(([key, href]) => (

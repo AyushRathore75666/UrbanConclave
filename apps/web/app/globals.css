@@ -166,6 +166,29 @@ body {
   animation: float-y 5.5s ease-in-out infinite;
 }
 
+@keyframes hero-cross {
+  0%,
+  42% {
+    opacity: 1;
+  }
+  50%,
+  92% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.hero-mark {
+  animation: float-y 5.5s ease-in-out infinite, hero-cross 16s ease-in-out infinite;
+}
+
+.hero-mark-alt {
+  opacity: 0;
+  animation-delay: 0s, -8s;
+}
+
 .logo-ring {
   animation: spin-slow 32s linear infinite;
 }
@@ -212,6 +235,19 @@ body {
   border-color: rgba(154, 52, 18, 0.45);
 }
 
+@keyframes guest-portrait {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+.guest-portrait {
+  animation: guest-portrait 7s ease-in-out infinite alternate;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -219,12 +255,14 @@ body {
 
   .rise,
   .logo-float,
+  .hero-mark,
   .logo-ring,
   .logo-glow,
   .kenburns,
   .marquee-track,
   .film-slide,
-  .card-lift {
+  .card-lift,
+  .guest-portrait {
     animation: none !important;
     transition: none !important;
     transform: none !important;
