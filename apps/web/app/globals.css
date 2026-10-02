@@ -181,6 +181,84 @@ body {
   box-shadow: 0 14px 30px rgba(11, 31, 58, 0.08);
 }
 
+@property --glow-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.glow-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.glow-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: conic-gradient(from var(--glow-angle), transparent 0 62%, rgba(194, 65, 12, 0.85) 78%, rgba(246, 211, 184, 0.2) 88%, transparent 100%);
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: glow-spin 7s linear infinite;
+  animation-delay: calc(var(--i, 0) * 0.35s);
+  pointer-events: none;
+}
+
+.ambient-orb {
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 999px;
+  filter: blur(40px);
+  pointer-events: none;
+}
+
+.ambient-orb-a {
+  top: -120px;
+  left: -80px;
+  background: radial-gradient(circle, rgba(224, 112, 32, 0.28), transparent 68%);
+  animation: orb-drift 16s ease-in-out infinite alternate;
+}
+
+.ambient-orb-b {
+  right: -100px;
+  bottom: -140px;
+  background: radial-gradient(circle, rgba(56, 132, 196, 0.22), transparent 70%);
+  animation: orb-drift 20s ease-in-out infinite alternate-reverse;
+}
+
+.icon-float {
+  animation: icon-float 4.5s ease-in-out infinite;
+}
+
+@keyframes glow-spin {
+  to {
+    --glow-angle: 360deg;
+  }
+}
+
+@keyframes orb-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(36px, 24px, 0) scale(1.08);
+  }
+}
+
+@keyframes icon-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
 .shine-card {
   position: relative;
   overflow: hidden;
@@ -201,6 +279,34 @@ body {
 .shine-card:hover::after {
   left: 130%;
 }
+
+.scene-photo img {
+  transition: transform 0.7s ease;
+}
+
+.scene-photo:hover img {
+  transform: scale(1.06);
+}
+
+.scene-drift {
+  animation: scene-drift 9s ease-in-out infinite alternate;
+}
+
+@keyframes scene-drift {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+.agenda-wash {
+  opacity: 0.18;
+  mask-image: linear-gradient(90deg, transparent, #000 42%);
+  animation: ken 26s ease-in-out infinite alternate;
+}
+
 
 .logo-float {
   animation: float-y 5.5s ease-in-out infinite;
@@ -474,7 +580,13 @@ body {
   .hero-buildings rect,
   .hero-rail,
   .hero-train,
-  .hero-title {
+  .hero-title,
+  .scene-photo img,
+  .scene-drift,
+  .agenda-wash,
+  .glow-card::before,
+  .ambient-orb,
+  .icon-float {
     animation: none !important;
     transition: none !important;
     transform: none !important;

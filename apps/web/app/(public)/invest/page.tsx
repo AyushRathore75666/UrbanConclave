@@ -16,7 +16,12 @@ export default async function InvestPage({ searchParams }: { searchParams: Promi
   const params = await searchParams;
   return (
     <>
-      <InnerHero title={content.form.title} lede={content.form.intro} />
+      <InnerHero
+        title={content.form.title}
+        lede={content.form.intro}
+        image="/scenes/page-signature.jpg"
+        imageAlt="A person writing on a document"
+      />
       <InvestForm
         ui={ui}
         sectors={content.registrationSectors}

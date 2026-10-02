@@ -15,9 +15,17 @@ export default async function ContactPage() {
   const ui = getUi(locale);
   return (
     <>
-      <InnerHero title={content.contact.title} lede={content.contact.intro} />
-      <section className="page grid gap-8 py-12 lg:grid-cols-[0.8fr_1.2fr]">
-        <address className="card not-italic">
+      <InnerHero
+        title={content.contact.title}
+        lede={content.contact.intro}
+        image="/scenes/page-signature.jpg"
+        imageAlt="A person writing on a document"
+      />
+      <section className="relative overflow-hidden py-12">
+        <div className="ambient-orb ambient-orb-a" aria-hidden="true" />
+        <div className="ambient-orb ambient-orb-b" aria-hidden="true" />
+        <div className="page relative grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+          <address className="glow-card card not-italic">
           <p className="font-semibold text-navy-900">{content.contact.address}</p>
           <p className="mt-3 text-sm text-mute">{content.contact.hours}</p>
           <p className="mt-4">
@@ -25,6 +33,7 @@ export default async function ContactPage() {
           </p>
         </address>
         <ContactForm ui={ui} />
+        </div>
       </section>
     </>
   );

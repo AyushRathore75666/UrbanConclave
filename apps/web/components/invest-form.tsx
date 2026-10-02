@@ -196,9 +196,11 @@ export function InvestForm({
   }
 
   return (
-    <section className="page py-10">
+    <section className="relative overflow-hidden py-10">
+      <div className="ambient-orb ambient-orb-a" aria-hidden="true" />
+      <div className="ambient-orb ambient-orb-b" aria-hidden="true" />
       <form
-        className="card grid gap-8"
+        className="glow-card card page relative z-10 grid gap-8"
         onSubmit={(event) => {
           event.preventDefault();
           window.localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));

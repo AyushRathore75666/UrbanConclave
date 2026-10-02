@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { PhotoCrossfade } from "./photo-crossfade";
 
 type Person = {
   name: string;
@@ -11,7 +12,7 @@ type Person = {
   style: string;
 };
 
-export function LeadershipRotator({ people }: { people: Person[] }) {
+export function LeadershipRotator({ people, backdrop = [] }: { people: Person[]; backdrop?: string[] }) {
   const ordered = [...people].sort((a, b) => Number(a.crop !== "right") - Number(b.crop !== "right"));
   const [index, setIndex] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
@@ -33,8 +34,10 @@ export function LeadershipRotator({ people }: { people: Person[] }) {
   }, [ordered.length, reduceMotion]);
 
   return (
-    <section className="overflow-hidden bg-navy-950 py-14 text-white" id="chief-guest" aria-roledescription="carousel" aria-label="Leadership">
-      <div className="page grid">
+    <section className="relative overflow-hidden bg-navy-950 py-14 text-white" id="chief-guest" aria-roledescription="carousel" aria-label="Leadership">
+      {backdrop.length > 0 ? <PhotoCrossfade images={backdrop} className="opacity-30" /> : null}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-navy-950 via-navy-950/92 to-navy-950/72" aria-hidden="true" />
+      <div className="page relative z-10 grid">
         {ordered.map((person, personIndex) => {
           const active = personIndex === index;
           return (
@@ -68,7 +71,7 @@ export function LeadershipRotator({ people }: { people: Person[] }) {
           );
         })}
       </div>
-      <div className="page mt-8 flex gap-2" role="tablist" aria-label="Choose a leader">
+      <div className="page relative z-10 mt-8 flex gap-2" role="tablist" aria-label="Choose a leader">
         {ordered.map((person, personIndex) => (
           <button
             key={person.name}

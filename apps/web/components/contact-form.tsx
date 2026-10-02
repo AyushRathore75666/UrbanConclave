@@ -36,7 +36,7 @@ export function ContactForm({ ui }: { ui: Ui }) {
   if (sent) return <p className="card" role="status">{ui.contactForm.sent}</p>;
 
   return (
-    <form onSubmit={onSubmit} className="card grid gap-4" noValidate>
+    <form onSubmit={onSubmit} className="glow-card card grid gap-4" noValidate>
       <label className="text-sm font-semibold">
         {ui.contactForm.name} <span className="text-saffron-700">*</span>
         <input className="field" name="name" required autoComplete="name" />

@@ -7,6 +7,7 @@ import { Icon } from "./icons";
 import { JsonLd } from "@/components/page-shell";
 import { Reveal } from "./reveal";
 import { LeadershipRotator } from "./leadership-rotator";
+import { PhotoCrossfade } from "./photo-crossfade";
 
 export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
   const site = content.microsite;
@@ -50,6 +51,13 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
           </svg>
           <div className="hero-vignette" />
         </div>
+        <div className="hero-marquee relative z-10 border-b border-white/10" aria-hidden="true">
+          <div className="marquee-track flex w-max gap-8 py-3">
+            {[...site.highlights, ...site.highlights].map((item, index) => (
+              <span key={`${item}-${index}`} className="text-xs font-semibold uppercase tracking-[0.18em] text-[#F6D3B8]">{item}</span>
+            ))}
+          </div>
+        </div>
         <div className="page relative z-10 grid items-center gap-10 py-16 lg:min-h-[78vh] lg:grid-cols-[1.15fr_0.85fr] lg:py-20">
           <div className="rise">
             <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#F6D3B8]">{content.hero.kicker}</p>
@@ -90,46 +98,32 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
             </div>
           </div>
         </div>
-        <div className="hero-marquee relative z-10 border-t border-white/10" aria-hidden="true">
-          <div className="marquee-track flex w-max gap-8 py-3">
-            {[...site.highlights, ...site.highlights].map((item, index) => (
-              <span key={`${item}-${index}`} className="text-xs font-semibold uppercase tracking-[0.18em] text-[#F6D3B8]">{item}</span>
-            ))}
-          </div>
-        </div>
       </section>
 
-      <section className="border-b border-navy-900/10 bg-[#f7f4ef]">
-        <Reveal stagger className="page grid gap-4 py-5 md:grid-cols-3">
-          {[
-            [site.hostKicker, site.hostCity],
-            [ui.dates, content.hero.dates],
-            [ui.venue, content.hero.venue],
-          ].map(([label, value], index) => (
-            <div key={label} className="pop-in fact-tile rounded-2xl bg-white px-4 py-3" style={{ "--i": index } as CSSProperties}>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-saffron-700">{label}</p>
-              <p className="mt-1 text-base font-normal leading-snug text-navy-950">{value}</p>
-            </div>
-          ))}
-        </Reveal>
-      </section>
-
-      <LeadershipRotator people={content.leadership.people} />
+      <LeadershipRotator
+        people={content.leadership.people}
+        backdrop={["/scenes/infrastructure.jpg", "/scenes/roads.webp", "/scenes/industry.png"]}
+      />
 
       <section className="page py-14" id="about">
-        <Reveal>
-          <p className="kicker">{site.departmentKicker}</p>
-          <h2 className="mt-2 h-section">{site.departmentTitle}</h2>
-          <p className="mt-4 max-w-3xl leading-relaxed text-mute">{site.departmentBody}</p>
-          <h2 className="mt-12 h-section">{content.about.title}</h2>
-          <p className="mt-4 max-w-3xl leading-relaxed text-mute">{content.about.paragraphs[1]}</p>
-        </Reveal>
+        <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
+          <Reveal>
+            <p className="kicker">{site.departmentKicker}</p>
+            <h2 className="mt-2 h-section">{site.departmentTitle}</h2>
+            <p className="mt-4 max-w-3xl leading-relaxed text-mute">{site.departmentBody}</p>
+            <h2 className="mt-12 h-section">{content.about.title}</h2>
+            <p className="mt-4 max-w-3xl leading-relaxed text-mute">{content.about.paragraphs[1]}</p>
+          </Reveal>
+          <div className="scene-photo relative h-72 overflow-hidden rounded-3xl shadow-[0_20px_50px_rgba(11,31,58,0.16)] sm:h-96 lg:h-[440px]">
+            <PhotoCrossfade images={aboutFrames} />
+          </div>
+        </div>
         <Reveal stagger>
-          <div className="mt-8">
+          <div className="mt-10">
             <h3 className="text-lg font-semibold text-navy-900">{site.highlightsTitle}</h3>
             <ul className="mt-4 flex flex-wrap gap-3">
               {site.highlights.map((item, index) => (
-                <li key={item} className="pop-in card-lift rounded-xl border border-navy-900/10 bg-white px-4 py-3 text-sm text-navy-900" style={{ "--i": index } as CSSProperties}>{item}</li>
+                <li key={item} className="pop-in shine-card card-lift rounded-xl border border-navy-900/10 bg-white px-4 py-3 text-sm text-navy-900" style={{ "--i": index } as CSSProperties}>{item}</li>
               ))}
             </ul>
           </div>
@@ -137,15 +131,16 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
             <h3 className="text-lg font-semibold text-navy-900">{site.audienceTitle}</h3>
             <ul className="mt-4 flex flex-wrap gap-3">
               {site.audience.map((item, index) => (
-                <li key={item} className="pop-in card-lift rounded-xl border border-navy-900/10 bg-white px-4 py-3 text-sm font-medium text-navy-900" style={{ "--i": index } as CSSProperties}>{item}</li>
+                <li key={item} className="pop-in shine-card card-lift rounded-xl border border-navy-900/10 bg-white px-4 py-3 text-sm font-medium text-navy-900" style={{ "--i": index } as CSSProperties}>{item}</li>
               ))}
             </ul>
           </div>
         </Reveal>
       </section>
 
-      <section className="bg-white py-14" id="agenda">
-        <div className="page">
+      <section className="relative overflow-hidden bg-white py-14" id="agenda">
+        <img src="/scenes/roads.webp" alt="" className="agenda-wash pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 object-cover lg:block" />
+        <div className="page relative">
           <Reveal>
             <div className="flex flex-wrap items-end justify-between gap-4">
               <h2 className="h-section">{content.agenda.title}</h2>
@@ -179,7 +174,7 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
         <Reveal stagger>
           <div className="mt-8 grid gap-4 lg:grid-cols-2">
             {content.sectors.items.map((panel, index) => (
-              <article key={panel.slug} className="pop-in shine-card card card-lift border-t-4 border-t-saffron-700" style={{ "--i": index } as CSSProperties}>
+              <article key={panel.slug} className="pop-in glow-card shine-card card card-lift border-t-4 border-t-saffron-700" style={{ "--i": index } as CSSProperties}>
                 <p className="text-xs font-semibold uppercase tracking-[0.14em] text-saffron-700">{panel.code}</p>
                 <h3 className="mt-2 text-lg font-semibold text-navy-900">{panel.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-mute">{panel.summary}</p>
@@ -193,8 +188,10 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
         </Reveal>
       </section>
 
-      <section className="bg-[#f7f4ef] py-14">
-        <div className="page">
+      <section className="relative overflow-hidden bg-[#f7f4ef] py-14">
+        <div className="ambient-orb ambient-orb-a" aria-hidden="true" />
+        <div className="ambient-orb ambient-orb-b" aria-hidden="true" />
+        <div className="page relative">
           <Reveal>
             <h2 className="h-section">{content.whyInvest.title}</h2>
             <p className="mt-3 max-w-3xl text-mute">{content.whyInvest.intro}</p>
@@ -202,8 +199,8 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
           <Reveal stagger>
             <div className="mt-8 grid gap-4 md:grid-cols-2">
               {content.whyInvest.items.map((item, index) => (
-                <article key={item.title} className="pop-in shine-card card card-lift" style={{ "--i": index } as CSSProperties}>
-                  <Icon name={item.icon} />
+                <article key={item.title} className="pop-in glow-card shine-card card card-lift" style={{ "--i": index } as CSSProperties}>
+                  <span className="icon-float inline-flex"><Icon name={item.icon} /></span>
                   <h3 className="mt-3 text-lg font-semibold text-navy-900">{item.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-mute">{item.summary}</p>
                 </article>
@@ -212,6 +209,32 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
           </Reveal>
         </div>
       </section>
+
+      <section className="border-t border-navy-900/10 bg-[#f7f4ef]">
+        <Reveal stagger className="page grid gap-4 py-8 md:grid-cols-3">
+          {[
+            [site.hostKicker, site.hostCity],
+            [ui.dates, content.hero.dates],
+            [ui.venue, content.hero.venue],
+          ].map(([label, value], index) => (
+            <div key={label} className="pop-in glow-card shine-card fact-tile rounded-2xl bg-white px-4 py-3" style={{ "--i": index } as CSSProperties}>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-saffron-700">{label}</p>
+              <p className="mt-1 text-base font-normal leading-snug text-navy-950">{value}</p>
+            </div>
+          ))}
+        </Reveal>
+      </section>
+
     </>
   );
 }
+
+const aboutFrames = [
+  "/scenes/infrastructure.jpg",
+  "/scenes/roads.webp",
+  "/scenes/transit.jpg",
+  "/scenes/industry.png",
+  "/scenes/healthcare.png",
+  "/scenes/digital.jpg",
+  "/scenes/education.jpg",
+];
