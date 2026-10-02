@@ -162,8 +162,71 @@ body {
   opacity: 0;
 }
 
+.pop-in {
+  opacity: 0;
+}
+
+.is-shown .pop-in {
+  animation: rise 0.7s ease both;
+  animation-delay: calc(var(--i, 0) * 90ms);
+}
+
+.fact-tile {
+  border-top: 2px solid #c2410c;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.fact-tile:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(11, 31, 58, 0.08);
+}
+
+.shine-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -60%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transform: skewX(-18deg);
+  transition: left 0.6s ease;
+}
+
+.shine-card:hover::after {
+  left: 130%;
+}
+
 .logo-float {
   animation: float-y 5.5s ease-in-out infinite;
+}
+
+@keyframes hero-cross {
+  0%,
+  42% {
+    opacity: 1;
+  }
+  50%,
+  92% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.hero-mark {
+  animation: float-y 5.5s ease-in-out infinite, hero-cross 16s ease-in-out infinite;
+}
+
+.hero-mark-alt {
+  opacity: 0;
+  animation-delay: 0s, -8s;
 }
 
 .logo-ring {
@@ -212,6 +275,183 @@ body {
   border-color: rgba(154, 52, 18, 0.45);
 }
 
+@keyframes guest-portrait {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.06);
+  }
+}
+
+.guest-portrait {
+  animation: guest-portrait 7s ease-in-out infinite alternate;
+}
+
+.hero-banner {
+  background:
+    radial-gradient(900px 420px at 15% -10%, rgba(224, 112, 32, 0.35), transparent 60%),
+    radial-gradient(700px 380px at 90% 20%, rgba(56, 132, 196, 0.28), transparent 55%),
+    #061426;
+}
+
+.hero-aurora {
+  position: absolute;
+  inset: -20% -10% auto;
+  height: 70%;
+  background: conic-gradient(from 120deg, transparent, rgba(246, 211, 184, 0.18), transparent 30%, rgba(56, 189, 248, 0.16), transparent 70%);
+  filter: blur(40px);
+  animation: aurora 18s linear infinite;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), transparent 78%);
+  animation: grid-drift 28s linear infinite;
+}
+
+.hero-city {
+  position: absolute;
+  right: -6%;
+  bottom: 8%;
+  width: min(68vw, 760px);
+  opacity: 0.34;
+  filter: saturate(1.15);
+  animation: ken 22s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.hero-sheen {
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -30%;
+  width: 28%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.14), transparent);
+  transform: skewX(-18deg);
+  animation: sheen 9s ease-in-out infinite;
+}
+
+.hero-skyline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 180px;
+  width: 100%;
+}
+
+.hero-ground {
+  fill: rgba(6, 16, 32, 0.55);
+}
+
+.hero-buildings rect {
+  fill: rgba(246, 211, 184, 0.16);
+  stroke: rgba(246, 211, 184, 0.28);
+  animation: windows 3.6s ease-in-out infinite;
+}
+
+.hero-buildings rect:nth-child(odd) {
+  animation-delay: 0.8s;
+  fill: rgba(125, 196, 232, 0.14);
+}
+
+.hero-rail {
+  fill: none;
+  stroke: rgba(246, 211, 184, 0.45);
+  stroke-width: 2;
+  stroke-dasharray: 8 10;
+  animation: rail 8s linear infinite;
+}
+
+.hero-train {
+  fill: #f6d3b8;
+  offset-path: path("M0 158 H1440");
+  animation: train 14s linear infinite;
+}
+
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(6, 20, 38, 0.88) 0%, rgba(6, 20, 38, 0.55) 48%, rgba(6, 20, 38, 0.2) 100%),
+    linear-gradient(to top, rgba(6, 20, 38, 0.85), transparent 42%);
+}
+
+.hero-title {
+  background: linear-gradient(100deg, #fff 20%, #f6d3b8 45%, #fff 70%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: title-shine 8s linear infinite;
+}
+
+.hero-ring-2 {
+  animation-duration: 46s;
+  animation-direction: reverse;
+}
+
+.hero-marquee {
+  background: rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+}
+
+@keyframes aurora {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes grid-drift {
+  to {
+    background-position: 72px 72px;
+  }
+}
+
+@keyframes sheen {
+  0%,
+  55% {
+    left: -35%;
+  }
+  80%,
+  100% {
+    left: 120%;
+  }
+}
+
+@keyframes windows {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes rail {
+  to {
+    stroke-dashoffset: -180;
+  }
+}
+
+@keyframes train {
+  to {
+    offset-distance: 100%;
+  }
+}
+
+@keyframes title-shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -224,13 +464,24 @@ body {
   .kenburns,
   .marquee-track,
   .film-slide,
-  .card-lift {
+  .card-lift,
+  .guest-portrait,
+  .hero-mark,
+  .hero-aurora,
+  .hero-grid,
+  .hero-city,
+  .hero-sheen,
+  .hero-buildings rect,
+  .hero-rail,
+  .hero-train,
+  .hero-title {
     animation: none !important;
     transition: none !important;
     transform: none !important;
   }
 
-  .reveal-wait {
+  .reveal-wait,
+  .pop-in {
     opacity: 1;
   }
 

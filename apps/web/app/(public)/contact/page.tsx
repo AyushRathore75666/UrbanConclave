@@ -23,10 +23,6 @@ export default async function ContactPage() {
           <p className="mt-4">
             <a className="font-semibold text-navy-900" href={`mailto:${content.contact.email}`}>{content.contact.email}</a>
           </p>
-          <p className="mt-2">
-            <a className="font-semibold text-navy-900" href={`tel:${content.contact.phone.replace(/\s/g, "")}`}>{content.contact.phone}</a>
-          </p>
-          <p className="mt-2 text-navy-900">WhatsApp: {content.contact.whatsapp}</p>
         </address>
         <ContactForm ui={ui} />
       </section>

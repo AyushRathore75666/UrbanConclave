@@ -25,10 +25,27 @@ export async function seed() {
   }
 
   for (const locale of ["en", "hi"] as const) {
-    const existing = await prisma.contentDocument.findUnique({ where: { locale } });
-    if (existing) continue;
     const data = JSON.parse(fs.readFileSync(path.join(contentDir, `${locale}.json`), "utf8"));
-    await prisma.contentDocument.create({ data: { locale, data } });
+    const existing = await prisma.contentDocument.findUnique({ where: { locale } });
+    const stored = existing?.data;
+    const hasMicrosite = Boolean(stored && typeof stored === "object" && "microsite" in stored);
+    const storedPeople =
+      stored && typeof stored === "object" && "leadership" in stored
+        ? (stored as { leadership?: { people?: Array<{ kicker?: string }> } }).leadership?.people
+        : undefined;
+    if (hasMicrosite && storedPeople?.every((person) => person.kicker)) continue;
+    if (hasMicrosite && stored && typeof stored === "object") {
+      await prisma.contentDocument.update({
+        where: { locale },
+        data: { data: { ...(stored as object), leadership: data.leadership } },
+      });
+      continue;
+    }
+    await prisma.contentDocument.upsert({
+      where: { locale },
+      create: { locale, data },
+      update: { data },
+    });
   }
 
   if (process.env.SEED_SAMPLE_DATA === "false") return;

@@ -6,12 +6,12 @@ import rateLimit from "express-rate-limit";
 import multer from "multer";
 import { prisma } from "../prisma.js";
 import { hmac, hashCode, normalizeEmail, normalizeMobile, safeEqualHex, encryptString } from "../crypto.js";
-import { requireClientHeader, signOtp, verifyOtpToken } from "../auth.js";
-import { readContent, sectorSlugSet, sectorTitle } from "../content.js";
-import { DISTRICTS, ORG_LABELS, ORG_TYPES, SUPPORT, TIMELINES } from "../constants.js";
+import { requireClientHeader, signOtp } from "../auth.js";
+import { readContent, sectorTitle } from "../content.js";
+import { ATTENDING_ORG, DISTRICTS, ORG_LABELS, ORG_TYPES, SUPPORT, TIMELINES } from "../constants.js";
 import { sendEmail, sendSms } from "../notify.js";
 import { assertDocument, scanBuffer } from "../scan.js";
-import { contactSchema, districtAllowed, newReference, statusSchema, submissionSchema } from "../validate.js";
+import { contactSchema, newReference, statusSchema, submissionSchema } from "../validate.js";
 import { uploadDir } from "../paths.js";
 
 const otpLimit = rateLimit({ windowMs: 15 * 60 * 1000, max: 8, standardHeaders: true, legacyHeaders: false });
@@ -115,8 +115,8 @@ export function registerPublic(app: Express) {
         },
       });
 
-      const message = `MP Conclave GIS code: ${code}. It expires in 10 minutes.`;
-      const mode = channel === "email" ? await sendEmail(target, "Your MP Conclave GIS code", message) : await sendSms(target, message);
+      const message = `Conclave 2.0 code: ${code}. It expires in 10 minutes.`;
+      const mode = channel === "email" ? await sendEmail(target, "Your Conclave 2.0 code", message) : await sendSms(target, message);
       const echo = process.env.OTP_DEV_ECHO === "true" && mode === "outbox";
       res.json({ ok: true, devCode: echo ? code : undefined });
     } catch (error) {
@@ -159,30 +159,20 @@ export function registerPublic(app: Express) {
       }
       const input = parsed.data;
       if (input.companyFax) return res.status(400).json({ error: "The form could not be submitted." });
-      if (input.district && !districtAllowed(input.district)) {
-        return res.status(400).json({ error: "Choose a district from the list." });
-      }
 
       const content = await readContent("en");
-      const allowed = sectorSlugSet(content);
-      if (input.sectors.some((slug) => !allowed.has(slug))) {
-        return res.status(400).json({ error: "Choose a sector from the list." });
-      }
-
       const email = normalizeEmail(input.email);
       const mobile = normalizeMobile(input.mobile);
       if (!mobile) return res.status(400).json({ error: "Enter a valid mobile number with country code or a 10-digit Indian number." });
 
       const emailHash = hmac(`email:${email}`);
       const mobileHash = hmac(`sms:${mobile}`);
-      if (!verifyOtpToken(input.emailOtpToken, "email", emailHash)) {
-        return res.status(400).json({ error: "Verify the official email before submitting." });
-      }
-      if (!verifyOtpToken(input.mobileOtpToken, "sms", mobileHash)) {
-        return res.status(400).json({ error: "Verify the mobile number before submitting." });
-      }
-
       await verifyCaptcha(input.captchaId, input.captchaAnswer);
+
+      const agenda = input.hcmAgenda.trim();
+      const description = input.hcmRequested
+        ? `HCM meeting requested. Organisation: ${input.hcmOrganization}. Sector: ${input.hcmSector}. Location: ${input.hcmLocation}. Agenda: ${agenda}`
+        : "Registered for the Madhya Pradesh Urban Growth Conclave 2.0. No meeting with the Hon'ble Chief Minister was requested.";
 
       let scanResult: string | null = null;
       let storedName: string | null = null;
@@ -204,29 +194,34 @@ export function registerPublic(app: Express) {
             data: {
               referenceNumber: reference,
               companyName: input.companyName,
-              orgType: input.orgType,
-              country: input.country,
-              address: input.address,
+              orgType: ATTENDING_ORG[input.attendingAs],
+              country: "India",
+              address: `${input.city}, ${input.stateRegion}`,
               city: input.city,
               stateRegion: input.stateRegion,
-              pinCode: input.pinCode,
+              pinCode: "NA",
               website: input.website || null,
-              registrationNumber: input.registrationNumber || null,
               contactName: input.contactName,
               designation: input.designation,
               emailCipher: encryptString(email),
               emailHash,
               mobileCipher: encryptString(mobile),
               mobileHash,
-              sectors: input.sectors,
-              amountValue: input.amountValue,
-              amountUnit: input.amountUnit,
-              district: input.district || null,
-              landAcres: input.landAcres ?? null,
-              expectedEmployment: input.expectedEmployment ?? null,
-              timeline: input.timeline,
-              description: input.description,
-              supportNeeded: input.supportNeeded,
+              sectors: [input.sector],
+              amountValue: input.hcmRequested ? input.hcmAmount! : 0,
+              amountUnit: "INR_CRORE",
+              timeline: "0-6",
+              description: description.slice(0, 1500),
+              supportNeeded: [],
+              attendingAs: input.attendingAs,
+              sessions: input.sessions,
+              hcmRequested: input.hcmRequested,
+              hcmOrganization: input.hcmRequested ? input.hcmOrganization : null,
+              hcmSector: input.hcmRequested ? input.hcmSector : null,
+              hcmAmount: input.hcmRequested ? input.hcmAmount : null,
+              hcmLocation: input.hcmRequested ? input.hcmLocation : null,
+              hcmAgenda: input.hcmRequested ? agenda : null,
+              updatesConsent: true,
               documentPath: storedName,
               documentName: originalName,
               scanResult,
@@ -242,23 +237,26 @@ export function registerPublic(app: Express) {
         }
       }
 
-      const sectorNames = input.sectors.map((slug) => sectorTitle(content, slug)).join(", ");
+      const sectorName = sectorTitle(content, input.sector);
       const investorText = [
-        `Thank you. Your investment interest has been received.`,
+        `Thank you. Your registration for the Madhya Pradesh Urban Growth Conclave 2.0 has been received.`,
         `Reference number: ${reference}`,
-        `Company: ${input.companyName}`,
-        `Sectors: ${sectorNames}`,
-        `You can check the status on the summit website with this reference number and this email address.`,
+        `Organisation: ${input.companyName}`,
+        `This submission is not final confirmation. Participation is subject to screening and venue capacity. Selected attendees will be contacted by email about three days before the event.`,
       ].join("\n");
 
       const teamText = [
-        `New investment interest ${reference}`,
-        `Company: ${input.companyName}`,
-        `Country: ${input.country}`,
-        `Sectors: ${sectorNames}`,
-        `Amount: ${input.amountValue} ${input.amountUnit}`,
-        `Contact: ${input.contactName}, ${email}, ${mobile}`,
-      ].join("\n");
+        `New Conclave 2.0 registration ${reference}`,
+        `Name: ${input.contactName}, ${input.designation}`,
+        `Organisation: ${input.companyName}`,
+        `Attending as: ${input.attendingAs}`,
+        `Sector: ${sectorName}`,
+        `City: ${input.city}, ${input.stateRegion}`,
+        `Sessions: ${input.sessions.join(", ") || "none"}`,
+        `HCM meeting: ${input.hcmRequested ? "requested" : "no"}`,
+        input.hcmRequested ? `Proposed investment: ₹${input.hcmAmount} crore at ${input.hcmLocation}` : "",
+        `Contact: ${email}, ${mobile}`,
+      ].filter(Boolean).join("\n");
 
       const notifications = {
         email: "pending",
@@ -266,18 +264,18 @@ export function registerPublic(app: Express) {
         team: "pending",
       };
       try {
-        notifications.email = await sendEmail(email, `Investment interest received ${reference}`, investorText);
+        notifications.email = await sendEmail(email, `Urban Growth Conclave 2.0 registration ${reference}`, investorText);
       } catch {
         notifications.email = "failed";
       }
       try {
-        notifications.sms = await sendSms(mobile, `MP Conclave GIS: interest received. Reference ${reference}.`);
+        notifications.sms = await sendSms(mobile, `Urban Growth Conclave 2.0: registration received. Reference ${reference}.`);
       } catch {
         notifications.sms = "failed";
       }
       try {
         const inbox = process.env.INVESTMENT_TEAM_EMAIL || "invest-team@mpconclave.example";
-        notifications.team = await sendEmail(inbox, `New interest ${reference}`, teamText);
+        notifications.team = await sendEmail(inbox, `New registration ${reference}`, teamText);
       } catch {
         notifications.team = "failed";
       }

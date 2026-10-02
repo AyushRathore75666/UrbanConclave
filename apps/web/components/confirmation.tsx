@@ -25,7 +25,7 @@ function ConfirmationBody({ ui }: { ui: Ui }) {
 
   return (
     <section className="page py-16">
-      <p className="kicker">MP Conclave GIS</p>
+      <p className="kicker">Urban Growth Conclave 2.0</p>
       <h1 className="mt-3 font-serif text-4xl text-navy-950">{ui.confirmation.title}</h1>
       <p className="mt-4 max-w-2xl text-mute">{ui.confirmation.body}</p>
       <p className="mt-8 text-sm font-semibold uppercase tracking-wide text-mute">{ui.confirmation.reference}</p>

@@ -32,57 +32,29 @@ const sum = String(Number(answer[1]) + Number(answer[2]));
 
 const email = `smoke.${Date.now()}@example.com`;
 const mobile = "+919811112233";
-const emailOtp = await request("/api/otp/send", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ channel: "email", target: email }),
-});
-const smsOtp = await request("/api/otp/send", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ channel: "sms", target: mobile }),
-});
-assert(emailOtp.devCode && smsOtp.devCode, "dev OTP codes");
-
-const emailVerified = await request("/api/otp/verify", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ channel: "email", target: email, code: emailOtp.devCode }),
-});
-const mobileVerified = await request("/api/otp/verify", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ channel: "sms", target: mobile, code: smsOtp.devCode }),
-});
 
 const payload = {
-  companyName: "Smoke Test Industries",
-  orgType: "PRIVATE",
-  country: "India",
-  address: "12 Sample Road",
-  city: "Bhopal",
-  stateRegion: "Madhya Pradesh",
-  pinCode: "462001",
-  website: "",
-  registrationNumber: "U00000MP2026PTC000000",
   contactName: "Smoke Tester",
   designation: "Director",
+  companyName: "Smoke Test Industries",
+  sector: "urban-infrastructure",
   email,
   mobile,
-  sectors: ["industry", "logistics"],
-  amountValue: 75,
-  amountUnit: "INR_CRORE",
-  district: "Bhopal",
-  landAcres: 12,
-  expectedEmployment: 200,
-  timeline: "6-12",
-  description: "A local smoke-test project description that is long enough to pass the minimum length check.",
-  supportNeeded: ["land", "approvals"],
-  emailOtpToken: emailVerified.token,
-  mobileOtpToken: mobileVerified.token,
+  city: "Indore",
+  stateRegion: "Madhya Pradesh",
+  website: "",
+  attendingAs: "investor",
+  sessions: ["plenary", "panel-4"],
+  hcmRequested: true,
+  hcmOrganization: "Smoke Test Industries",
+  hcmSector: "Urban infrastructure",
+  hcmAmount: 75,
+  hcmLocation: "Indore",
+  hcmAgenda: "Discuss a township and mobility project for a tier-2 city in Madhya Pradesh.",
+  consent: true,
+  updatesConsent: true,
   captchaId: captcha.id,
   captchaAnswer: sum,
-  consent: true,
   companyFax: "",
 };
 
@@ -90,7 +62,7 @@ const form = new FormData();
 form.set("payload", JSON.stringify(payload));
 form.set("document", pdf, "profile.pdf");
 const created = await request("/api/submissions", { method: "POST", body: form });
-assert(created.referenceNumber?.startsWith("MPGIS-"), "reference number");
+assert(created.referenceNumber?.startsWith("MP-UGC2026-"), "reference number");
 
 const status = await request("/api/status", {
   method: "POST",

@@ -1,245 +1,542 @@
 {
   "meta": {
-    "siteName": "एमपी कॉन्क्लेव जीआईएस",
-    "description": "ग्लोबल इन्वेस्टर्स समिट, मध्य प्रदेश। समिट हेल्पडेस्क पर अपनी निवेश रुचि दर्ज करें।"
+    "siteName": "मध्य प्रदेश नगरीय विकास कॉन्क्लेव 2.0",
+    "description": "जीआईएस 2027 की ओर नगरीय गति। 28 अक्टूबर 2026, ब्रिलियंट कन्वेंशन सेंटर, इंदौर।"
   },
   "hero": {
     "kicker": "मध्य प्रदेश शासन",
-    "organiser": "एमपी औद्योगिक विकास निगम लिमिटेड",
-    "title": "एमपी कॉन्क्लेव जीआईएस",
-    "subtitle": "ग्लोबल इन्वेस्टर्स समिट",
-    "dates": "24–25 फ़रवरी 2027",
-    "venue": "भोपाल, मध्य प्रदेश",
-    "theme": "अनंत संभावनाएँ",
-    "startISO": "2027-02-24T09:00:00+05:30",
-    "endISO": "2027-02-25T18:00:00+05:30"
+    "organiser": "नगरीय विकास एवं आवास विभाग",
+    "title": "मध्य प्रदेश नगरीय विकास कॉन्क्लेव 2.0",
+    "subtitle": "जीआईएस 2027 की ओर नगरीय गति",
+    "dates": "28th अक्टूबर 2026",
+    "venue": "ब्रिलियंट कन्वेंशन सेंटर (बीसीसी), इंदौर, मध्य प्रदेश",
+    "theme": "जीआईएस 2027 की राह",
+    "startISO": "2026-10-28T11:45:00+05:30",
+    "endISO": "2026-10-28T18:00:00+05:30"
   },
-  "statsDisclaimer": "ये आँकड़े केवल पृष्ठ की रूपरेखा के लिए रखे गए नमूना अंक हैं। प्रकाशन से पहले इन्हें आधिकारिक संख्याओं से बदलें।",
+  "statsDisclaimer": "These figures are illustrative placeholders for the page layout. Replace them with published numbers before the site goes live.",
   "stats": [
-    { "value": "2,400", "label": "प्राप्त प्रस्ताव" },
-    { "value": "350", "label": "हस्ताक्षरित एमओयू" },
-    { "value": "45", "label": "देश" },
-    { "value": "6,000", "label": "प्रतिनिधि" },
-    { "value": "9", "label": "क्षेत्र" },
-    { "value": "1,50,000", "label": "अपेक्षित रोज़गार" }
+    {
+      "value": "2,400",
+      "label": "Proposals received"
+    },
+    {
+      "value": "350",
+      "label": "MoUs signed"
+    },
+    {
+      "value": "45",
+      "label": "Countries"
+    },
+    {
+      "value": "6,000",
+      "label": "Delegates"
+    },
+    {
+      "value": "9",
+      "label": "Sectors"
+    },
+    {
+      "value": "1,50,000",
+      "label": "Expected jobs"
+    }
   ],
   "whyInvest": {
-    "title": "मध्य प्रदेश में निवेश क्यों",
-    "intro": "मध्य प्रदेश भारत के मध्य में है। नीचे दिए बिंदु निवेश का सामान्य परिचय हैं। इन्हें स्वीकृत विवरण से बदलें।",
+    "title": "क्यों भाग लें?",
+    "intro": "जानें। जुड़ें। निवेश करें। साझेदारी करें। कॉन्क्लेव 2.0 मध्य प्रदेश के नगरीय विकास एजेंडे को समझने और भागीदारी के अवसर पहचानने का मंच है।",
     "items": [
       {
         "icon": "location",
-        "title": "केंद्रीय स्थिति",
-        "summary": "राज्य प्रमुख उत्तर–दक्षिण और पूर्व–पश्चिम मार्गों पर है, जिससे कई बड़े बाज़ारों तक पहुँच कम होती है।",
-        "detail": "यहाँ स्थिति, बाज़ार और लॉजिस्टिक्स पर स्वीकृत टिप्पणी लिखें। अप्रकाशित दावे न जोड़ें।"
-      },
-      {
-        "icon": "connectivity",
-        "title": "संपर्क",
-        "summary": "सड़क, रेल और वायु मार्ग भोपाल, इंदौर, ग्वालियर, जबलपुर और अन्य शहरों को देश से जोड़ते हैं।",
-        "detail": "आयोजन टीम द्वारा प्रकाशित होने पर हवाई अड्डों और माल गलियारों की स्वीकृत जानकारी जोड़ें।"
-      },
-      {
-        "icon": "land",
-        "title": "लैंड बैंक",
-        "summary": "राज्य औद्योगिक भूमि पहचानने की प्रक्रिया रखता है। वर्तमान भूखंडों के लिए हेल्पडेस्क से पूछें।",
-        "detail": "निवेशक भूमि कैसे माँगे, कौन सा विभाग उत्तर दे, और कौन से दस्तावेज़ चाहिए — यह यहाँ लिखें। आधिकारिक आँकड़े आने तक क्षेत्रफल खाली रखें।"
-      },
-      {
-        "icon": "power",
-        "title": "बिजली",
-        "summary": "उद्योग के लिए बिजली राज्य की उपयोगिताओं के माध्यम से दी जाती है। नई परियोजनाएँ फ़ॉर्म में अपना लोड बता सकती हैं।",
-        "detail": "बिजली कनेक्शन की स्वीकृत प्रक्रिया यहाँ जोड़ें। मेगावाट के आँकड़े न लिखें जब तक वे आधिकारिक न हों।"
+        "title": "नगरीय अवसर देखें",
+        "summary": "आवास, अवसंरचना, स्थिरता, तकनीक और नगरीय विकास की उभरती परियोजनाएँ और अवसर।",
+        "detail": "The Urban Innovation Expo presents urban infrastructure projects, housing and township development, climate and sustainability initiatives, water reuse, smart governance, Simhasth 2028 opportunities, and startups."
       },
       {
         "icon": "workforce",
-        "title": "कुशल कार्यबल",
-        "summary": "विश्वविद्यालय, आईटीआई और औद्योगिक नगर भर्ती का आधार हैं। प्रशिक्षण की आवश्यकता हेल्पडेस्क को बताई जा सकती है।",
-        "detail": "कौशल और संस्थानों पर स्वीकृत टिप्पणी से यह पाठ बदलें।"
+        "title": "सरकार से संवाद",
+        "summary": "नीति-निर्माताओं और वरिष्ठ नेतृत्व से जुड़ें, जो राज्य के नगरीय विकास को दिशा दे रहे हैं।",
+        "detail": "The plenary includes a special address by the Hon'ble Chief Minister. Selected participants may also be invited to an HCM one-to-one meeting. A request does not guarantee an appointment."
       },
       {
         "icon": "policy",
-        "title": "निवेशक अनुकूल नीतियाँ",
-        "summary": "प्रोत्साहन और अनुमोदन डाउनलोड योग्य नीति संग्रह में समझाए गए हैं। रुचि फ़ॉर्म बताता है कि आपको कौन सा सहयोग चाहिए।",
-        "detail": "वर्तमान औद्योगिक नीति का नाम तभी लिखें जब विधिक पाठ की पुष्टि हो जाए, और हस्ताक्षरित पीडीएफ डाउनलोड में जोड़ें।"
+        "title": "सुधार समझें",
+        "summary": "नीति पहल, नियामकीय सुधार, डिजिटल शासन और ईज़ ऑफ डूइंग बिज़नेस पर जानकारी।",
+        "detail": "Sessions cover master planning, regulatory reforms, ease of approvals, GIS-based planning, building permissions and digital governance."
+      },
+      {
+        "icon": "connectivity",
+        "title": "साझेदारी बनाएँ",
+        "summary": "निवेश, पीपीपी, रणनीतिक साझेदारी और सहयोग के अवसर।",
+        "detail": "Panel 4 looks at PPPs, project financing, municipal bonds, green bonds, multilateral financing, viability gap funding and strategic partnerships."
       }
     ]
   },
+  "registrationSectors": [
+    {
+      "slug": "government-public",
+      "title": "सरकार और सार्वजनिक क्षेत्र"
+    },
+    {
+      "slug": "real-estate",
+      "title": "रियल एस्टेट और टाउनशिप"
+    },
+    {
+      "slug": "urban-infrastructure",
+      "title": "नगरीय अवसंरचना और गतिशीलता"
+    },
+    {
+      "slug": "sustainability",
+      "title": "स्थिरता और अपशिष्ट प्रबंधन"
+    },
+    {
+      "slug": "finance",
+      "title": "वित्त और निवेश"
+    },
+    {
+      "slug": "technology",
+      "title": "तकनीक और स्मार्ट शासन"
+    },
+    {
+      "slug": "other",
+      "title": "अन्य"
+    }
+  ],
   "sectors": {
-    "title": "प्राथमिकता क्षेत्र",
-    "intro": "बताएँ कि आपकी परियोजना किन क्षेत्रों से जुड़ी है। रुचि फ़ॉर्म में एक से अधिक क्षेत्र चुने जा सकते हैं।",
+    "title": "पैनल चर्चा",
+    "intro": "नगरीय मध्य प्रदेश के भविष्य पर चार संवाद। अपने क्षेत्र, विशेषज्ञता या निवेश रुचि के अनुसार संवाद चुनें।",
     "items": [
-      { "slug": "industry", "title": "उद्योग", "summary": "विनिर्माण, इंजीनियरिंग और औद्योगिक पार्क।", "detail": "प्लांट, घटक और औद्योगिक समूह की परियोजनाओं के लिए। फ़ॉर्म में उत्पाद, क्षमता और भूमि की आवश्यकता लिखें।" },
-      { "slug": "agriculture-food", "title": "कृषि और खाद्य प्रसंस्करण", "summary": "प्रसंस्करण, कोल्ड चेन और कृषि व्यवसाय।", "detail": "अनाज, बागवानी, डेयरी और खाद्य इकाइयों के लिए। यदि पता हो तो कच्चे माल का क्षेत्र बताएँ।" },
-      { "slug": "it-electronics", "title": "आईटी और इलेक्ट्रॉनिक्स", "summary": "सॉफ़्टवेयर, आईटी सेवाएँ, इलेक्ट्रॉनिक्स और डेटा सेंटर।", "detail": "प्रौद्योगिकी केंद्र और इलेक्ट्रॉनिक्स असेंबली के लिए। बिजली और प्रतिभा की आवश्यकता फ़ॉर्म में लिखें।" },
-      { "slug": "tourism", "title": "पर्यटन", "summary": "होटल, अनुभव और गंतव्य परियोजनाएँ।", "detail": "आतिथ्य और पर्यटन परिसंपत्तियों के लिए। विरासत या वन स्थलों के लिए अतिरिक्त अनुमति की बात सहयोग में अंकित करें।" },
-      { "slug": "renewable-energy", "title": "नवीकरणीय ऊर्जा", "summary": "सौर, पवन और अन्य स्वच्छ ऊर्जा परियोजनाएँ।", "detail": "उत्पादन, भंडारण और घटक निर्माण के लिए। भूमि और निकासी का उल्लेख परियोजना नोट में करें।" },
-      { "slug": "mining", "title": "खनन", "summary": "खनिज और खनिज आधारित उद्योग।", "detail": "ज़िम्मेदार खनन और डाउनस्ट्रीम प्रसंस्करण के लिए। नीलामी और अनुमति अलग नियमों से चलती है। फ़ॉर्म केवल रुचि दर्ज करता है।" },
-      { "slug": "textiles", "title": "वस्त्र", "summary": "रेशा, कपड़ा, परिधान और तकनीकी वस्त्र।", "detail": "कताई, बुनाई, प्रसंस्करण और गारमेंटिंग के लिए। पानी और बहिस्स्राव की आवश्यकता हो तो लिखें।" },
-      { "slug": "pharma", "title": "फ़ार्मा", "summary": "फ़ॉर्मुलेशन, बल्क ड्रग और चिकित्सा उत्पाद।", "detail": "औषधि और चिकित्सा उत्पाद इकाइयों के लिए। पर्यावरण और औषधि अनुमतियाँ सक्षम प्राधिकरणों के पास रहती हैं।" },
-      { "slug": "logistics", "title": "लॉजिस्टिक्स", "summary": "भंडारण, आईसीडी और माल सेवाएँ।", "detail": "पार्क, गोदाम और माल सेवाएँ, जो राज्य के अन्य उद्योगों की सहायता करती हैं।" }
+      {
+        "slug": "panel-1",
+        "title": "Beyond Metros: Re-densification, TOD & TDR as Catalysts for Tier-2 Urban Growth",
+        "summary": "Unlocking the potential of Tier-2 cities through re-densification, Transit-Oriented Development, TDR, redevelopment and growth corridors.",
+        "detail": "Explore: Housing, Redevelopment, TOD, TDR, Master Planning, Growth Corridors and Regulatory Reforms.",
+        "code": "01 | Beyond Metros"
+      },
+      {
+        "slug": "panel-2",
+        "title": "Reimagining Urban Governance: Master Planning, Regulatory Reforms & Ease of Approvals",
+        "summary": "How digital systems, planning reforms and streamlined approvals can enable faster, more efficient urban development.",
+        "detail": "Explore: GIS-Based Planning, Digital Governance, Building Approvals, NOCs, Development Permissions and Ease of Doing Business.",
+        "code": "02 | Reimagining Urban Governance"
+      },
+      {
+        "slug": "panel-3",
+        "title": "Building Climate-Smart Cities: Water Security, Circular Economy & Green Urban Futures",
+        "summary": "Exploring solutions for resilient, sustainable and liveable cities — from water security to circular economy and green infrastructure.",
+        "detail": "Explore: Water Reuse, Water Management, Climate Resilience, Waste Management, EVs and Green Infrastructure.",
+        "code": "03 | Building Climate-Smart Cities"
+      },
+      {
+        "slug": "panel-4",
+        "title": "Urban Financing & Investment in Madhya Pradesh: Opportunities & Reforms",
+        "summary": "Exploring innovative pathways to finance and accelerate urban infrastructure and development projects.",
+        "detail": "Explore: PPPs, Project Financing, Municipal Bonds, Green Bonds, Multilateral Financing, VGF and Strategic Partnerships.",
+        "code": "04 | Urban Financing & Investment"
+      }
     ]
   },
   "leadership": {
-    "title": "नेतृत्व",
-    "intro": "नेतृत्व के संदेश यहाँ प्रकाशित होंगे। नीचे दिया पाठ प्लेसहोल्डर है, आधिकारिक वक्तव्य नहीं।",
+    "title": "मुख्य अतिथि",
+    "intro": "माननीय मुख्यमंत्री, मध्य प्रदेश।",
     "people": [
       {
-        "name": "नरेन्द्र मोदी",
-        "role": "माननीय प्रधानमंत्री, भारत",
-        "message": "आधिकारिक संदेश यहाँ प्रकाशित किया जाएगा। साइट लाइव करने से पहले इसे एडमिन पैनल से बदलें।",
+        "name": "नरेंद्र मोदी",
+        "role": "भारत के माननीय प्रधानमंत्री",
+        "kicker": "भारत के माननीय प्रधानमंत्री",
+        "style": "vision",
+        "message": "विकसित भारत 2047 तक एक विकसित भारत की दृष्टि है, जो समावेशी विकास, आधुनिक अवसंरचना और हर राज्य में अवसर पर टिकी है। मध्य प्रदेश की नगरीय यात्रा उसी राष्ट्रीय दृष्टि का हिस्सा है।",
         "crop": "left"
       },
       {
         "name": "डॉ. मोहन यादव",
         "role": "माननीय मुख्यमंत्री, मध्य प्रदेश",
-        "message": "आधिकारिक संदेश यहाँ प्रकाशित किया जाएगा। साइट लाइव करने से पहले इसे एडमिन पैनल से बदलें।",
+        "kicker": "मध्य प्रदेश के माननीय मुख्यमंत्री · मुख्य अतिथि",
+        "style": "quote",
+        "message": "We are continuously working on our investment policies to create an investment friendly ecosystem. Our attempt is to combine the requirements of business world with the state's development pathway.",
         "crop": "right"
       }
     ]
   },
   "agendaHighlights": [
-    { "track": "सम्मेलन", "text": "निवेश वातावरण और राज्य की प्राथमिकताओं पर पूर्ण सत्र।" },
-    { "track": "गोलमेज", "text": "निवेशकों, विभागों और संस्थानों के लिए क्षेत्रीय कक्ष।" },
-    { "track": "प्रदर्शनी", "text": "ज़िलों, एजेंसियों और परियोजना अवसरों की प्रदर्शनी।" },
-    { "track": "एमओयू हस्ताक्षर", "text": "उन समझौतों के लिए निर्धारित समय जो आंतरिक रूप से स्वीकृत हैं।" },
-    { "track": "सहायक कार्यक्रम", "text": "देश सत्र, स्थल-भ्रमण ब्रीफ़िंग और साझेदार बैठकें।" }
+    {
+      "track": "Welcome Address",
+      "text": "Opening of the plenary session."
+    },
+    {
+      "track": "Urban Growth Presentation",
+      "text": "The state's urban growth story and the road to GIS 2027."
+    },
+    {
+      "track": "Film Presentation",
+      "text": "A film on urban development in Madhya Pradesh."
+    },
+    {
+      "track": "Industry Perspective",
+      "text": "A view from industry on urban investment."
+    },
+    {
+      "track": "Keynote Session",
+      "text": "Keynote on the urban agenda."
+    },
+    {
+      "track": "Minister Address",
+      "text": "Address by the Hon'ble Minister."
+    },
+    {
+      "track": "Chief Minister Address",
+      "text": "Special address by the Hon'ble Chief Minister, Madhya Pradesh."
+    },
+    {
+      "track": "Policy Launches",
+      "text": "Launch of urban policy initiatives."
+    },
+    {
+      "track": "Investment Announcements",
+      "text": "Announcements of urban investment."
+    },
+    {
+      "track": "MoU Exchange",
+      "text": "Exchange of memoranda of understanding."
+    },
+    {
+      "track": "Expo Launch",
+      "text": "Launch of the Urban Innovation Expo."
+    }
   ],
   "agenda": {
-    "title": "कार्यक्रम और आयोजन",
-    "intro": "नीचे दिया समय-सारणी एक नमूना ढाँचा है। समय और हॉल अंतिम कार्यक्रम में पुष्ट होंगे।",
+    "title": "कार्यक्रम",
+    "intro": "28th अक्टूबर 2026, ब्रिलियंट कन्वेंशन सेंटर, इंदौर। पूर्ण सत्र, मुख्यमंत्री से एक-से-एक बैठक और नेटवर्किंग लंच के बाद दोपहर 2:00 बजे से पैनल चर्चा।",
     "items": [
-      { "day": "दिन 1", "time": "10:00", "track": "सम्मेलन", "title": "उद्घाटन सत्र", "detail": "समिट का उद्घाटन और प्रतिनिधिमंडलों का स्वागत।" },
-      { "day": "दिन 1", "time": "12:00", "track": "सम्मेलन", "title": "निवेश वातावरण सत्र", "detail": "राज्य में एक परियोजना रुचि से अनुमोदन तक कैसे बढ़ती है।" },
-      { "day": "दिन 1", "time": "14:00", "track": "गोलमेज", "title": "क्षेत्रीय गोलमेज", "detail": "प्राथमिकता क्षेत्रों के लिए समानांतर कक्ष।" },
-      { "day": "दिन 1", "time": "11:00", "track": "प्रदर्शनी", "title": "प्रदर्शनी आरंभ", "detail": "ज़िला और एजेंसी स्टॉल दोनों दिन खुले रहेंगे।" },
-      { "day": "दिन 1", "time": "16:00", "track": "सहायक कार्यक्रम", "title": "देश सत्र", "detail": "आगत प्रतिनिधिमंडलों के अनुसार बैठकें।" },
-      { "day": "दिन 2", "time": "10:00", "track": "गोलमेज", "title": "एक-से-एक बैठकें", "detail": "निवेशकों और विभागों की पूर्व-निर्धारित बैठकें।" },
-      { "day": "दिन 2", "time": "12:30", "track": "एमओयू हस्ताक्षर", "title": "समझौता खिड़की", "detail": "उन प्रस्तावों के लिए हस्ताक्षर, जिनकी आंतरिक स्वीकृति पूरी हो चुकी है।" },
-      { "day": "दिन 2", "time": "15:00", "track": "सहायक कार्यक्रम", "title": "स्थल-भ्रमण ब्रीफ़िंग", "detail": "जिन निवेशकों ने स्थल यात्रा माँगी है, उनके लिए संक्षिप्त ब्रीफ़िंग।" },
-      { "day": "दिन 2", "time": "17:00", "track": "सम्मेलन", "title": "समापन सत्र", "detail": "समिट का सार और आगे की प्रक्रिया।" }
+      {
+        "day": "28 October 2026",
+        "time": "11:45 AM",
+        "track": "पूर्ण सत्र",
+        "title": "पूर्ण सत्र",
+        "detail": "Until 1:30 PM. Welcome address, urban growth presentation, film presentation, industry perspective, keynote session, minister address, Chief Minister address, policy launches, investment announcements, MoU exchange and expo launch."
+      },
+      {
+        "day": "28 October 2026",
+        "time": "1:30 PM",
+        "track": "एचसीएम बैठक",
+        "title": "मुख्यमंत्री से एक-से-एक बैठक",
+        "detail": "Until 2:00 PM. Meeting requests are reviewed and shortlisted by the organising committee. Submission of a request does not guarantee an appointment."
+      },
+      {
+        "day": "28 October 2026",
+        "time": "2:00 PM",
+        "track": "Networking Lunch",
+        "title": "नेटवर्किंग लंच",
+        "detail": "Lunch before the panel discussions."
+      },
+      {
+        "day": "28 October 2026",
+        "time": "2:00 PM",
+        "track": "पैनल चर्चा",
+        "title": "पैनल चर्चा",
+        "detail": "From 2:00 PM onwards. Beyond Metros; Reimagining Urban Governance; Building Climate-Smart Cities; Urban Financing and Investment in Madhya Pradesh."
+      }
     ]
   },
   "journey": [
-    { "step": "01", "title": "पंजीकरण", "body": "कंपनी और संपर्क विवरण दें, तथा ईमेल और मोबाइल की पुष्टि एक बार के कोड से करें।" },
-    { "step": "02", "title": "प्रस्ताव जमा करें", "body": "परियोजना, क्षेत्र, निवेश और आवश्यक सहयोग लिखें। आपको एक संदर्भ संख्या मिलती है।" },
-    { "step": "03", "title": "अनुमोदन", "body": "निवेश टीम फ़ाइल देखती है और आपको उन विभागों से जोड़ती है जो अनुमतियाँ देते हैं।" },
-    { "step": "04", "title": "स्थापना", "body": "भूमि, उपयोगिताओं और क्रियान्वयन की ओर बढ़ें। एक अधिकारी आपका संपर्क बिंदु रहता है।" }
+    {
+      "step": "01",
+      "title": "पंजीकरण",
+      "body": "अपना व्यावसायिक विवरण, चुने हुए सत्र, और मुख्यमंत्री से बैठक का अनुरोध दर्ज करें।"
+    },
+    {
+      "step": "02",
+      "title": "जाँच",
+      "body": "फॉर्म जमा करना अंतिम पुष्टि नहीं है। भागीदारी जाँच और स्थल क्षमता पर निर्भर है।"
+    },
+    {
+      "step": "03",
+      "title": "पुष्टि",
+      "body": "चयनित प्रतिभागियों को कार्यक्रम से लगभग तीन दिन पहले ईमेल पर अंतिम पुष्टि मिलती है।"
+    },
+    {
+      "step": "04",
+      "title": "भागीदारी",
+      "body": "पूर्ण सत्र, चुने हुए पैनल, एक्सपो, और शॉर्टलिस्ट होने पर मुख्यमंत्री से एक-से-एक बैठक।"
+    }
   ],
   "testimonials": {
-    "title": "निवेशक क्या कहते हैं",
-    "intro": "ये कार्ड नमूना हैं। इन्हें स्वीकृत वक्तव्यों से बदलें। बिना अनुमति कोई उद्धरण न प्रकाशित करें।",
+    "title": "What investors say",
+    "intro": "These cards are templates. Replace them with approved statements. Do not publish a quotation that has not been cleared.",
     "items": [
-      { "quote": "नमूना उद्धरण। इसे स्वीकृत निवेशक वक्तव्य से बदलें।", "name": "नाम जोड़ा जाएगा", "organisation": "संस्था जोड़ी जाएगी" },
-      { "quote": "नमूना उद्धरण। इसे स्वीकृत निवेशक वक्तव्य से बदलें।", "name": "नाम जोड़ा जाएगा", "organisation": "संस्था जोड़ी जाएगी" }
+      {
+        "quote": "Placeholder testimonial. Replace this with an approved investor statement.",
+        "name": "Name to be added",
+        "organisation": "Organisation to be added"
+      },
+      {
+        "quote": "Placeholder testimonial. Replace this with an approved investor statement.",
+        "name": "Name to be added",
+        "organisation": "Organisation to be added"
+      }
     ]
   },
   "partners": {
-    "title": "साझेदार",
-    "intro": "साझेदार नाम नमूना हैं। पुष्ट साझेदार एडमिन पैनल से जोड़ें।",
+    "title": "Partners",
+    "intro": "Partner names are placeholders. Add confirmed partners from the admin panel.",
     "items": [
-      { "name": "साझेदार क" },
-      { "name": "साझेदार ख" },
-      { "name": "साझेदार ग" },
-      { "name": "साझेदार घ" },
-      { "name": "साझेदार ङ" },
-      { "name": "साझेदार च" }
+      {
+        "name": "Partner A"
+      },
+      {
+        "name": "Partner B"
+      },
+      {
+        "name": "Partner C"
+      },
+      {
+        "name": "Partner D"
+      },
+      {
+        "name": "Partner E"
+      },
+      {
+        "name": "Partner F"
+      }
     ]
   },
   "media": {
-    "title": "मीडिया",
-    "intro": "फ़िल्म, फ़ोटो और अपडेट यहाँ जोड़े जाएँगे, जब समिट कार्यालय उन्हें जारी करेगा।",
+    "title": "नगरीय विकास कॉन्क्लेव 2025 की झलकियाँ",
+    "intro": "2025 के कार्यक्रम की तस्वीरें और वीडियो यहाँ जोड़े जा सकते हैं।",
     "videos": [
-      { "title": "समिट फ़िल्म", "caption": "वीडियो लिंक जोड़ा जाएगा।", "url": "" },
-      { "title": "इन्वेस्ट इन मध्य प्रदेश", "caption": "वीडियो लिंक जोड़ा जाएगा।", "url": "" }
+      {
+        "title": "2025 film",
+        "caption": "Video highlight to be added.",
+        "url": ""
+      },
+      {
+        "title": "Urban Growth Conclave 2.0",
+        "caption": "Video highlight to be added.",
+        "url": ""
+      }
     ],
     "gallery": [
-      { "src": "/brand/gis-mark.png", "alt": "एमपी कॉन्क्लेव जीआईएस चिह्न", "caption": "समिट चिह्न" },
-      { "src": "/brand/invest-wordmark.jpg", "alt": "इन्वेस्ट मध्य प्रदेश शब्दचिह्न", "caption": "इन्वेस्ट मध्य प्रदेश" },
-      { "src": "/brand/summit-banner.jpg", "alt": "नेतृत्व चित्रों वाला समिट बैनर", "caption": "समिट बैनर" },
-      { "src": "/brand/leaders.png", "alt": "प्रधानमंत्री और मुख्यमंत्री के चित्र", "caption": "नेतृत्व चित्र" }
+      {
+        "src": "/brand/gis-mark.png",
+        "alt": "Urban Growth Conclave 2.0 emblem",
+        "caption": "Conclave 2.0 emblem"
+      },
+      {
+        "src": "/brand/invest-wordmark.jpg",
+        "alt": "Invest Madhya Pradesh wordmark",
+        "caption": "Invest Madhya Pradesh"
+      },
+      {
+        "src": "/brand/summit-banner.jpg",
+        "alt": "Event banner",
+        "caption": "Event banner"
+      },
+      {
+        "src": "/brand/leaders.png",
+        "alt": "Leadership portraits",
+        "caption": "Leadership portraits"
+      }
     ],
     "news": [
-      { "date": "1 सितम्बर 2026", "title": "नमूना अपडेट: रुचि फ़ॉर्म खुला है", "summary": "निवेशक इस वेबसाइट से रुचि दर्ज कर सकते हैं। यह पाठ लेआउट के लिए नमूना है।" },
-      { "date": "15 सितम्बर 2026", "title": "नमूना अपडेट: हेल्पडेस्क समय", "summary": "हेल्पडेस्क संपर्क पृष्ठ पर दिए फ़ोन और ईमेल पर प्रश्नों का उत्तर देता है।" },
-      { "date": "30 सितम्बर 2026", "title": "नमूना अपडेट: कार्यक्रम बाद में", "summary": "कार्यक्रम पृष्ठ की सत्र सूची नमूना है। अंतिम कार्यक्रम इसे बदलेगा।" }
+      {
+        "date": "28 October 2026",
+        "title": "Urban Growth Conclave 2.0",
+        "summary": "The Conclave 2.0 is at the Brilliant Convention Centre, Indore, and is a milestone on the Road to GIS 2027."
+      },
+      {
+        "date": "17 October 2026",
+        "title": "Registration is open",
+        "summary": "Register for the plenary and panels. A meeting with the Hon'ble Chief Minister can be requested on the same form. A request does not guarantee an appointment."
+      },
+      {
+        "date": "2025",
+        "title": "Urban Growth Conclave 2025",
+        "summary": "Photographs and films from the 2025 conclave will be published in this gallery."
+      }
     ]
   },
   "downloads": {
-    "title": "डाउनलोड",
-    "intro": "ये फ़ाइलें छोटी प्लेसहोल्डर हैं ताकि लिंक काम करें। इन्हें स्वीकृत पीडीएफ से बदलें।",
+    "title": "Downloads",
+    "intro": "These files are short placeholders so the links work. Replace them with the approved PDFs.",
     "items": [
-      { "title": "समिट विवरणिका", "description": "समिट, तिथियों और रुचि दर्ज करने का परिचय।", "file": "/downloads/brochure.pdf" },
-      { "title": "प्रोत्साहन मार्गदर्शिका", "description": "स्वीकृत प्रोत्साहन नोट के लिए प्लेसहोल्डर।", "file": "/downloads/incentive-guide.pdf" },
-      { "title": "नीति दस्तावेज़", "description": "नीति संग्रह के लिए प्लेसहोल्डर।", "file": "/downloads/policy-documents.pdf" }
+      {
+        "title": "Summit brochure",
+        "description": "Overview of the summit, dates, and how to register interest.",
+        "file": "/downloads/brochure.pdf"
+      },
+      {
+        "title": "Incentive guide",
+        "description": "A placeholder for the approved incentive note.",
+        "file": "/downloads/incentive-guide.pdf"
+      },
+      {
+        "title": "Policy documents",
+        "description": "A placeholder for the policy compendium.",
+        "file": "/downloads/policy-documents.pdf"
+      }
     ]
   },
   "contact": {
-    "title": "संपर्क",
-    "intro": "पंजीकरण, बैठक और परियोजना प्रश्नों के लिए समिट हेल्पडेस्क को लिखें। नीचे दिए विवरण प्लेसहोल्डर हैं।",
-    "email": "invest@mpconclave.example",
-    "phone": "+91 755 000 0000",
-    "whatsapp": "+91 755 000 0000",
+    "title": "संपर्क करें",
+    "intro": "नगरीय विकास कॉन्क्लेव 2.0 सचिवालय, नगरीय विकास एवं आवास विभाग, मध्य प्रदेश शासन।",
+    "email": "urbanconclave.mp@gov.in",
+    "phone": "+91 755 270 0000",
+    "whatsapp": "",
     "whatsappUrl": "",
-    "address": "समिट हेल्पडेस्क, भोपाल, मध्य प्रदेश, भारत",
-    "hours": "सोमवार से शुक्रवार, 10:00–17:30 IST",
+    "address": "नगरीय विकास कॉन्क्लेव 2.0 सचिवालय, नगरीय विकास एवं आवास विभाग, मध्य प्रदेश शासन, इंदौर",
+    "hours": "कार्यक्रम संबंधी प्रश्नों के लिए",
     "socials": [
-      { "label": "लिंक्डइन", "url": "" },
-      { "label": "एक्स", "url": "" },
-      { "label": "फ़ेसबुक", "url": "" },
-      { "label": "यूट्यूब", "url": "" }
+      {
+        "label": "LinkedIn",
+        "url": ""
+      },
+      {
+        "label": "X",
+        "url": ""
+      },
+      {
+        "label": "Facebook",
+        "url": ""
+      },
+      {
+        "label": "YouTube",
+        "url": ""
+      }
     ]
   },
   "about": {
-    "title": "समिट के बारे में",
+    "title": "कॉन्क्लेव 2.0 के बारे में",
     "paragraphs": [
-      "एमपी कॉन्क्लेव जीआईएस मध्य प्रदेश का ग्लोबल इन्वेस्टर्स समिट है। यह कंपनियों, संस्थानों और राज्य सरकार के विभागों का मिलन स्थल है।",
-      "यह वेबसाइट समिट को समझाती है और निवेश रुचि एकत्र करती है। फ़ॉर्म भरने मात्र से परियोजना स्वीकृत नहीं होती, भूमि आवंटित नहीं होती और प्रोत्साहन जारी नहीं होता। ये चरण नियमों और निवेश टीम की समीक्षा के बाद होते हैं।",
-      "समिट सामग्री पर आयोजक पंक्ति में मध्य प्रदेश शासन और एमपी औद्योगिक विकास निगम लिमिटेड का नाम है।",
-      "तिथियाँ, स्थल, आँकड़े, संदेश और डाउनलोड फ़ाइलें एडमिन पैनल से बदली जा सकती हैं। घोषणा से पहले हर प्लेसहोल्डर बदलें।"
+      "नगरीय विकास एवं आवास विभाग, मध्य प्रदेश शासन, राज्य भर में नगरीय विकास की पहल का नेतृत्व करता है। मध्य प्रदेश नगरीय विकास कॉन्क्लेव 2.0 इसका प्रमुख नगरीय निवेश और नीति मंच है और जीआईएस 2027 की राह पर एक महत्वपूर्ण पड़ाव है।",
+      "मध्य प्रदेश नगरीय विकास कॉन्क्लेव 2.0 प्रमुख नगरीय परियोजनाओं, नीति सुधारों, निवेश अवसरों, समझौता ज्ञापनों, अवसंरचना पहलों और भविष्य के लिए तैयार नगरीय विकास रणनीतियों को प्रदर्शित करेगा।",
+      "यह नीति-निर्माताओं, निवेशकों, डेवलपर्स, नगरीय विशेषज्ञों और उद्योग नेतृत्व को एक साथ लाता है। कॉन्क्लेव 2.0 28 अक्टूबर 2026 को ब्रिलियंट कन्वेंशन सेंटर, इंदौर में है।",
+      "किसे भाग लेना चाहिए: निवेशक, अवसंरचना कंपनियाँ, रियल एस्टेट डेवलपर्स, वित्तीय संस्थान, नगरीय विशेषज्ञ और सलाहकार, उद्योग संघ, स्टार्टअप और नवप्रवर्तक, सरकारी अधिकारी, और शिक्षा जगत।",
+      "प्रमुख आकर्षण: माननीय मुख्यमंत्री का विशेष संबोधन, नगरीय नीति लोकार्पण, समझौता ज्ञापन विनिमय, नगरीय नवाचार एक्सपो, और मुख्यमंत्री से एक-से-एक बैठकें।"
     ]
   },
   "support": {
-    "title": "निवेशक सहायता",
-    "intro": "पहले फ़ॉर्म से चलती परियोजना तक का छोटा मार्ग, और सामान्य प्रश्नों के उत्तर।",
-    "helpdeskNote": "हर ईमेल या कॉल में अपनी संदर्भ संख्या लिखें, ताकि टीम सही फ़ाइल खोल सके।"
+    "title": "पंजीकरण और बैठकें",
+    "intro": "पंजीकरण, सत्र चयन, और माननीय मुख्यमंत्री से बैठक के अनुरोध की प्रक्रिया।",
+    "helpdeskNote": "हर ईमेल या कॉल में संदर्भ संख्या लिखें, ताकि सचिवालय सही फाइल खोल सके।"
   },
   "faqs": [
-    { "q": "रुचि कैसे दर्ज करें?", "a": "निवेश रुचि जमा करें खोलें, चार चरण पूरे करें, और ईमेल व मोबाइल की पुष्टि एक बार के कोड से करें। पुष्टि पृष्ठ पर संदर्भ संख्या मिलेगी।" },
-    { "q": "क्या फ़ॉर्म का शुल्क है?", "a": "इस वेबसाइट के रुचि फ़ॉर्म का कोई शुल्क नहीं है। अन्य विभागों का शुल्क, यदि हो, समीक्षा के दौरान बताया जाएगा।" },
-    { "q": "टीम मुझसे कैसे संपर्क करेगी?", "a": "आपके द्वारा सत्यापित आधिकारिक ईमेल और मोबाइल पर। प्रस्ताव बंद होने तक दोनों उपलब्ध रखें।" },
-    { "q": "क्या मैं बाद में स्थिति देख सकता हूँ?", "a": "हाँ। स्थिति देखें पर जाएँ और संदर्भ संख्या के साथ फ़ॉर्म वाला ईमेल दर्ज करें।" },
-    { "q": "क्या भेजने के बाद प्रस्ताव बदला जा सकता है?", "a": "जमा करने के बाद फ़ॉर्म ऑनलाइन नहीं बदलता। परिवर्तन के लिए हेल्पडेस्क को संदर्भ संख्या के साथ ईमेल करें।" },
-    { "q": "कौन सी फ़ाइल जोड़ी जा सकती है?", "a": "एक पीडीएफ या डीओसीएक्स, अधिकतम 10 एमबी, जैसे कंपनी प्रोफ़ाइल या परियोजना नोट। रखने से पहले फ़ाइल की जाँच होती है।" }
+    {
+      "q": "क्या फॉर्म जमा करने से सीट पक्की हो जाती है?",
+      "a": "नहीं। जमा करना अंतिम पुष्टि नहीं है। भागीदारी जाँच और स्थल क्षमता पर निर्भर है। चयनित प्रतिभागियों को कार्यक्रम से लगभग तीन दिन पहले ईमेल पर सूचना दी जाती है।"
+    },
+    {
+      "q": "क्या मुख्यमंत्री से बैठक का अनुरोध नियुक्ति की गारंटी है?",
+      "a": "नहीं। अनुरोधों की समीक्षा और शॉर्टलिस्ट आयोजन समिति करती है। चयनित प्रतिभागियों को बैठक के आवंटन और समय की अलग पुष्टि मिलती है।"
+    },
+    {
+      "q": "कौन से सत्र चुन सकता हूँ?",
+      "a": "पूर्ण सत्र और चार पैनल चर्चाओं में से कोई भी। एक से अधिक सत्र चुने जा सकते हैं।"
+    },
+    {
+      "q": "किसे भाग लेना चाहिए?",
+      "a": "निवेशक, डेवलपर्स, अवसंरचना कंपनियाँ, वित्तीय संस्थान, उद्योग नेतृत्व, तकनीक और स्टार्टअप, नगरीय विशेषज्ञ, सलाहकार, उद्योग संघ, शिक्षा जगत और सरकार।"
+    },
+    {
+      "q": "सचिवालय मुझसे कैसे संपर्क करेगा?",
+      "a": "आपके द्वारा दिए गए ईमेल और मोबाइल पर।"
+    },
+    {
+      "q": "क्या मैं बाद में स्थिति देख सकता हूँ?",
+      "a": "हाँ। स्थिति देखें पर संदर्भ संख्या और फॉर्म वाला ईमेल दर्ज करें।"
+    }
   ],
   "form": {
-    "title": "निवेश रुचि जमा करें",
-    "intro": "चार छोटे चरण। तारांकन वाले फ़ील्ड अनिवार्य हैं। आप इस ब्राउज़र में मसौदा सहेज सकते हैं।"
+    "title": "पंजीकरण फॉर्म",
+    "intro": "मध्य प्रदेश नगरीय विकास कॉन्क्लेव 2.0 में शामिल हों। तारांकित स्थान अनिवार्य हैं।",
+    "disclaimer": "इस फॉर्म को जमा करना अंतिम पुष्टि नहीं है। भागीदारी जाँच और स्थल क्षमता के अधीन है। अंतिम पुष्टि और कार्यक्रम विवरण चयनित प्रतिभागियों को पंजीकृत ईमेल पर कार्यक्रम से लगभग 3 दिन पहले भेजा जाएगा।",
+    "hcmNote": "बैठक का अनुरोध नियुक्ति की गारंटी नहीं है। अनुरोधों की समीक्षा और शॉर्टलिस्ट आयोजन समिति करेगी। चयनित प्रतिभागियों को बैठक के आवंटन और समय की अलग पुष्टि मिलेगी।"
   },
   "privacy": {
     "title": "गोपनीयता नीति",
     "paragraphs": [
-      "यह एक कार्यशील मसौदा है। प्रकाशन से पहले आयोजन टीम इसे अपने विधि सलाहकार से जाँचे।",
-      "रुचि फ़ॉर्म कंपनी विवरण, संपर्क व्यक्ति का नाम, पद, आधिकारिक ईमेल, मोबाइल, परियोजना विवरण और एक वैकल्पिक दस्तावेज़ लेता है। ईमेल और मोबाइल एन्क्रिप्टेड रूप में रखे जाते हैं।",
-      "इस जानकारी का उपयोग निवेश रुचि की समीक्षा, फ़ॉर्म पर दिए व्यक्ति से संपर्क, और निवेश टीम की आंतरिक रिपोर्ट के लिए होता है। इसे बेचा नहीं जाता।",
-      "पुष्टि संदेश आपके सत्यापित ईमेल और मोबाइल पर जाता है। सूचना इस वेबसाइट के लिए सेट निवेश टीम इनबॉक्स को भी जाती है।",
-      "आप हेल्पडेस्क से, संदर्भ संख्या के साथ, पूछ सकते हैं कि कौन सी जानकारी रखी है और सुधार माँग सकते हैं। एडमिन पैनल में पहुँच भूमिका के अनुसार सीमित है, और कार्रवाइयाँ ऑडिट लॉग में लिखी जाती हैं।",
-      "घोषणा से पहले इस मसौदे को सक्षम प्राधिकरण द्वारा स्वीकृत नीति से बदलें।"
+      "This is a working draft for the organising team to review with its legal adviser before publication.",
+      "The interest form collects company details, a contact person’s name, designation, official email, and mobile number, the project description, and an optional document. Email addresses and mobile numbers are stored in encrypted form.",
+      "The information is used to review the investment interest, contact the person named on the form, and produce internal reports for the investment team. It is not sold.",
+      "A confirmation message is sent to the email and mobile number you verified. A notice is also sent to the investment team inbox configured for this website.",
+      "You may ask the helpdesk, quoting your reference number, what information is held and request a correction. Access inside the admin panel is limited by role, and admin actions are written to an audit log.",
+      "Replace this draft with the policy cleared by the competent authority before the site is announced."
     ]
   },
   "terms": {
     "title": "उपयोग की शर्तें",
     "paragraphs": [
-      "यह एक कार्यशील मसौदा है। प्रकाशन से पहले आयोजन टीम इसे अपने विधि सलाहकार से जाँचे।",
-      "इस वेबसाइट के पृष्ठ एमपी कॉन्क्लेव जीआईएस की सामान्य जानकारी देते हैं। ये भूमि, प्रोत्साहन या अनुमोदन का प्रस्ताव नहीं हैं।",
-      "रुचि फ़ॉर्म में सही जानकारी दें और ऐसा आधिकारिक ईमेल व मोबाइल दें जिस तक आपकी पहुँच हो। फ़ॉर्म भरने से बैठक, एमओयू या आवंटन का अधिकार नहीं बनता।",
-      "ऐसी फ़ाइल न अपलोड करें जिसे साझा करने की आपको अनुमति नहीं है। फ़ाइलों की जाँच होती है। आकार सीमा के बाहर या अमान्य पीडीएफ/डीओसीएक्स अस्वीकार हो सकते हैं।",
-      "आयोजन टीम पृष्ठ का पाठ, तिथियाँ और दस्तावेज़ बिना सूचना बदल सकती है। संदर्भ संख्या आपके आवेदन का रिकॉर्ड है।",
-      "घोषणा से पहले इस मसौदे को सक्षम प्राधिकरण द्वारा स्वीकृत शर्तों से बदलें।"
+      "This is a working draft for the organising team to review with its legal adviser before publication.",
+      "The pages on this website give general information about the Madhya Pradesh Urban Growth Conclave 2.0. They are not an offer of land, incentive, or approval.",
+      "You must give accurate information on the registration form. Filing the form does not confirm participation and does not create a right to a meeting with the Hon'ble Chief Minister, an MoU, or an allotment.",
+      "Do not upload a file you are not allowed to share. Files are scanned and may be rejected if they are not a valid PDF or DOCX within the size limit.",
+      "The organising team may update page text, dates, and documents without notice. The reference number is the record of your submission.",
+      "Replace this draft with the terms cleared by the competent authority before the site is announced."
     ]
   },
+  "microsite": {
+    "heroIntro": "नीति-निर्माताओं, निवेशकों, डेवलपर्स, नगरीय विशेषज्ञों और उद्योग नेतृत्व के साथ मध्य प्रदेश की अगली पीढ़ी की नगरीय अवसंरचना, आवास, स्थिरता और निवेश अवसरों को देखें।",
+    "hostKicker": "स्थान",
+    "hostCity": "इंदौर, मध्य प्रदेश",
+    "hostNote": "भारत का सबसे स्वच्छ शहर और आधुनिक नगरीय अवसंरचना का केंद्र",
+    "roadTo": "इन्वेस्ट मध्य प्रदेश · जीआईएस 2027 की राह",
+    "chiefGuestKicker": "मध्य प्रदेश के माननीय मुख्यमंत्री · मुख्य अतिथि",
+    "departmentKicker": "परिचय",
+    "departmentTitle": "नगरीय विकास एवं आवास विभाग",
+    "departmentBody": "नगरीय विकास एवं आवास विभाग, मध्य प्रदेश शासन, राज्य भर में नगरीय विकास की पहल का नेतृत्व करता है। मध्य प्रदेश नगरीय विकास कॉन्क्लेव 2.0 इसका प्रमुख नगरीय निवेश और नीति मंच है और जीआईएस 2027 की राह पर एक महत्वपूर्ण पड़ाव है।",
+    "audienceTitle": "किसे भाग लेना चाहिए?",
+    "audience": [
+      "निवेशक",
+      "अवसंरचना कंपनियाँ",
+      "रियल एस्टेट डेवलपर्स",
+      "वित्तीय संस्थान",
+      "नगरीय विशेषज्ञ और सलाहकार",
+      "उद्योग संघ",
+      "स्टार्टअप और नवप्रवर्तक",
+      "सरकारी अधिकारी",
+      "शिक्षा जगत"
+    ],
+    "highlightsTitle": "प्रमुख आकर्षण",
+    "highlights": [
+      "माननीय मुख्यमंत्री, मध्य प्रदेश का विशेष संबोधन",
+      "नगरीय नीति लोकार्पण",
+      "समझौता ज्ञापन विनिमय",
+      "नगरीय नवाचार एक्सपो",
+      "मुख्यमंत्री से एक-से-एक बैठकें"
+    ],
+    "hcmSlotNote": "बैठक अनुरोध आयोजन समिति की समीक्षा और पुष्टि के अधीन हैं।",
+    "glimpsesKicker": "पिछला कार्यक्रम",
+    "glimpsesTitle": "नगरीय विकास कॉन्क्लेव 2025 की झलकियाँ",
+    "glimpsesBody": "2025 के कार्यक्रम की तस्वीरें और वीडियो यहाँ जोड़े जा सकते हैं।",
+    "expoTitle": "नगरीय नवाचार एक्सपो",
+    "expoIntro": "मध्य प्रदेश के शहरों को आकार देने वाली परियोजनाएँ और विचार।",
+    "expoItems": [
+      "नगरीय अवसंरचना परियोजनाएँ",
+      "आवास और टाउनशिप विकास",
+      "जलवायु और स्थिरता पहल",
+      "जल पुन: उपयोग परियोजनाएँ",
+      "स्मार्ट शासन समाधान",
+      "सिंहस्थ 2028 के अवसर",
+      "स्टार्टअप और नवाचार प्रदर्शनी"
+    ],
+    "pillars": [
+      "नगरीय अवसंरचना",
+      "आवास और टाउनशिप",
+      "स्थिरता और जलवायु",
+      "निवेश अवसर",
+      "नवाचार और स्मार्ट शासन"
+    ],
+    "hcmTitle": "माननीय मुख्यमंत्री से बैठक का अनुरोध",
+    "hcmBody": "मध्य प्रदेश में निवेश अवसर तलाश रहे निवेशकों और संगठनों के लिए। संगठन, निवेश क्षेत्र, प्रस्तावित निवेश, प्रस्तावित स्थान और संक्षिप्त बैठक एजेंडा साझा करें।",
+    "secretariat": "नगरीय विकास कॉन्क्लेव 2.0 सचिवालय",
+    "directorate": "नगरीय विकास एवं आवास विभाग, मध्य प्रदेश शासन"
+  },
   "governmentLinks": [
-    { "label": "मध्य प्रदेश शासन", "url": "https://mp.gov.in/" },
-    { "label": "भारत का राष्ट्रीय पोर्टल", "url": "https://www.india.gov.in/" }
+    {
+      "label": "Government of Madhya Pradesh",
+      "url": "https://mp.gov.in/"
+    },
+    {
+      "label": "National Portal of India",
+      "url": "https://www.india.gov.in/"
+    }
   ]
 }

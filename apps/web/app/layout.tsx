@@ -26,10 +26,10 @@ const serif = Source_Serif_4({
 
 export const metadata: Metadata = {
   title: {
-    default: "MP Conclave GIS",
-    template: "%s | MP Conclave GIS",
+    default: "Madhya Pradesh Urban Growth Conclave 2.0",
+    template: "%s | Urban Growth Conclave 2.0",
   },
-  description: "Global Investors Summit, Madhya Pradesh. Register your investment interest.",
+  description: "Building Urban Momentum Towards GIS 2027. 28 October 2026, Brilliant Convention Centre, Indore.",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"),
 };
 

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export function Reveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+export function Reveal({ children, className = "", stagger = false }: { children: React.ReactNode; className?: string; stagger?: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const [shown, setShown] = useState(false);
 
@@ -24,7 +24,7 @@ export function Reveal({ children, className = "" }: { children: React.ReactNode
   }, []);
 
   return (
-    <div ref={ref} className={`${className} ${shown ? "rise" : "reveal-wait"}`}>
+    <div ref={ref} className={`${className} ${shown ? (stagger ? "is-shown" : "rise") : "reveal-wait"}`}>
       {children}
     </div>
   );

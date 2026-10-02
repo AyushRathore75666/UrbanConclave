@@ -23,5 +23,10 @@ export function sectorSlugSet(content: ContentDoc) {
 }
 
 export function sectorTitle(content: ContentDoc, slug: string) {
-  return content.sectors?.items?.find((item) => item.slug === slug)?.title || slug;
+  const registration = content.registrationSectors as Array<{ slug: string; title: string }> | undefined;
+  return (
+    registration?.find((item) => item.slug === slug)?.title ||
+    content.sectors?.items?.find((item) => item.slug === slug)?.title ||
+    slug
+  );
 }

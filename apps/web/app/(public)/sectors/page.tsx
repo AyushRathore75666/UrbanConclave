@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { getContent, getLocale, pageTitle } from "@/lib/content";
 import { InnerHero } from "@/components/page-shell";
 
@@ -15,10 +14,10 @@ export default async function SectorsPage() {
       <InnerHero title={content.sectors.title} lede={content.sectors.intro} />
       <section className="page grid gap-4 py-12 sm:grid-cols-2 lg:grid-cols-3">
         {content.sectors.items.map((sector) => (
-          <Link key={sector.slug} href={`/sectors/${sector.slug}`} className="card block border-t-4 border-t-saffron-700">
+          <article key={sector.slug} className="card border-t-4 border-t-saffron-700">
             <h2 className="font-serif text-2xl text-navy-950">{sector.title}</h2>
             <p className="mt-2 text-sm text-mute">{sector.summary}</p>
-          </Link>
+          </article>
         ))}
       </section>
     </>
