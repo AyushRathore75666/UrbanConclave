@@ -88,7 +88,7 @@ export function FocusRail({
   return (
     <section id={id} className="bg-navy-950 text-white" aria-label={title}>
       <div ref={rootRef} className="pin-stage" style={{ "--pin-screens": screens } as CSSProperties}>
-        <div ref={paneRef} className="pin-pane" style={{ "--p": 0 } as CSSProperties}>
+        <div ref={paneRef} className="pin-pane">
           <div className="rail-pane relative flex h-full flex-col bg-navy-950">
             <div className="pointer-events-none absolute left-1/2 top-[58%] -translate-x-1/2 -translate-y-1/2" aria-hidden="true">
               <div className="logo-ring h-72 w-72 rounded-full border border-dashed border-white/15 sm:h-[34rem] sm:w-[34rem]" />
@@ -108,13 +108,13 @@ export function FocusRail({
             <div ref={viewportRef} className="rail-viewport relative mt-2 min-h-0 flex-1">
               <div ref={trackRef} className="rail-track">
                 {items.map((item) => (
-                  <article key={item.key} className="rail-card">
+                  <article key={item.key} className="rail-card bg-navy-950">
                     <img src={item.image} alt="" className="absolute inset-0 h-full w-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/25 to-navy-950/10" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-navy-950 via-navy-950/55 to-transparent" />
                     <div className="relative flex h-full flex-col justify-end p-5">
-                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#F6D3B8]">{item.kicker}</p>
-                      <h3 className="mt-2 line-clamp-3 font-serif text-lg leading-tight sm:line-clamp-4 sm:text-2xl">{item.title}</h3>
-                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/80 sm:line-clamp-3">{item.summary}</p>
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#F6D3B8] drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)]">{item.kicker}</p>
+                      <h3 className="mt-2 line-clamp-3 font-serif text-lg leading-tight text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)] sm:line-clamp-4 sm:text-2xl">{item.title}</h3>
+                      <p className="mt-2 line-clamp-2 text-sm leading-relaxed text-white/95 drop-shadow-[0_1px_4px_rgba(0,0,0,0.8)] sm:line-clamp-3">{item.summary}</p>
                       <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
                         {item.detailHref && item.detailLabel ? (
                           <Link href={item.detailHref} className="text-sm font-semibold text-[#F6D3B8]">

@@ -83,7 +83,7 @@ export function ScrollStage({
 
   return (
     <div ref={rootRef} className={`pin-stage ${className}`} style={{ "--pin-screens": screens } as CSSProperties}>
-      <div ref={paneRef as RefObject<HTMLDivElement>} className="pin-pane" style={{ "--p": 0 } as CSSProperties}>
+      <div ref={paneRef as RefObject<HTMLDivElement>} className="pin-pane">
         {children}
       </div>
     </div>

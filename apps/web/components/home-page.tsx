@@ -137,6 +137,7 @@ export function HomePage({ content, ui, locale }: { content: SiteContent; ui: Ui
         lineA={statement.lineA}
         lineB={statement.lineB}
         lede={statement.lede}
+        milestones={site.milestones}
       />
 
       <FocusRail
@@ -166,7 +167,7 @@ export function HomePage({ content, ui, locale }: { content: SiteContent; ui: Ui
         highlights={site.highlights}
         audienceTitle={site.audienceTitle}
         audience={site.audience}
-        image="/scenes/roads.webp"
+        image="/scenes/about.jpg"
       />
 
       <section className="relative overflow-hidden bg-white py-14" id="agenda">

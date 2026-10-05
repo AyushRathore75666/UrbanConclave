@@ -508,6 +508,7 @@
     "hostCity": "Indore, Madhya Pradesh",
     "hostNote": "India's Cleanest City and hub for modern urban infrastructure",
     "roadTo": "Invest Madhya Pradesh · Road to GIS 2027",
+    "milestones": ["MOU", "Letter of Agreement", "Letter of Intent", "Bhumi Poojan", "Inauguration", "Knowledge Partner", "Associate Partner"],
     "chiefGuestKicker": "Hon'ble Chief Minister of Madhya Pradesh · Chief Guest",
     "departmentKicker": "About",
     "departmentTitle": "Department of Urban Development And Housing",
@@ -530,7 +531,11 @@
       "Urban Policy Launches",
       "MoU Exchange",
       "Urban Innovation Expo",
-      "HCM One-to-One Meetings"
+      "HCM One-to-One Meetings",
+      "Plenary Session",
+      "Policy Launch",
+      "Urban Innovation Gallery",
+      "Panel Discussion"
     ],
     "hcmSlotNote": "Meeting requests are subject to review and confirmation by the organizing committee.",
     "glimpsesKicker": "Past event",
