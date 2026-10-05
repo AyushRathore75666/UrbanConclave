@@ -10,6 +10,7 @@ type Person = {
   crop: string;
   kicker: string;
   style: string;
+  image?: string;
 };
 
 export function LeadershipRotator({ people, backdrop = [] }: { people: Person[]; backdrop?: string[] }) {
@@ -48,14 +49,24 @@ export function LeadershipRotator({ people, backdrop = [] }: { people: Person[];
               } ${reduceMotion ? "" : "transition-opacity duration-700 ease-out"}`}
               aria-hidden={!active}
             >
-              <div className="relative mx-auto aspect-[3/4] w-full max-w-[220px] overflow-hidden rounded-2xl bg-black">
-                <img
-                  src="/brand/leaders.png"
-                  alt={active ? person.name : ""}
-                  className={`absolute top-0 h-[132%] w-[210%] max-w-none ${person.crop === "right" ? "right-0" : "left-0"} ${
-                    active && !reduceMotion ? "guest-portrait" : ""
-                  }`}
-                />
+              <div className="relative mx-auto flex aspect-[3/4] w-full max-w-[220px] items-center justify-center overflow-hidden rounded-2xl bg-black">
+                {person.image ? (
+                  <img
+                    src={person.image}
+                    alt={active ? person.name : ""}
+                    className={`max-h-[92%] max-w-[92%] object-contain ${
+                      active && !reduceMotion ? "guest-portrait" : ""
+                    }`}
+                  />
+                ) : (
+                  <img
+                    src="/brand/leaders.png"
+                    alt={active ? person.name : ""}
+                    className={`absolute top-0 h-[132%] w-[210%] max-w-none ${person.crop === "right" ? "right-0" : "left-0"} ${
+                      active && !reduceMotion ? "guest-portrait" : ""
+                    }`}
+                  />
+                )}
               </div>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#F6D3B8]">{person.kicker || person.role}</p>

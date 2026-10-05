@@ -33,7 +33,8 @@ export async function seed() {
       stored && typeof stored === "object" && "leadership" in stored
         ? (stored as { leadership?: { people?: Array<{ kicker?: string }> } }).leadership?.people
         : undefined;
-    if (hasMicrosite && storedPeople?.every((person) => person.kicker)) continue;
+    const filePeople = (data as { leadership?: { people?: unknown[] } }).leadership?.people;
+    if (hasMicrosite && storedPeople?.every((person) => person.kicker) && storedPeople.length >= (filePeople?.length ?? 0)) continue;
     if (hasMicrosite && stored && typeof stored === "object") {
       await prisma.contentDocument.update({
         where: { locale },

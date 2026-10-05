@@ -154,6 +154,15 @@
         "style": "quote",
         "message": "We are continuously working on our investment policies to create an investment friendly ecosystem. Our attempt is to combine the requirements of business world with the state's development pathway.",
         "crop": "right"
+      },
+      {
+        "name": "कैलाश विजयवर्गीय",
+        "role": "माननीय मंत्री, मध्य प्रदेश",
+        "kicker": "नगरीय विकास एवं आवास मंत्री",
+        "style": "vision",
+        "message": "मध्य प्रदेश अपने शहरों को बेहतर आवास, आधुनिक अवसंरचना और निवेश के लिए खोल रहा है। नगरीय विकास कॉन्क्लेव वही मंच है जहाँ यह कार्य उन भागीदारों से जुड़ता है जो इसे बनाने में साथ दे सकते हैं।",
+        "crop": "center",
+        "image": "/leaders/minister-section.png"
       }
     ]
   },

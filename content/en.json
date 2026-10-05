@@ -154,6 +154,15 @@
         "style": "quote",
         "message": "We are continuously working on our investment policies to create an investment friendly ecosystem. Our attempt is to combine the requirements of business world with the state's development pathway.",
         "crop": "right"
+      },
+      {
+        "name": "Kailash Vijayvargiya",
+        "role": "Hon'ble Minister, Madhya Pradesh",
+        "kicker": "Hon'ble Minister of Urban Development and Housing",
+        "style": "vision",
+        "message": "Madhya Pradesh is opening its cities to better housing, modern infrastructure and investment. The Urban Growth Conclave is where that work meets the partners who can help build it.",
+        "crop": "center",
+        "image": "/leaders/minister-section.png"
       }
     ]
   },
