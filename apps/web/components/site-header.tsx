@@ -16,36 +16,6 @@ const LINKS: Array<[keyof Ui["nav"], string]> = [
   ["contact", "/#contact"],
 ];
 
-const LEADERS: Array<{
-  src: string;
-  width: number;
-  height: number;
-  name: Record<Locale, string>;
-  role: Record<Locale, string>;
-}> = [
-  {
-    src: "/leaders/prime-minister.png",
-    width: 368,
-    height: 368,
-    name: { en: "Narendra Modi", hi: "नरेंद्र मोदी" },
-    role: { en: "Prime Minister", hi: "प्रधानमंत्री" },
-  },
-  {
-    src: "/leaders/chief-minister.png",
-    width: 364,
-    height: 364,
-    name: { en: "Dr. Mohan Yadav", hi: "डॉ. मोहन यादव" },
-    role: { en: "Chief Minister", hi: "मुख्यमंत्री" },
-  },
-  {
-    src: "/leaders/minister.png",
-    width: 482,
-    height: 482,
-    name: { en: "Kailash Vijayvargiya", hi: "कैलाश विजयवर्गीय" },
-    role: { en: "Minister", hi: "मंत्री" },
-  },
-];
-
 export function SiteHeader({ ui, locale }: { ui: Ui; locale: Locale }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -141,23 +111,6 @@ export function SiteHeader({ ui, locale }: { ui: Ui; locale: Locale }) {
             {open ? ui.close : ui.menu}
           </button>
         </div>
-        <ul className="flex w-full min-w-0 items-start justify-between gap-1 sm:gap-1.5 xl:w-auto xl:shrink-0" aria-label={locale === "hi" ? "नेतृत्व" : "Leadership"}>
-          {LEADERS.map((person) => (
-            <li key={person.src} className="flex min-w-0 flex-1 flex-col items-center text-center xl:w-[7.15rem] xl:flex-none">
-              <Image
-                src={`${person.src}?v=2`}
-                alt=""
-                width={person.width}
-                height={person.height}
-                priority
-                unoptimized
-                className="h-10 w-10 object-contain sm:h-11 sm:w-11"
-              />
-              <p className="mt-0.5 text-[9px] font-semibold leading-tight text-navy-900 sm:text-[11px] xl:whitespace-nowrap">{person.name[locale]}</p>
-              <p className="text-[8px] font-medium leading-tight text-saffron-800 sm:text-[10px] xl:whitespace-nowrap">{person.role[locale]}</p>
-            </li>
-          ))}
-        </ul>
       </div>
       <div className="page pb-3 sm:hidden">
         <Link href="/invest" className="btn-accent w-full">

@@ -11,5 +11,5 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Page() {
   const locale = await getLocale();
   const [content, ui] = await Promise.all([getContent(locale), Promise.resolve(getUi(locale))]);
-  return <HomePage content={content} ui={ui} />;
+  return <HomePage content={content} ui={ui} locale={locale} />;
 }

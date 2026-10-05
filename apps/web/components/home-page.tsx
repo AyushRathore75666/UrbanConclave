@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import type { SiteContent } from "@/lib/content";
+import type { Locale, SiteContent } from "@/lib/content";
 import type { Ui } from "@/lib/ui";
 import { Icon } from "./icons";
 import { JsonLd } from "@/components/page-shell";
@@ -12,7 +12,7 @@ import { FocusRail } from "./focus-rail";
 import { AboutStory } from "./about-story";
 import { ContactForm } from "./contact-form";
 
-export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
+export function HomePage({ content, ui, locale }: { content: SiteContent; ui: Ui; locale: Locale }) {
   const site = content.microsite;
   const statement = statementFrom(content.whyInvest.intro);
 
@@ -62,8 +62,25 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
             ))}
           </div>
         </div>
-        <div className="page relative z-10 grid items-center gap-10 py-16 lg:min-h-[78vh] lg:grid-cols-[1.15fr_0.85fr] lg:py-20">
-          <div className="rise">
+        <ul className="relative z-20 flex items-start justify-end gap-2 px-3 pt-4 sm:gap-3 sm:px-4 lg:absolute lg:right-4 lg:top-14 lg:px-0 lg:pt-0" aria-label={locale === "hi" ? "नेतृत्व" : "Leadership"}>
+          {LEADERS.map((person) => (
+            <li key={person.src} className="flex shrink-0 flex-col items-center text-center">
+                <Image
+                  src={`${person.src}?v=2`}
+                  alt=""
+                  width={person.width}
+                  height={person.height}
+                  priority
+                  unoptimized
+                  className="h-14 w-14 object-contain sm:h-16 sm:w-16"
+                />
+                <p className="mt-1 whitespace-nowrap text-[11px] font-semibold leading-tight text-white sm:text-xs">{person.name[locale]}</p>
+                <p className="whitespace-nowrap text-[10px] font-medium leading-tight text-[#F6D3B8] sm:text-[11px]">{person.role[locale]}</p>
+              </li>
+          ))}
+        </ul>
+        <div className="page relative z-10 grid items-center gap-8 py-8 sm:gap-10 sm:py-12 lg:min-h-[78vh] lg:grid-cols-[1.15fr_0.85fr] lg:py-16">
+          <div className="rise lg:col-start-1">
             <p className="text-base font-semibold uppercase tracking-[0.16em] text-[#F6D3B8] sm:text-lg">{content.hero.kicker}</p>
             <p className="mt-3 text-sm text-white/70">{content.hero.organiser}</p>
             <h1 className="hero-title mt-4 max-w-3xl font-serif text-4xl font-semibold leading-[0.95] sm:text-6xl">{content.hero.title}</h1>
@@ -79,7 +96,7 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
               <a href="#agenda" className="btn-ghost">{ui.viewAgenda}</a>
             </div>
           </div>
-          <div className="relative mx-auto aspect-square w-full max-w-[380px]">
+          <div className="relative mx-auto aspect-square w-full max-w-[380px] lg:col-start-2 lg:mt-24">
             <div className="logo-glow absolute inset-[12%] rounded-full bg-[radial-gradient(circle,rgba(224,112,32,0.45),transparent_68%)]" aria-hidden="true" />
             <div className="logo-ring absolute inset-[4%] rounded-full border border-dashed border-[#F6D3B8]/50" aria-hidden="true" />
             <div className="logo-ring hero-ring-2 absolute inset-[12%] rounded-full border border-[#F6D3B8]/30" aria-hidden="true" />
@@ -245,3 +262,33 @@ function statementFrom(intro: string) {
 }
 
 const panelScenes = ["/scenes/transit.jpg", "/scenes/digital.jpg", "/scenes/infrastructure.jpg", "/scenes/industry.png"];
+
+const LEADERS: Array<{
+  src: string;
+  width: number;
+  height: number;
+  name: Record<Locale, string>;
+  role: Record<Locale, string>;
+}> = [
+  {
+    src: "/leaders/prime-minister.png",
+    width: 368,
+    height: 368,
+    name: { en: "Narendra Modi", hi: "नरेंद्र मोदी" },
+    role: { en: "Prime Minister", hi: "प्रधानमंत्री" },
+  },
+  {
+    src: "/leaders/chief-minister.png",
+    width: 364,
+    height: 364,
+    name: { en: "Dr. Mohan Yadav", hi: "डॉ. मोहन यादव" },
+    role: { en: "Chief Minister", hi: "मुख्यमंत्री" },
+  },
+  {
+    src: "/leaders/minister.png",
+    width: 482,
+    height: 482,
+    name: { en: "Kailash Vijayvargiya", hi: "कैलाश विजयवर्गीय" },
+    role: { en: "Minister", hi: "मंत्री" },
+  },
+];
