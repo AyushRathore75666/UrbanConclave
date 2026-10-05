@@ -30,8 +30,8 @@ export function FocusRail({
   kicker: string;
   title: string;
   intro: string;
-  moreHref: string;
-  moreLabel: string;
+  moreHref?: string;
+  moreLabel?: string;
   cue: string;
   items: RailItem[];
 }) {
@@ -98,9 +98,11 @@ export function FocusRail({
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#F6D3B8]">{kicker}</p>
                 <h2 className="rail-title mt-2 font-serif text-3xl font-semibold sm:text-5xl">{title}</h2>
               </div>
-              <Link href={moreHref} className="text-sm font-semibold text-[#F6D3B8]">
-                {moreLabel}
-              </Link>
+              {moreHref && moreLabel ? (
+                <Link href={moreHref} className="text-sm font-semibold text-[#F6D3B8]">
+                  {moreLabel}
+                </Link>
+              ) : null}
             </div>
             <p className="page mt-2 line-clamp-2 max-w-3xl text-sm leading-relaxed text-white/70 sm:mt-3 sm:line-clamp-none">{intro}</p>
             <div ref={viewportRef} className="rail-viewport relative mt-2 min-h-0 flex-1">

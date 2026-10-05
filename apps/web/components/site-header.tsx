@@ -9,11 +9,11 @@ import type { Locale } from "@/lib/content";
 import type { Ui } from "@/lib/ui";
 
 const LINKS: Array<[keyof Ui["nav"], string]> = [
-  ["home", "/"],
-  ["about", "/about"],
-  ["agenda", "/agenda"],
-  ["sessions", "/sectors"],
-  ["contact", "/contact"],
+  ["home", "/#home"],
+  ["about", "/#about"],
+  ["agenda", "/#agenda"],
+  ["sessions", "/#sessions"],
+  ["contact", "/#contact"],
 ];
 
 const LEADERS: Array<{
@@ -55,6 +55,27 @@ export function SiteHeader({ ui, locale }: { ui: Ui; locale: Locale }) {
   }, [pathname]);
 
   useEffect(() => {
+    if (pathname !== "/") return;
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+    const timer = window.setTimeout(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+    return () => window.clearTimeout(timer);
+  }, [pathname]);
+
+  function goToSection(event: React.MouseEvent<HTMLAnchorElement>, href: string) {
+    if (pathname !== "/") return;
+    const id = href.split("#")[1];
+    const target = id ? document.getElementById(id) : null;
+    if (!target) return;
+    event.preventDefault();
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.history.pushState(null, "", id === "home" ? "/" : `/#${id}`);
+    setOpen(false);
+  }
+
+  useEffect(() => {
     if (!open) return;
     const onKey = (event: KeyboardEvent) => {
       if (event.key === "Escape") setOpen(false);
@@ -67,7 +88,7 @@ export function SiteHeader({ ui, locale }: { ui: Ui; locale: Locale }) {
     <header className="sticky top-0 z-40 border-b border-navy-900/10 bg-white/95 backdrop-blur">
       <div className="h-1 bg-saffron-700" />
       <div className="flex flex-wrap items-center gap-x-1.5 gap-y-1 px-3 py-1 sm:px-4 xl:flex-nowrap">
-        <Link href="/" className="flex min-w-0 shrink items-center gap-1.5 sm:gap-2">
+        <Link href="/#home" className="flex min-w-0 shrink items-center gap-1.5 sm:gap-2" onClick={(event) => goToSection(event, "/#home")}>
           <Image
             src="/brand/mp-gov.png"
             alt="Government of Madhya Pradesh"
@@ -98,8 +119,8 @@ export function SiteHeader({ ui, locale }: { ui: Ui; locale: Locale }) {
             <Link
               key={href}
               href={href}
-              aria-current={pathname === href ? "page" : undefined}
-              className={`whitespace-nowrap rounded px-1 py-1 text-[13px] ${pathname === href ? "font-semibold text-navy-900" : "text-mute hover:text-navy-900"}`}
+              onClick={(event) => goToSection(event, href)}
+              className="whitespace-nowrap rounded px-1 py-1 text-[13px] text-mute hover:text-navy-900"
             >
               {ui.nav[key]}
             </Link>
@@ -146,7 +167,7 @@ export function SiteHeader({ ui, locale }: { ui: Ui; locale: Locale }) {
       {open ? (
         <nav id="mobile-nav" className="border-t border-navy-900/10 bg-white xl:hidden" aria-label="Mobile">
           {LINKS.map(([key, href]) => (
-            <Link key={href} href={href} className="block border-b border-navy-900/5 px-5 py-3 text-navy-900">
+            <Link key={href} href={href} onClick={(event) => goToSection(event, href)} className="block border-b border-navy-900/5 px-5 py-3 text-navy-900">
               {ui.nav[key]}
             </Link>
           ))}

@@ -10,6 +10,7 @@ import { LeadershipRotator } from "./leadership-rotator";
 import { ScrollStatement } from "./scroll-statement";
 import { FocusRail } from "./focus-rail";
 import { AboutStory } from "./about-story";
+import { ContactForm } from "./contact-form";
 
 export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
   const site = content.microsite;
@@ -18,7 +19,7 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
   return (
     <>
       <JsonLd content={content} />
-      <section className="hero-banner relative isolate overflow-hidden bg-navy-950 text-white">
+      <section id="home" className="hero-banner relative isolate overflow-hidden bg-navy-950 text-white">
         <div className="pointer-events-none absolute inset-0" aria-hidden="true">
           <div className="hero-aurora" />
           <div className="hero-grid" />
@@ -75,7 +76,7 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
             <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/80">{site.heroIntro}</p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/invest" className="btn-accent">{ui.investNow}</Link>
-              <Link href="/agenda" className="btn-ghost">{ui.viewAgenda}</Link>
+              <a href="#agenda" className="btn-ghost">{ui.viewAgenda}</a>
             </div>
           </div>
           <div className="relative mx-auto aspect-square w-full max-w-[380px]">
@@ -122,12 +123,10 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
       />
 
       <FocusRail
-        id="panels"
+        id="sessions"
         kicker={ui.nav.sessions}
         title={content.sectors.title}
         intro={content.sectors.intro}
-        moreHref="/sectors"
-        moreLabel={ui.readMore}
         cue={ui.scrollCue}
         items={content.sectors.items.map((panel, index) => ({
           key: panel.slug,
@@ -136,8 +135,6 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
           summary: panel.summary,
           href: `/invest?session=${panel.slug}`,
           cta: ui.showInterest,
-          detailHref: `/sectors/${panel.slug}`,
-          detailLabel: ui.readMore,
           image: panelScenes[index % panelScenes.length] ?? panelScenes[0],
         }))}
       />
@@ -159,10 +156,7 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
         <img src="/scenes/roads.webp" alt="" className="agenda-wash pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 object-cover lg:block" />
         <div className="page relative">
           <Reveal>
-            <div className="flex flex-wrap items-end justify-between gap-4">
-              <h2 className="h-section">{content.agenda.title}</h2>
-              <Link href="/agenda" className="text-sm font-semibold text-saffron-700">{ui.viewAgenda}</Link>
-            </div>
+            <h2 className="h-section">{content.agenda.title}</h2>
             <p className="mt-3 max-w-3xl text-sm text-mute">{content.agenda.intro}</p>
           </Reveal>
           <Reveal stagger>
@@ -179,7 +173,7 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[#f7f4ef] py-14">
+      <section id="why" className="relative overflow-hidden bg-[#f7f4ef] py-14">
         <div className="ambient-orb ambient-orb-a" aria-hidden="true" />
         <div className="ambient-orb ambient-orb-b" aria-hidden="true" />
         <div className="page relative">
@@ -214,6 +208,26 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
             </div>
           ))}
         </Reveal>
+      </section>
+
+      <section id="contact" className="relative overflow-hidden bg-white py-14">
+        <div className="page relative grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
+          <div>
+            <h2 className="h-section">{content.contact.title}</h2>
+            <p className="mt-3 max-w-xl text-mute">{content.contact.intro}</p>
+            <address className="mt-6 not-italic">
+              <p className="font-semibold text-navy-900">{content.contact.address}</p>
+              <p className="mt-3 text-sm text-mute">{content.contact.hours}</p>
+              <p className="mt-4">
+                <a className="font-semibold text-navy-900" href={`mailto:${content.contact.email}`}>{content.contact.email}</a>
+              </p>
+              <p className="mt-2">
+                <a className="font-semibold text-navy-900" href={`tel:${content.contact.phone.replace(/\s/g, "")}`}>{content.contact.phone}</a>
+              </p>
+            </address>
+          </div>
+          <ContactForm ui={ui} />
+        </div>
       </section>
 
     </>
