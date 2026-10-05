@@ -7,10 +7,13 @@ import { Icon } from "./icons";
 import { JsonLd } from "@/components/page-shell";
 import { Reveal } from "./reveal";
 import { LeadershipRotator } from "./leadership-rotator";
-import { PhotoCrossfade } from "./photo-crossfade";
+import { ScrollStatement } from "./scroll-statement";
+import { FocusRail } from "./focus-rail";
+import { AboutStory } from "./about-story";
 
 export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
   const site = content.microsite;
+  const statement = statementFrom(content.whyInvest.intro);
 
   return (
     <>
@@ -98,45 +101,59 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
             </div>
           </div>
         </div>
+        <p className="scroll-cue relative z-10 pb-10">
+          <span>{ui.scrollCue}</span>
+          <span className="scroll-cue-line" aria-hidden="true" />
+        </p>
       </section>
 
-      <LeadershipRotator
-        people={content.leadership.people}
-        backdrop={["/scenes/infrastructure.jpg", "/scenes/roads.webp", "/scenes/industry.png"]}
+      <div className="bg-navy-950 pb-24">
+        <LeadershipRotator
+          people={content.leadership.people}
+          backdrop={["/scenes/infrastructure.jpg", "/scenes/roads.webp", "/scenes/industry.png"]}
+        />
+      </div>
+
+      <ScrollStatement
+        kicker={site.roadTo}
+        lineA={statement.lineA}
+        lineB={statement.lineB}
+        lede={statement.lede}
       />
 
-      <section className="page py-14" id="about">
-        <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr]">
-          <Reveal>
-            <p className="kicker">{site.departmentKicker}</p>
-            <h2 className="mt-2 h-section">{site.departmentTitle}</h2>
-            <p className="mt-4 max-w-3xl leading-relaxed text-mute">{site.departmentBody}</p>
-            <h2 className="mt-12 h-section">{content.about.title}</h2>
-            <p className="mt-4 max-w-3xl leading-relaxed text-mute">{content.about.paragraphs[1]}</p>
-          </Reveal>
-          <div className="scene-photo relative h-72 overflow-hidden rounded-3xl shadow-[0_20px_50px_rgba(11,31,58,0.16)] sm:h-96 lg:h-[440px]">
-            <PhotoCrossfade images={aboutFrames} />
-          </div>
-        </div>
-        <Reveal stagger>
-          <div className="mt-10">
-            <h3 className="text-lg font-semibold text-navy-900">{site.highlightsTitle}</h3>
-            <ul className="mt-4 flex flex-wrap gap-3">
-              {site.highlights.map((item, index) => (
-                <li key={item} className="pop-in shine-card card-lift rounded-xl border border-navy-900/10 bg-white px-4 py-3 text-sm text-navy-900" style={{ "--i": index } as CSSProperties}>{item}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="mt-8">
-            <h3 className="text-lg font-semibold text-navy-900">{site.audienceTitle}</h3>
-            <ul className="mt-4 flex flex-wrap gap-3">
-              {site.audience.map((item, index) => (
-                <li key={item} className="pop-in shine-card card-lift rounded-xl border border-navy-900/10 bg-white px-4 py-3 text-sm font-medium text-navy-900" style={{ "--i": index } as CSSProperties}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </Reveal>
-      </section>
+      <FocusRail
+        id="panels"
+        kicker={ui.nav.sessions}
+        title={content.sectors.title}
+        intro={content.sectors.intro}
+        moreHref="/sectors"
+        moreLabel={ui.readMore}
+        cue={ui.scrollCue}
+        items={content.sectors.items.map((panel, index) => ({
+          key: panel.slug,
+          kicker: panel.code,
+          title: panel.title,
+          summary: panel.summary,
+          href: `/invest?session=${panel.slug}`,
+          cta: ui.showInterest,
+          detailHref: `/sectors/${panel.slug}`,
+          detailLabel: ui.readMore,
+          image: panelScenes[index % panelScenes.length] ?? panelScenes[0],
+        }))}
+      />
+
+      <AboutStory
+        departmentKicker={site.departmentKicker}
+        departmentTitle={site.departmentTitle}
+        departmentBody={site.departmentBody}
+        aboutTitle={content.about.title}
+        aboutBody={content.about.paragraphs[1] ?? ""}
+        highlightsTitle={site.highlightsTitle}
+        highlights={site.highlights}
+        audienceTitle={site.audienceTitle}
+        audience={site.audience}
+        image="/scenes/roads.webp"
+      />
 
       <section className="relative overflow-hidden bg-white py-14" id="agenda">
         <img src="/scenes/roads.webp" alt="" className="agenda-wash pointer-events-none absolute inset-y-0 right-0 hidden w-1/2 object-cover lg:block" />
@@ -160,32 +177,6 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
             </ol>
           </Reveal>
         </div>
-      </section>
-
-      <section className="page py-14" id="panels">
-        <Reveal>
-          <p className="kicker">Sessions</p>
-          <div className="mt-2 flex flex-wrap items-end justify-between gap-4">
-            <h2 className="h-section">{content.sectors.title}</h2>
-            <Link href="/sectors" className="text-sm font-semibold text-saffron-700">{ui.readMore}</Link>
-          </div>
-          <p className="mt-3 max-w-3xl text-sm text-mute">{content.sectors.intro}</p>
-        </Reveal>
-        <Reveal stagger>
-          <div className="mt-8 grid gap-4 lg:grid-cols-2">
-            {content.sectors.items.map((panel, index) => (
-              <article key={panel.slug} className="pop-in glow-card shine-card card card-lift border-t-4 border-t-saffron-700" style={{ "--i": index } as CSSProperties}>
-                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-saffron-700">{panel.code}</p>
-                <h3 className="mt-2 text-lg font-semibold text-navy-900">{panel.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-mute">{panel.summary}</p>
-                <p className="mt-3 text-sm text-navy-900">{panel.detail}</p>
-                <Link href={`/invest?session=${panel.slug}`} className="mt-4 inline-block text-sm font-semibold text-saffron-700">
-                  {ui.showInterest}
-                </Link>
-              </article>
-            ))}
-          </div>
-        </Reveal>
       </section>
 
       <section className="relative overflow-hidden bg-[#f7f4ef] py-14">
@@ -229,12 +220,14 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
   );
 }
 
-const aboutFrames = [
-  "/scenes/infrastructure.jpg",
-  "/scenes/roads.webp",
-  "/scenes/transit.jpg",
-  "/scenes/industry.png",
-  "/scenes/healthcare.png",
-  "/scenes/digital.jpg",
-  "/scenes/education.jpg",
-];
+function statementFrom(intro: string) {
+  const parts = intro.split(/(?<=[।.])\s+/).map((part) => part.trim()).filter(Boolean);
+  if (parts.length < 4) return { lineA: intro, lineB: "", lede: "" };
+  return {
+    lineA: `${parts[0]} ${parts[1]}`,
+    lineB: `${parts[2]} ${parts[3]}`,
+    lede: parts.slice(4).join(" "),
+  };
+}
+
+const panelScenes = ["/scenes/transit.jpg", "/scenes/digital.jpg", "/scenes/infrastructure.jpg", "/scenes/industry.png"];

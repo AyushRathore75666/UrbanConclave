@@ -1,4 +1,5 @@
 import type { SiteContent } from "@/lib/content";
+import { ParallaxFrame } from "./parallax-frame";
 
 export function JsonLd({ content }: { content: SiteContent }) {
   const data = {
@@ -52,7 +53,9 @@ export function InnerHero({
         </div>
         {image ? (
           <div className="scene-photo relative mx-auto h-48 w-full max-w-md overflow-hidden rounded-3xl sm:h-56">
-            <img src={image} alt={imageAlt} className="scene-drift h-full w-full object-cover" />
+            <ParallaxFrame className="absolute inset-[-12%]">
+              <img src={image} alt={imageAlt} className="scene-drift h-full w-full object-cover" />
+            </ParallaxFrame>
           </div>
         ) : null}
       </div>

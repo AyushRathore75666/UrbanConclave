@@ -558,6 +558,169 @@ body {
   }
 }
 
+.pin-stage {
+  height: calc(100svh * var(--pin-screens, 1.8));
+}
+
+.pin-pane {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.statement-line {
+  display: block;
+  font-family: var(--font-serif), var(--font-devanagari), serif;
+  font-size: clamp(2.7rem, 7.6vw, 7.4rem);
+  font-weight: 600;
+  line-height: 0.92;
+  color: #071422;
+  will-change: transform, letter-spacing;
+}
+
+.statement-line-a {
+  letter-spacing: calc((1 - var(--p, 0)) * 0.14em);
+  transform: translate3d(calc((var(--p, 0) - 1) * 7vw), 0, 0);
+}
+
+.statement-line-b {
+  letter-spacing: calc((1 - var(--p, 0)) * 0.1em);
+  transform: translate3d(calc((1 - var(--p, 0)) * 7vw), 0, 0);
+}
+
+.statement-lede {
+  opacity: clamp(0, calc((var(--p, 0) - 0.28) * 2.4), 1);
+  transform: translate3d(0, calc((1 - var(--p, 0)) * 28px), 0);
+}
+
+.section-wedge {
+  height: 4.5rem;
+  background: #f4f1eb;
+  clip-path: polygon(0 100%, 100% 0, 100% 100%);
+}
+
+.rail-title {
+  letter-spacing: calc((1 - var(--p, 0)) * 0.06em);
+}
+
+.rail-viewport {
+  overflow: hidden;
+}
+
+.rail-track {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  height: 100%;
+  will-change: transform;
+}
+
+.rail-card {
+  position: relative;
+  flex: 0 0 auto;
+  width: min(34vw, 420px);
+  height: min(46vh, 460px);
+  overflow: hidden;
+  border-radius: 1.6rem;
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.28);
+  transform-origin: center center;
+  will-change: transform, filter;
+}
+
+.rail-progress {
+  transform: scaleX(var(--p, 0));
+}
+
+.scroll-cue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  color: #f6d3b8;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.scroll-cue-line {
+  display: block;
+  width: 1px;
+  height: 3rem;
+  background: linear-gradient(#f6d3b8, transparent);
+  transform-origin: top;
+  animation: cue-drop 1.7s ease-in-out infinite;
+}
+
+@keyframes cue-drop {
+  0% {
+    transform: scaleY(0.25);
+    opacity: 0.35;
+  }
+  55% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleY(0.25);
+    opacity: 0.2;
+  }
+}
+
+.about-reveal,
+.about-chip,
+.about-photo-motion {
+  --in: 1;
+}
+
+.about-reveal {
+  opacity: var(--in);
+  transform: translate3d(0, calc((1 - var(--in)) * 36px), 0);
+}
+
+.about-chip {
+  opacity: var(--in);
+  transform: translate3d(calc((1 - var(--in)) * 20px), calc((1 - var(--in)) * 22px), 0) scale(calc(0.94 + var(--in) * 0.06));
+}
+
+.about-photo-motion {
+  --zoom: 0;
+  transform: scale(calc(1 + var(--zoom) * 0.85));
+  transform-origin: 50% 38%;
+  will-change: transform;
+}
+
+@media (max-width: 767px) {
+  .statement-line {
+    font-size: clamp(1.65rem, 9vw, 2.5rem);
+  }
+
+  .statement-line-a {
+    letter-spacing: calc((1 - var(--p, 0)) * 0.05em);
+    transform: translate3d(calc((var(--p, 0) - 1) * 4vw), 0, 0);
+  }
+
+  .statement-line-b {
+    letter-spacing: calc((1 - var(--p, 0)) * 0.04em);
+    transform: translate3d(calc((1 - var(--p, 0)) * 4vw), 0, 0);
+  }
+
+  .rail-track {
+    gap: 0.75rem;
+  }
+
+  .rail-card {
+    width: min(74vw, 300px);
+    height: min(40vh, 320px);
+  }
+
+  .hero-title {
+    font-size: clamp(1.85rem, 9vw, 2.25rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -603,5 +766,54 @@ body {
 
   .film-slide:first-child {
     opacity: 1;
+  }
+
+  .pin-stage {
+    height: auto;
+  }
+
+  .pin-pane {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+
+  .statement-line-a,
+  .statement-line-b,
+  .statement-lede,
+  .scroll-cue-line,
+  .about-reveal,
+  .about-chip,
+  .about-photo-motion {
+    letter-spacing: 0;
+    transform: none;
+    opacity: 1;
+    animation: none;
+  }
+
+  .rail-viewport {
+    overflow: visible;
+  }
+
+  .rail-track {
+    display: grid;
+    height: auto;
+    padding: 1rem;
+    transform: none !important;
+  }
+
+  .rail-card {
+    width: auto;
+    height: auto;
+    min-height: 16rem;
+    aspect-ratio: 16 / 10;
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) and (min-width: 768px) {
+  .rail-track {
+    grid-template-columns: 1fr 1fr;
   }
 }

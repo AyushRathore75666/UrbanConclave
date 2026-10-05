@@ -195,6 +195,7 @@ const en = {
   venue: "Venue",
   theme: "Theme",
   readMore: "Read more",
+  scrollCue: "Scroll to discover",
   backHome: "Back to home",
   notFound: "This page is not on the site.",
 };
@@ -378,6 +379,7 @@ const hi: Ui = {
   venue: "स्थल",
   theme: "विषय",
   readMore: "और पढ़ें",
+  scrollCue: "आगे स्क्रॉल करें",
   backHome: "मुखपृष्ठ पर जाएँ",
   notFound: "यह पृष्ठ साइट पर नहीं है।",
 };
