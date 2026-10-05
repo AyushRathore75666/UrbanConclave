@@ -79,8 +79,8 @@ export function HomePage({ content, ui, locale }: { content: SiteContent; ui: Ui
               </li>
           ))}
         </ul>
-        <div className="page relative z-10 grid items-center gap-8 py-8 sm:gap-10 sm:py-12 lg:min-h-[78vh] lg:grid-cols-[1.15fr_0.85fr] lg:py-16">
-          <div className="rise lg:col-start-1">
+        <div className="page relative z-10 grid items-center gap-8 py-8 sm:gap-10 sm:py-12 lg:min-h-[78vh] lg:py-16">
+          <div className="rise">
             <p className="text-base font-semibold uppercase tracking-[0.16em] text-[#F6D3B8] sm:text-lg">{content.hero.kicker}</p>
             <p className="mt-3 text-sm text-white/70">{content.hero.organiser}</p>
             <h1 className="hero-title mt-4 max-w-3xl font-serif text-4xl font-semibold leading-[0.95] sm:text-6xl">{content.hero.title}</h1>
@@ -96,7 +96,7 @@ export function HomePage({ content, ui, locale }: { content: SiteContent; ui: Ui
               <a href="#agenda" className="btn-ghost">{ui.viewAgenda}</a>
             </div>
           </div>
-          <div className="relative mx-auto aspect-square w-full max-w-[380px] lg:col-start-2 lg:mt-24">
+          <div className="relative mx-auto hidden aspect-square w-full max-w-[380px]">
             <div className="logo-glow absolute inset-[12%] rounded-full bg-[radial-gradient(circle,rgba(224,112,32,0.45),transparent_68%)]" aria-hidden="true" />
             <div className="logo-ring absolute inset-[4%] rounded-full border border-dashed border-[#F6D3B8]/50" aria-hidden="true" />
             <div className="logo-ring hero-ring-2 absolute inset-[12%] rounded-full border border-[#F6D3B8]/30" aria-hidden="true" />
