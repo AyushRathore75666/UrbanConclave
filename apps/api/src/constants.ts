@@ -28,7 +28,7 @@ export const REGISTRATION_SECTORS = [
   "other",
 ] as const;
 
-export const SESSIONS = ["plenary", "panel-1", "panel-2", "panel-3", "panel-4", "simhastha", "solar", "hackathon"] as const;
+export const SESSIONS = ["plenary", "panel-1", "panel-2", "panel-3", "panel-4", "simhastha", "solar", "hackathon", "one-to-one"] as const;
 
 export const ATTENDING_ORG: Record<(typeof ATTENDING_AS)[number], (typeof ORG_TYPES)[number]> = {
   investor: "PRIVATE",

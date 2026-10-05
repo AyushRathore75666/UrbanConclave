@@ -262,7 +262,7 @@ function statementFrom(intro: string) {
   };
 }
 
-const panelScenes = ["/scenes/transit.jpg", "/scenes/digital.jpg", "/scenes/smart-city.jpg", "/scenes/industry.png", "/scenes/simhastha.jpg", "/scenes/solar.webp", "/scenes/hackathon.jpg"];
+const panelScenes = ["/scenes/transit.jpg", "/scenes/digital.jpg", "/scenes/smart-city.jpg", "/scenes/industry.png", "/scenes/simhastha.jpg", "/scenes/solar.webp", "/scenes/hackathon.jpg", "/scenes/one-to-one.jpg"];
 
 const LEADERS: Array<{
   src: string;

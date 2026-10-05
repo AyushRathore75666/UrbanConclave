@@ -68,6 +68,12 @@
         "title": "Build partnerships",
         "summary": "Explore opportunities for investment, PPPs, strategic partnerships and collaboration.",
         "detail": "Panel 4 looks at PPPs, project financing, municipal bonds, green bonds, multilateral financing, viability gap funding and strategic partnerships."
+      },
+      {
+        "icon": "land",
+        "title": "Upcoming project",
+        "summary": "See the housing, infrastructure and investment projects coming up across Madhya Pradesh.",
+        "detail": "The conclave presents upcoming urban projects, from housing and infrastructure to new city investments."
       }
     ]
   },
@@ -103,7 +109,7 @@
   ],
   "sectors": {
     "title": "Panel Discussions",
-    "intro": "Seven conversations shaping the future of urban Madhya Pradesh. Choose the conversation most relevant to your sector, expertise or investment interest.",
+    "intro": "Eight conversations shaping the future of urban Madhya Pradesh. Choose the conversation most relevant to your sector, expertise or investment interest.",
     "items": [
       {
         "slug": "panel-1",
@@ -153,6 +159,13 @@
         "summary": "Startups, students and technologists working on practical ideas for housing, mobility and city services.",
         "detail": "Explore: Civic technology, open data, mobility, housing and digital city services.",
         "code": "07 | Hackathon"
+      },
+      {
+        "slug": "one-to-one",
+        "title": "Meet one to one leadership",
+        "summary": "A direct conversation with leadership on urban projects, investment and partnership.",
+        "detail": "Explore: One-to-one meetings with leadership on projects, investment and collaboration.",
+        "code": "08 | Meet one to one leadership"
       }
     ]
   },
@@ -263,7 +276,7 @@
         "time": "2:00 PM",
         "track": "Panel Discussions",
         "title": "Panel Discussions",
-        "detail": "From 2:00 PM onwards. Beyond Metros; Reimagining Urban Governance; Building Climate-Smart Cities; Urban Financing and Investment in Madhya Pradesh; Simhastha; Solar; Hackathon."
+        "detail": "From 2:00 PM onwards. Beyond Metros; Reimagining Urban Governance; Building Climate-Smart Cities; Urban Financing and Investment in Madhya Pradesh; Simhastha; Solar; Hackathon; Meet one to one leadership."
       }
     ]
   },
@@ -459,7 +472,7 @@
     },
     {
       "q": "Which sessions can I select?",
-      "a": "The plenary session and any of the seven panel discussions. You can select more than one."
+      "a": "The plenary session and any of the eight panel discussions. You can select more than one."
     },
     {
       "q": "Who should attend?",
