@@ -7,6 +7,7 @@ import { Icon } from "./icons";
 import { JsonLd } from "@/components/page-shell";
 import { Reveal } from "./reveal";
 import { LeadershipRotator } from "./leadership-rotator";
+import { OfficerGallery } from "./officer-gallery";
 import { ScrollStatement } from "./scroll-statement";
 import { FocusRail } from "./focus-rail";
 import { AboutStory } from "./about-story";
@@ -132,6 +133,13 @@ export function HomePage({ content, ui, locale }: { content: SiteContent; ui: Ui
         />
       </div>
 
+      <OfficerGallery
+        title={content.officers.title}
+        intro={content.officers.intro}
+        pending={content.officers.pending}
+        people={content.officers.people}
+      />
+
       <ScrollStatement
         kicker={site.roadTo}
         lineA={statement.lineA}
@@ -228,7 +236,7 @@ export function HomePage({ content, ui, locale }: { content: SiteContent; ui: Ui
         </Reveal>
       </section>
 
-      <section id="contact" className="relative overflow-hidden bg-white py-14">
+      <section id="contact" className="relative hidden overflow-hidden bg-white py-14">
         <div className="page relative grid gap-8 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
             <h2 className="h-section">{content.contact.title}</h2>
@@ -262,7 +270,7 @@ function statementFrom(intro: string) {
   };
 }
 
-const panelScenes = ["/scenes/transit.jpg", "/scenes/digital.jpg", "/scenes/smart-city.jpg", "/scenes/industry.png", "/scenes/simhastha.jpg", "/scenes/solar.webp", "/scenes/hackathon.jpg", "/scenes/one-to-one.jpg"];
+const panelScenes = ["/scenes/transit.jpg", "/scenes/digital.jpg", "/scenes/smart-city.jpg", "/scenes/industry.png", "/scenes/simhastha.jpg", "/scenes/solar.webp", "/scenes/hackathon.jpg", "/scenes/one-to-one.jpg?v=2"];
 
 const LEADERS: Array<{
   src: string;

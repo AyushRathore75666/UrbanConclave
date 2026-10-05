@@ -13,7 +13,6 @@ const LINKS: Array<[keyof Ui["nav"], string]> = [
   ["about", "/#about"],
   ["agenda", "/#agenda"],
   ["sessions", "/#sessions"],
-  ["contact", "/#contact"],
 ];
 
 export function SiteHeader({ ui, locale }: { ui: Ui; locale: Locale }) {

@@ -200,6 +200,18 @@
       }
     ]
   },
+  "officers": {
+    "title": "Meet the Officers",
+    "intro": "The officers steering urban development, housing and city services. Names and photographs will be added here.",
+    "pending": "Name to be announced",
+    "people": [
+      { "role": "ASC", "title": "Additional Secretary" },
+      { "role": "Commissioner", "title": "Commissioner" },
+      { "role": "HOD", "title": "Head of Department" },
+      { "role": "Director", "title": "Director" },
+      { "role": "Additional Commissioner", "title": "Additional Commissioner" }
+    ]
+  },
   "agendaHighlights": [
     {
       "track": "Welcome Address",
