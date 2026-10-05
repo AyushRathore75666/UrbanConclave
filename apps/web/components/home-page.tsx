@@ -261,7 +261,7 @@ function statementFrom(intro: string) {
   };
 }
 
-const panelScenes = ["/scenes/transit.jpg", "/scenes/digital.jpg", "/scenes/infrastructure.jpg", "/scenes/industry.png"];
+const panelScenes = ["/scenes/transit.jpg", "/scenes/digital.jpg", "/scenes/smart-city.jpg", "/scenes/industry.png", "/scenes/simhastha.jpg", "/scenes/solar.webp", "/scenes/hackathon.jpg"];
 
 const LEADERS: Array<{
   src: string;

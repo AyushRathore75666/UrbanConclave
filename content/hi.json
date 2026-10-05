@@ -103,7 +103,7 @@
   ],
   "sectors": {
     "title": "पैनल चर्चा",
-    "intro": "नगरीय मध्य प्रदेश के भविष्य पर चार संवाद। अपने क्षेत्र, विशेषज्ञता या निवेश रुचि के अनुसार संवाद चुनें।",
+    "intro": "नगरीय मध्य प्रदेश के भविष्य पर सात संवाद। अपने क्षेत्र, विशेषज्ञता या निवेश रुचि के अनुसार संवाद चुनें।",
     "items": [
       {
         "slug": "panel-1",
@@ -132,6 +132,27 @@
         "summary": "Exploring innovative pathways to finance and accelerate urban infrastructure and development projects.",
         "detail": "Explore: PPPs, Project Financing, Municipal Bonds, Green Bonds, Multilateral Financing, VGF and Strategic Partnerships.",
         "code": "04 | Urban Financing & Investment"
+      },
+      {
+        "slug": "simhastha",
+        "title": "सिंहस्थ: उज्जैन के पवित्र समागम की नगरीय तैयारी",
+        "summary": "उज्जैन में सिंहस्थ के लिए भीड़ प्रबंधन, जल, स्वच्छता, आवागमन और आधारभूत संरचना।",
+        "detail": "तीर्थ आधारभूत संरचना, भीड़ प्रबंधन, जल व स्वच्छता, आवागमन और आगंतुक अर्थव्यवस्था।",
+        "code": "05 | सिंहस्थ"
+      },
+      {
+        "slug": "solar",
+        "title": "सौर ऊर्जा: मध्य प्रदेश के शहरों के लिए स्वच्छ ऊर्जा",
+        "summary": "बढ़ते शहरों के लिए रूफटॉप सोलर, हरित ऊर्जा और ऊर्जा-कुशल आधारभूत संरचना।",
+        "detail": "रूफटॉप सोलर, नगर ऊर्जा, हरित भवन और स्वच्छ ऊर्जा भागीदारी।",
+        "code": "06 | सौर ऊर्जा"
+      },
+      {
+        "slug": "hackathon",
+        "title": "हैकाथॉन: स्मार्ट शहरों के लिए नए विचार",
+        "summary": "आवास, आवागमन और नगर सेवाओं पर स्टार्टअप, विद्यार्थी और तकनीशियन साथ काम करें।",
+        "detail": "सिविक तकनीक, ओपन डेटा, आवागमन, आवास और डिजिटल नगर सेवाएँ।",
+        "code": "07 | हैकाथॉन"
       }
     ]
   },
@@ -242,7 +263,7 @@
         "time": "2:00 PM",
         "track": "पैनल चर्चा",
         "title": "पैनल चर्चा",
-        "detail": "From 2:00 PM onwards. Beyond Metros; Reimagining Urban Governance; Building Climate-Smart Cities; Urban Financing and Investment in Madhya Pradesh."
+        "detail": "दोपहर 2:00 बजे से। Beyond Metros; Reimagining Urban Governance; Building Climate-Smart Cities; Urban Financing and Investment in Madhya Pradesh; सिंहस्थ; सौर ऊर्जा; हैकाथॉन।"
       }
     ]
   },
@@ -438,7 +459,7 @@
     },
     {
       "q": "कौन से सत्र चुन सकता हूँ?",
-      "a": "पूर्ण सत्र और चार पैनल चर्चाओं में से कोई भी। एक से अधिक सत्र चुने जा सकते हैं।"
+      "a": "पूर्ण सत्र और सात पैनल चर्चाओं में से कोई भी। एक से अधिक सत्र चुने जा सकते हैं।"
     },
     {
       "q": "किसे भाग लेना चाहिए?",

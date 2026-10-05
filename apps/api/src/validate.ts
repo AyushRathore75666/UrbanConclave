@@ -31,7 +31,7 @@ export const submissionSchema = z
     stateRegion: text(2, 80),
     website: optionalText(200),
     attendingAs: z.enum(ATTENDING_AS),
-    sessions: z.array(z.enum(SESSIONS)).max(5).default([]),
+    sessions: z.array(z.enum(SESSIONS)).max(8).default([]),
     hcmRequested: z.boolean(),
     hcmOrganization: optionalText(200),
     hcmSector: optionalText(120),
