@@ -95,7 +95,7 @@ export function FocusRail({
             </div>
             <div className="page flex flex-wrap items-end justify-between gap-3 pt-36 sm:pt-32">
               <div className="min-w-0">
-                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#F6D3B8]">{kicker}</p>
+                <p className="text-base font-semibold uppercase tracking-[0.16em] text-[#F6D3B8] sm:text-lg">{kicker}</p>
                 <h2 className="rail-title mt-2 font-serif text-3xl font-semibold sm:text-5xl">{title}</h2>
               </div>
               {moreHref && moreLabel ? (

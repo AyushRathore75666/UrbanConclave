@@ -88,7 +88,7 @@ export function AboutStory({
     <section ref={rootRef} className="about-story page py-16" id="about">
       <div className="grid items-center gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
         <div>
-          <p className="about-reveal kicker">{departmentKicker}</p>
+          <p className="about-reveal text-base font-semibold uppercase tracking-[0.16em] text-saffron-700 sm:text-lg">{departmentKicker}</p>
           <h2 className="about-reveal mt-2 h-section">{departmentTitle}</h2>
           <p className="about-reveal mt-4 max-w-3xl leading-relaxed text-mute">{departmentBody}</p>
           <h2 className="about-reveal mt-12 h-section">{aboutTitle}</h2>

@@ -64,7 +64,7 @@ export function HomePage({ content, ui }: { content: SiteContent; ui: Ui }) {
         </div>
         <div className="page relative z-10 grid items-center gap-10 py-16 lg:min-h-[78vh] lg:grid-cols-[1.15fr_0.85fr] lg:py-20">
           <div className="rise">
-            <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#F6D3B8]">{content.hero.kicker}</p>
+            <p className="text-base font-semibold uppercase tracking-[0.16em] text-[#F6D3B8] sm:text-lg">{content.hero.kicker}</p>
             <p className="mt-3 text-sm text-white/70">{content.hero.organiser}</p>
             <h1 className="hero-title mt-4 max-w-3xl font-serif text-4xl font-semibold leading-[0.95] sm:text-6xl">{content.hero.title}</h1>
             <p className="mt-4 text-2xl text-white/90">{content.hero.subtitle}</p>

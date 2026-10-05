@@ -18,7 +18,7 @@ export function ScrollStatement({
       <div className="section-wedge pointer-events-none absolute inset-x-0 top-0 z-20 -translate-y-full" aria-hidden="true" />
       <ScrollStage screens={2.15}>
         <div className="flex h-full flex-col justify-center overflow-hidden bg-sand px-4 pb-10 pt-36 sm:px-8 sm:py-24">
-          <p className="page kicker">{kicker}</p>
+          <p className="page text-base font-semibold uppercase tracking-[0.16em] text-saffron-700 sm:text-lg">{kicker}</p>
           <h2 className="page mt-4 max-w-page">
             <span className="statement-line statement-line-a">{lineA}</span>
             {lineB ? <span className="statement-line statement-line-b">{lineB}</span> : null}
