@@ -72,7 +72,7 @@ export function HomePage({ content, ui, locale }: { content: SiteContent; ui: Ui
                   height={person.height}
                   priority
                   unoptimized
-                  className="h-14 w-14 object-contain sm:h-16 sm:w-16"
+                  className="h-20 w-20 object-contain sm:h-24 sm:w-24 lg:h-28 lg:w-28"
                 />
                 <p className="mt-1 whitespace-nowrap text-[11px] font-semibold leading-tight text-white sm:text-xs">{person.name[locale]}</p>
                 <p className="whitespace-nowrap text-[10px] font-medium leading-tight text-[#F6D3B8] sm:text-[11px]">{person.role[locale]}</p>
