@@ -167,7 +167,7 @@ export function registerPublic(app: Express) {
 
       const emailHash = hmac(`email:${email}`);
       const mobileHash = hmac(`sms:${mobile}`);
-      await verifyCaptcha(input.captchaId, input.captchaAnswer);
+      if (input.captchaId) await verifyCaptcha(input.captchaId, input.captchaAnswer || "");
 
       const agenda = input.hcmAgenda.trim();
       const description = input.hcmRequested

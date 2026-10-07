@@ -26,7 +26,6 @@ export default async function InvestPage({ searchParams }: { searchParams: Promi
         ui={ui}
         sectors={content.registrationSectors}
         panels={content.sectors.items}
-        disclaimer={content.form.disclaimer}
         hcmNote={content.form.hcmNote}
         initialSession={params.session || params.sector}
         requestHcm={params.hcm === "1"}

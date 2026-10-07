@@ -136,7 +136,6 @@ export function HomePage({ content, ui, locale }: { content: SiteContent; ui: Ui
       <OfficerGallery
         title={content.officers.title}
         intro={content.officers.intro}
-        pending={content.officers.pending}
         people={content.officers.people}
       />
 

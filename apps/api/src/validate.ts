@@ -43,13 +43,13 @@ export const submissionSchema = z
     hcmAgenda: optionalText(2000),
     consent: z.literal(true),
     updatesConsent: z.literal(true),
-    captchaId: z.string().min(4).max(80),
-    captchaAnswer: z.string().trim().min(1).max(2000),
+    captchaId: z.string().max(80).optional().or(z.literal("")),
+    captchaAnswer: z.string().trim().max(2000).optional().or(z.literal("")),
     companyFax: z.string().max(0).optional().or(z.literal("")),
   })
   .superRefine((input, ctx) => {
     if (!input.hcmRequested) return;
-    const required: Array<keyof typeof input> = ["hcmOrganization", "hcmSector", "hcmLocation", "hcmAgenda"];
+    const required: Array<keyof typeof input> = ["hcmSector", "hcmLocation", "hcmAgenda"];
     for (const key of required) {
       if (!String(input[key] || "").trim()) {
         ctx.addIssue({ code: "custom", path: [key], message: "Required" });

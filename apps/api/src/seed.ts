@@ -6,6 +6,31 @@ import { contentDir } from "./paths.js";
 import { encryptString, hmac } from "./crypto.js";
 import { ensurePlaceholderPdfs } from "./pdfs.js";
 
+function listLength(value: unknown) {
+  return Array.isArray(value) ? value.length : 0;
+}
+
+function contentIsCurrent(stored: unknown, data: Record<string, unknown>) {
+  if (!stored || typeof stored !== "object") return false;
+  const current = stored as Record<string, unknown>;
+  const file = data;
+  const storedPeople = ((current.leadership as { people?: Array<{ kicker?: string }> } | undefined)?.people) ?? [];
+  const filePeople = ((file.leadership as { people?: unknown[] } | undefined)?.people) ?? [];
+  const storedForm = current.form as { hcmNote?: string; disclaimer?: string } | undefined;
+  const fileForm = file.form as { hcmNote?: string; disclaimer?: string } | undefined;
+  if (!current.microsite || !current.officers || !storedForm?.disclaimer) return false;
+  if (storedForm.hcmNote !== fileForm?.hcmNote) return false;
+  if (!storedPeople.every((person) => person.kicker) || storedPeople.length < filePeople.length) return false;
+  const pairs: Array<[unknown, unknown]> = [
+    [(current.sectors as { items?: unknown[] } | undefined)?.items, (file.sectors as { items?: unknown[] } | undefined)?.items],
+    [(current.microsite as { milestones?: unknown[]; highlights?: unknown[] }).milestones, (file.microsite as { milestones?: unknown[] } | undefined)?.milestones],
+    [(current.microsite as { highlights?: unknown[] }).highlights, (file.microsite as { highlights?: unknown[] } | undefined)?.highlights],
+    [(current.officers as { people?: unknown[] }).people, (file.officers as { people?: unknown[] } | undefined)?.people],
+    [(current.whyInvest as { items?: unknown[] } | undefined)?.items, (file.whyInvest as { items?: unknown[] } | undefined)?.items],
+  ];
+  return pairs.every(([left, right]) => listLength(left) >= listLength(right));
+}
+
 const ACCOUNTS = [
   ["super@mpconclave.local", "Super Admin", "SUPER_ADMIN"],
   ["editor@mpconclave.local", "Content Editor", "CONTENT_EDITOR"],
@@ -27,21 +52,7 @@ export async function seed() {
   for (const locale of ["en", "hi"] as const) {
     const data = JSON.parse(fs.readFileSync(path.join(contentDir, `${locale}.json`), "utf8"));
     const existing = await prisma.contentDocument.findUnique({ where: { locale } });
-    const stored = existing?.data;
-    const hasMicrosite = Boolean(stored && typeof stored === "object" && "microsite" in stored);
-    const storedPeople =
-      stored && typeof stored === "object" && "leadership" in stored
-        ? (stored as { leadership?: { people?: Array<{ kicker?: string }> } }).leadership?.people
-        : undefined;
-    const filePeople = (data as { leadership?: { people?: unknown[] } }).leadership?.people;
-    if (hasMicrosite && storedPeople?.every((person) => person.kicker) && storedPeople.length >= (filePeople?.length ?? 0)) continue;
-    if (hasMicrosite && stored && typeof stored === "object") {
-      await prisma.contentDocument.update({
-        where: { locale },
-        data: { data: { ...(stored as object), leadership: data.leadership } },
-      });
-      continue;
-    }
+    if (contentIsCurrent(existing?.data, data)) continue;
     await prisma.contentDocument.upsert({
       where: { locale },
       create: { locale, data },

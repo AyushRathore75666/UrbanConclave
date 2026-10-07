@@ -202,14 +202,20 @@
   },
   "officers": {
     "title": "Meet the Officers",
-    "intro": "The officers steering urban development, housing and city services. Names and photographs will be added here.",
-    "pending": "Name to be announced",
+    "intro": "The officers steering urban development, housing and city services.",
     "people": [
-      { "role": "ASC", "title": "Additional Secretary" },
-      { "role": "Commissioner", "title": "Commissioner" },
-      { "role": "HOD", "title": "Head of Department" },
-      { "role": "Director", "title": "Director" },
-      { "role": "Additional Commissioner", "title": "Additional Commissioner" }
+      {
+        "name": "Shri Sanjay Dubey",
+        "designation": "Additional Chief Secretary",
+        "department": "Urban Development and Housing Department",
+        "image": "/officers/sanjay-dubey.png"
+      },
+      {
+        "name": "Shri Sanket Bhondve",
+        "designation": "Commissioner",
+        "department": "Urban Administration & Development Directorate",
+        "image": "/officers/sanket-bhondve.png"
+      }
     ]
   },
   "agendaHighlights": [
@@ -503,7 +509,7 @@
     "title": "Registration form",
     "intro": "Join us at the Madhya Pradesh Urban Growth Conclave 2.0. Fields marked with an asterisk are required.",
     "disclaimer": "Submission of this form does not constitute final confirmation. Participation is subject to screening and venue capacity. Final confirmation and event details will be communicated to selected attendees via registered Email approximately 3 days prior to the event.",
-    "hcmNote": "Submission of a meeting request does not guarantee an appointment. Requests will be reviewed and shortlisted by the organizing committee. Selected participants will receive separate confirmation regarding meeting allocation and schedule."
+    "hcmNote": "The Hon’ble Chief Minister’s Office will review your request, and the concerned host department will inform you accordingly."
   },
   "privacy": {
     "title": "Privacy policy",
