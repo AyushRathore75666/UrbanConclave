@@ -418,9 +418,21 @@ p {
 }
 
 .agenda-wash {
-  opacity: 0.18;
-  mask-image: linear-gradient(90deg, transparent, #000 42%);
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  opacity: 0.28;
   animation: ken 26s ease-in-out infinite alternate;
+}
+
+#agenda .page {
+  position: relative;
+  z-index: 1;
 }
 
 
@@ -732,7 +744,9 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
-  margin-top: 2.25rem;
+  margin: 2.25rem 0 0;
+  padding: 0;
+  list-style: none;
 }
 
 .milestone {
@@ -785,6 +799,10 @@ p {
 }
 
 .rail-progress {
+  width: 100%;
+  height: 100%;
+  transform-origin: left center;
+  background: #f6d3b8;
   transform: scaleX(var(--p, 0));
 }
 
@@ -1668,9 +1686,12 @@ p {
 }
 
 .rail-bar {
+  position: relative;
   flex: 1;
   min-width: 0;
-  height: 1px;
+  height: 2px;
+  overflow: hidden;
+  border-radius: 999px;
   background: rgba(255, 255, 255, 0.15);
 }
 
@@ -1906,15 +1927,6 @@ p {
   padding-block: 1.25rem;
   font-size: 0.875rem;
   color: rgba(255, 255, 255, 0.7);
-}
-
-.footer-row ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
 }
 
 .inner-grid {
