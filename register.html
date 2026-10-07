@@ -74,12 +74,12 @@
           <fieldset>
             <div>
               <label class="lbl" for="fullName"><span data-hi="नाम">Name</span> <span class="req">*</span></label>
-              <input id="fullName" class="field" name="contactName" autocomplete="name" required />
+              <input id="fullName" class="field" name="contactName" autocomplete="name" maxlength="80" required />
               <p class="field-error" data-error="contactName" hidden></p>
             </div>
             <div>
               <label class="lbl" for="designation"><span data-hi="पद">Designation</span> <span class="req">*</span></label>
-              <input id="designation" class="field" name="designation" placeholder="Enter your designation" data-hi-placeholder="अपना पद लिखें" required />
+              <input id="designation" class="field" name="designation" placeholder="Enter your designation" data-hi-placeholder="अपना पद लिखें" maxlength="80" required />
               <p class="field-error" data-error="designation" hidden></p>
             </div>
             <div>
@@ -95,14 +95,14 @@
               </div>
               <div>
                 <label class="lbl" for="mobile"><span data-hi="मोबाइल नंबर">Mobile Number</span> <span class="req">*</span></label>
-                <input id="mobile" class="field" name="mobile" autocomplete="tel" required />
+                <input id="mobile" class="field" type="tel" name="mobile" inputmode="numeric" maxlength="10" pattern="[6-9][0-9]{9}" autocomplete="tel" required />
                 <p class="field-error" data-error="mobile" hidden></p>
               </div>
             </div>
             <div class="split">
               <div>
                 <label class="lbl" for="city"><span data-hi="शहर">City</span> <span class="req">*</span></label>
-                <input id="city" class="field" name="city" required />
+                <input id="city" class="field" name="city" maxlength="60" required />
                 <p class="field-error" data-error="city" hidden></p>
               </div>
               <div>
@@ -125,7 +125,8 @@
             </div>
             <div>
               <label class="lbl" for="website" data-hi="वेबसाइट">Website</label>
-              <input id="website" class="field" name="website" placeholder="Company website (optional)" data-hi-placeholder="कंपनी की वेबसाइट (वैकल्पिक)" />
+              <input id="website" class="field" name="website" inputmode="url" placeholder="Company website (optional)" data-hi-placeholder="कंपनी की वेबसाइट (वैकल्पिक)" />
+              <p class="field-error" data-error="website" hidden></p>
             </div>
           </fieldset>
 
@@ -205,7 +206,7 @@
               <div class="split">
                 <div>
                   <label class="lbl" for="hcmAmount"><span data-hi="प्रस्तावित निवेश (₹ करोड़)">Proposed Investment (₹ Crore)</span> <span class="req">*</span></label>
-                  <input id="hcmAmount" class="field" name="hcmAmount" inputmode="decimal" />
+                  <input id="hcmAmount" class="field" name="hcmAmount" inputmode="decimal" maxlength="12" />
                   <p class="field-error" data-error="hcmAmount" hidden></p>
                 </div>
                 <div>
@@ -271,6 +272,6 @@
       </div>
     </footer>
     <script src="js/site.js"></script>
-    <script src="js/register.js"></script>
+    <script src="js/register.js?v=3"></script>
   </body>
 </html>
