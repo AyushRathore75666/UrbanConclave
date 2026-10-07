@@ -1,14 +1,5 @@
-node_modules
-.next
-dist
 .DS_Store
 *.log
 .env
-apps/api/.env
-apps/api/data
-apps/api/uploads
-apps/web/.next
-apps/web/tsconfig.tsbuildinfo
-coverage
-.vercel
-*.pem
+node_modules
+apps

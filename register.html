@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-hi="पंजीकरण फॉर्म | नगरीय विकास कॉन्क्लेव 2.0">Registration form | Urban Growth Conclave 2.0</title>
+    <meta name="description" content="Join us at the Madhya Pradesh Urban Growth Conclave 2.0. Fields marked with an asterisk are required." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/site.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main" data-hi="मुख्य सामग्री पर जाएँ">Skip to content</a>
+    <header class="site-header">
+      <div class="saffron-bar"></div>
+      <div class="header-row">
+        <a class="brand" href="index.html#home">
+          <img class="mark" src="brand/mp-gov.png" alt="Government of Madhya Pradesh" width="447" height="447" />
+          <img class="mark" src="brand/gis.png" alt="Invest Madhya Pradesh" width="447" height="447" />
+          <img class="wordmark" src="brand/primary-logo-v2.png" alt="Madhya Pradesh Urban Growth Conclave 2.0" width="659" height="197" />
+        </a>
+        <nav class="primary-nav" aria-label="Primary">
+          <a href="index.html#home" data-hi="मुखपृष्ठ">Home</a>
+          <a href="index.html#about" data-hi="परिचय">About</a>
+          <a href="index.html#agenda" data-hi="कार्यक्रम">Agenda</a>
+          <a href="index.html#sessions" data-hi="सत्र">Sessions</a>
+        </nav>
+        <div class="header-actions">
+          <div class="lang-switch" role="group" aria-label="Language" data-hi-label="भाषा">
+            <button type="button" data-lang="en" aria-pressed="true">EN</button>
+            <button type="button" data-lang="hi" aria-pressed="false">हिंदी</button>
+          </div>
+          <a class="btn btn-accent header-cta" href="#registration" data-hi="अभी पंजीकरण करें">Register Now</a>
+          <button type="button" class="btn btn-line menu-btn" data-menu aria-expanded="false" aria-controls="mobile-nav">Menu</button>
+        </div>
+      </div>
+      <div class="page header-cta-mobile">
+        <a class="btn btn-accent" href="#registration" data-hi="अभी पंजीकरण करें">Register Now</a>
+      </div>
+      <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile" hidden>
+        <a href="index.html#home" data-hi="मुखपृष्ठ">Home</a>
+        <a href="index.html#about" data-hi="परिचय">About</a>
+        <a href="index.html#agenda" data-hi="कार्यक्रम">Agenda</a>
+        <a href="index.html#sessions" data-hi="सत्र">Sessions</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section id="register-hero" class="hero-banner">
+        <div class="hero-art" aria-hidden="true">
+          <div class="hero-aurora"></div>
+          <div class="hero-grid"></div>
+          <div class="hero-sheen"></div>
+          <div class="hero-vignette"></div>
+        </div>
+        <div class="page inner-grid">
+          <div>
+            <p class="rise inner-kicker">Urban Growth Conclave 2.0</p>
+            <h1 class="hero-title inner-title" data-hi="पंजीकरण फॉर्म">Registration form</h1>
+            <p class="inner-lede" data-hi="मध्य प्रदेश नगरीय विकास कॉन्क्लेव 2.0 में शामिल हों। तारांकित स्थान अनिवार्य हैं।">Join us at the Madhya Pradesh Urban Growth Conclave 2.0. Fields marked with an asterisk are required.</p>
+          </div>
+          <div class="scene-photo">
+            <img class="scene-drift" src="scenes/page-signature.jpg" alt="A person writing on a document" />
+          </div>
+        </div>
+      </section>
+
+      <section id="registration" class="reg-wrap">
+        <div class="ambient-orb ambient-orb-a" aria-hidden="true"></div>
+        <div class="ambient-orb ambient-orb-b" aria-hidden="true"></div>
+        <form id="registration-form" class="glow-card card page reg-form" novalidate>
+          <fieldset>
+            <div>
+              <label class="lbl" for="fullName"><span data-hi="नाम">Name</span> <span class="req">*</span></label>
+              <input id="fullName" class="field" name="contactName" autocomplete="name" required />
+              <p class="field-error" data-error="contactName" hidden></p>
+            </div>
+            <div>
+              <label class="lbl" for="designation"><span data-hi="पद">Designation</span> <span class="req">*</span></label>
+              <input id="designation" class="field" name="designation" placeholder="Enter your designation" data-hi-placeholder="अपना पद लिखें" required />
+              <p class="field-error" data-error="designation" hidden></p>
+            </div>
+            <div>
+              <label class="lbl" for="organization"><span data-hi="कंपनी / संगठन का नाम">Company Name / Organization</span> <span class="req">*</span></label>
+              <input id="organization" class="field" name="companyName" required />
+              <p class="field-error" data-error="companyName" hidden></p>
+            </div>
+            <div class="split">
+              <div>
+                <label class="lbl" for="email"><span data-hi="ईमेल आईडी">Email ID</span> <span class="req">*</span></label>
+                <input id="email" class="field" type="email" name="email" autocomplete="email" required />
+                <p class="field-error" data-error="email" hidden></p>
+              </div>
+              <div>
+                <label class="lbl" for="mobile"><span data-hi="मोबाइल नंबर">Mobile Number</span> <span class="req">*</span></label>
+                <input id="mobile" class="field" name="mobile" autocomplete="tel" required />
+                <p class="field-error" data-error="mobile" hidden></p>
+              </div>
+            </div>
+            <div class="split">
+              <div>
+                <label class="lbl" for="city"><span data-hi="शहर">City</span> <span class="req">*</span></label>
+                <input id="city" class="field" name="city" required />
+                <p class="field-error" data-error="city" hidden></p>
+              </div>
+              <div>
+                <label class="lbl" for="state"><span data-hi="राज्य">State</span> <span class="req">*</span></label>
+                <select id="state" class="field" name="stateRegion" required>
+                  <option value="" data-hi="राज्य चुनें">Select state</option>
+                  <option>Madhya Pradesh</option>
+                  <option>Maharashtra</option>
+                  <option>Delhi NCR</option>
+                  <option>Gujarat</option>
+                  <option>Karnataka</option>
+                  <option>Telangana</option>
+                  <option>Uttar Pradesh</option>
+                  <option>Rajasthan</option>
+                  <option>Tamil Nadu</option>
+                  <option>Other State / UT</option>
+                </select>
+                <p class="field-error" data-error="stateRegion" hidden></p>
+              </div>
+            </div>
+            <div>
+              <label class="lbl" for="website" data-hi="वेबसाइट">Website</label>
+              <input id="website" class="field" name="website" placeholder="Company website (optional)" data-hi-placeholder="कंपनी की वेबसाइट (वैकल्पिक)" />
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend data-hi="भागीदारी प्राथमिकता">Participation Preference</legend>
+            <div>
+              <label class="lbl" for="attendingAs"><span data-hi="किस रूप में भाग ले रहे हैं">Attending As</span> <span class="req">*</span></label>
+              <select id="attendingAs" class="field" name="attendingAs" required>
+                <option value="" data-hi="श्रेणी चुनें">Select your category</option>
+                <option value="investor" data-hi="निवेशक">Investor</option>
+                <option value="developer" data-hi="डेवलपर">Developer</option>
+                <option value="infrastructure" data-hi="अवसंरचना कंपनी">Infrastructure Company</option>
+                <option value="startup" data-hi="स्टार्टअप">Startup</option>
+                <option value="association" data-hi="उद्योग संघ">Industry Association</option>
+                <option value="consultant" data-hi="सलाहकार">Consultant</option>
+                <option value="government" data-hi="सरकारी अधिकारी">Government Official</option>
+                <option value="academia" data-hi="शिक्षा जगत">Academia</option>
+                <option value="other" data-hi="अन्य">Other</option>
+              </select>
+              <p class="field-error" data-error="attendingAs" hidden></p>
+            </div>
+            <div>
+              <label class="lbl" for="sector"><span data-hi="क्षेत्र / रुचि">Sector / Interested</span> <span class="req">*</span></label>
+              <select id="sector" class="field" name="sector" required>
+                <option value="" data-hi="क्षेत्र चुनें">Select sector</option>
+                <option value="government-public" data-hi="सरकार और सार्वजनिक क्षेत्र">Government &amp; Public Sector</option>
+                <option value="real-estate" data-hi="रियल एस्टेट और टाउनशिप">Real Estate &amp; Township</option>
+                <option value="urban-infrastructure" data-hi="नगरीय अवसंरचना और गतिशीलता">Urban Infrastructure &amp; Mobility</option>
+                <option value="sustainability" data-hi="स्थिरता और अपशिष्ट प्रबंधन">Sustainability &amp; Waste Management</option>
+                <option value="finance" data-hi="वित्त और निवेश">Finance &amp; Investment</option>
+                <option value="technology" data-hi="तकनीक और स्मार्ट शासन">Technology &amp; Smart Governance</option>
+                <option value="other" data-hi="अन्य">Other</option>
+              </select>
+              <p class="field-error" data-error="sector" hidden></p>
+            </div>
+            <div>
+              <p class="lbl" data-hi="सत्र चुनें">Select Session</p>
+              <p class="hint" data-hi="जिन सत्रों में भाग लेना है, वे सभी चुनें">Select all that you wish to attend</p>
+              <div class="session-list">
+                <label class="check"><input type="checkbox" name="sessions" value="plenary" /> <span data-hi="पूर्ण सत्र">Plenary Session</span></label>
+                <label class="check"><input type="checkbox" name="sessions" value="panel-1" /> <span><span data-hi="पैनल">Panel</span> 1: Beyond Metros: Re-densification, TOD &amp; TDR as Catalysts for Tier-2 Urban Growth</span></label>
+                <label class="check"><input type="checkbox" name="sessions" value="panel-2" /> <span><span data-hi="पैनल">Panel</span> 2: Reimagining Urban Governance: Master Planning, Regulatory Reforms &amp; Ease of Approvals</span></label>
+                <label class="check"><input type="checkbox" name="sessions" value="panel-3" /> <span><span data-hi="पैनल">Panel</span> 3: Building Climate-Smart Cities: Water Security, Circular Economy &amp; Green Urban Futures</span></label>
+                <label class="check"><input type="checkbox" name="sessions" value="panel-4" /> <span><span data-hi="पैनल">Panel</span> 4: Urban Financing &amp; Investment in Madhya Pradesh: Opportunities &amp; Reforms</span></label>
+                <label class="check"><input type="checkbox" name="sessions" value="simhastha" /> <span><span data-hi="पैनल">Panel</span> 5: <span data-hi="सिंहस्थ: उज्जैन के पवित्र समागम की नगरीय तैयारी">Simhastha: Preparing Ujjain for the Sacred Gathering</span></span></label>
+                <label class="check"><input type="checkbox" name="sessions" value="solar" /> <span><span data-hi="पैनल">Panel</span> 6: <span data-hi="सौर ऊर्जा: मध्य प्रदेश के शहरों के लिए स्वच्छ ऊर्जा">Solar: Clean Energy for Madhya Pradesh's Cities</span></span></label>
+                <label class="check"><input type="checkbox" name="sessions" value="hackathon" /> <span><span data-hi="पैनल">Panel</span> 7: <span data-hi="हैकाथॉन: स्मार्ट शहरों के लिए नए विचार">Hackathon: Building Ideas for Smarter Cities</span></span></label>
+                <label class="check"><input type="checkbox" name="sessions" value="one-to-one" /> <span><span data-hi="पैनल">Panel</span> 8: <span data-hi="नेतृत्व से एक-से-एक मुलाकात">Meet one to one leadership</span></span></label>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend data-hi="माननीय मुख्यमंत्री से एक-से-एक बैठक का अनुरोध">Honourable Chief Minister One-to-One Meeting Request</legend>
+            <p class="lbl"><span data-hi="क्या आप माननीय मुख्यमंत्री से बैठक का अनुरोध करना चाहते हैं?">Would you like to request a meeting with the Hon'ble Chief Minister?</span> <span class="req">*</span></p>
+            <div class="radios">
+              <label><input type="radio" name="hcmRequested" value="yes" /> <span data-hi="हाँ">Yes</span></label>
+              <label><input type="radio" name="hcmRequested" value="no" /> <span data-hi="नहीं">No</span></label>
+            </div>
+            <p class="field-error" data-error="hcmRequested" hidden></p>
+            <div id="hcm-fields" hidden>
+              <p class="lbl" data-hi="यदि हाँ, तो ये विवरण दें">If yes, please provide the following details</p>
+              <div>
+                <label class="lbl" for="hcmSector"><span data-hi="निवेश क्षेत्र">Investment Sector</span> <span class="req">*</span></label>
+                <select id="hcmSector" class="field" name="hcmSector">
+                  <option value="" data-hi="निवेश क्षेत्र चुनें">Select investment sector</option>
+                  <option value="Public" data-hi="सार्वजनिक">Public</option>
+                  <option value="Private" data-hi="निजी">Private</option>
+                  <option value="State Government" data-hi="राज्य सरकार">State Government</option>
+                  <option value="Semi Government" data-hi="अर्ध सरकारी">Semi Government</option>
+                  <option value="Central Government" data-hi="केंद्र सरकार">Central Government</option>
+                  <option value="Public Sector Undertaking" data-hi="सार्वजनिक क्षेत्र का उपक्रम">Public Sector Undertaking</option>
+                  <option value="Other" data-hi="अन्य">Other</option>
+                </select>
+                <p class="field-error" data-error="hcmSector" hidden></p>
+              </div>
+              <div class="split">
+                <div>
+                  <label class="lbl" for="hcmAmount"><span data-hi="प्रस्तावित निवेश (₹ करोड़)">Proposed Investment (₹ Crore)</span> <span class="req">*</span></label>
+                  <input id="hcmAmount" class="field" name="hcmAmount" inputmode="decimal" />
+                  <p class="field-error" data-error="hcmAmount" hidden></p>
+                </div>
+                <div>
+                  <label class="lbl" for="hcmLocation"><span data-hi="प्रस्तावित स्थान">Proposed Location</span> <span class="req">*</span></label>
+                  <input id="hcmLocation" class="field" name="hcmLocation" />
+                  <p class="field-error" data-error="hcmLocation" hidden></p>
+                </div>
+              </div>
+              <div>
+                <label class="lbl" for="hcmAgenda"><span data-hi="संक्षिप्त बैठक एजेंडा (अधिकतम 150 शब्द)">Brief Meeting Agenda (Maximum 150 Words)</span> <span class="req">*</span></label>
+                <textarea id="hcmAgenda" class="field" name="hcmAgenda"></textarea>
+                <span id="word-count" class="words">0/150 words</span>
+                <p class="field-error" data-error="hcmAgenda" hidden></p>
+              </div>
+            </div>
+            <p class="note" data-hi="माननीय मुख्यमंत्री कार्यालय आपके अनुरोध की समीक्षा करेगा, और संबंधित आयोजक विभाग आपको तदनुसार सूचित करेगा।">The Hon’ble Chief Minister’s Office will review your request, and the concerned host department will inform you accordingly.</p>
+          </fieldset>
+
+          <fieldset>
+            <legend data-hi="पुष्टि">Confirmation</legend>
+            <label class="check">
+              <input type="checkbox" name="updatesConsent" required />
+              <span><span data-hi="मैं ईमेल और एसएमएस पर अपडेट प्राप्त करने के लिए सहमत हूँ।">I agree to receive updates via Email and SMS.</span> <span class="req">*</span></span>
+            </label>
+            <p class="field-error" data-error="updatesConsent" hidden></p>
+          </fieldset>
+
+          <p id="form-error" class="field-error" role="alert" hidden></p>
+          <button id="submit-registration" class="btn btn-accent btn-submit" type="submit" data-hi="पंजीकरण जमा करें">Submit Registration</button>
+        </form>
+      </section>
+
+      <section id="confirmation" class="page confirm-block" hidden>
+        <p class="kicker">Urban Growth Conclave 2.0</p>
+        <h1 data-hi="पंजीकरण जमा हो गया">Registration submitted</h1>
+        <p class="body" data-hi="यह संदर्भ संख्या रखें। फॉर्म जमा करना अंतिम पुष्टि नहीं है। भागीदारी जाँच और स्थल क्षमता पर निर्भर है। चयनित प्रतिभागियों को कार्यक्रम से लगभग तीन दिन पहले ईमेल पर सूचना दी जाती है।">Keep this reference number. Submission of the form is not final confirmation. Participation is subject to screening and venue capacity. Selected attendees are contacted by email about three days before the event.</p>
+        <p class="ref-label" data-hi="संदर्भ संख्या">Reference number</p>
+        <p id="reference" class="ref-value"></p>
+        <div class="confirm-actions">
+          <a class="btn btn-primary" href="index.html" data-hi="मुखपृष्ठ पर जाएँ">Back to home</a>
+          <button id="another" class="btn btn-line" type="button" data-hi="एक और पंजीकरण जमा करें">Submit another registration</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <section class="helpdesk">
+        <div class="page helpdesk-grid">
+          <div>
+            <p class="label" data-hi="हेल्पडेस्क">Helpdesk</p>
+            <a class="value" href="mailto:urbanconclave.mp@gov.in">urbanconclave.mp@gov.in</a>
+          </div>
+          <div>
+            <p class="label" data-hi="संपर्क नंबर">Contact no</p>
+            <a class="value" href="tel:+917552700000">+91 755 270 0000</a>
+          </div>
+        </div>
+      </section>
+      <div class="footer-bar">
+        <div class="page footer-row">
+          <p data-hi="© 2026 संचालनालय, नगरीय प्रशासन एवं विकास, मध्य प्रदेश शासन। सर्वाधिकार सुरक्षित।">© 2026 Department of Urban Development And Housing, Government of Madhya Pradesh. All Rights Reserved.</p>
+          <ul>
+            <li>LinkedIn</li>
+            <li>X</li>
+            <li>Facebook</li>
+            <li>YouTube</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+    <script src="js/site.js"></script>
+    <script src="js/register.js"></script>
+  </body>
+</html>
