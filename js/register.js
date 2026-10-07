@@ -64,16 +64,12 @@
     "hcmAgenda",
   ];
 
-  const hero = document.getElementById("register-hero");
-  const registration = document.getElementById("registration");
-  const confirmation = document.getElementById("confirmation");
-  const reference = document.getElementById("reference");
   const hcmFields = document.getElementById("hcm-fields");
   const agenda = document.getElementById("hcmAgenda");
   const wordCount = document.getElementById("word-count");
   const formError = document.getElementById("form-error");
   const submitButton = document.getElementById("submit-registration");
-  const another = document.getElementById("another");
+  const toast = document.getElementById("form-toast");
 
   function lang() {
     return localStorage.getItem("ugc-locale") === "hi" ? "hi" : "en";
@@ -249,22 +245,91 @@
     return ok;
   }
 
-  function referenceNumber() {
-    const alphabet = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
-    let body = "";
-    const bytes = new Uint32Array(8);
-    crypto.getRandomValues(bytes);
-    for (let i = 0; i < 8; i += 1) body += alphabet[bytes[i] % alphabet.length];
-    return "MP-UGC2026-" + body;
+  const sessionMap = [
+    ["plenary", "plenarySession", "Plenary Session"],
+    ["panel-1", "panel1", "Panel 1: Beyond Metros: Re-densification, TOD & TDR as Catalysts for Tier-2 Urban Growth"],
+    ["panel-2", "panel2", "Panel 2: Reimagining Urban Governance: Master Planning, Regulatory Reforms & Ease of Approvals"],
+    ["panel-3", "panel3", "Panel 3: Building Climate-Smart Cities: Water Security, Circular Economy & Green Urban Futures"],
+    ["panel-4", "panel4", "Panel 4: Urban Financing & Investment in Madhya Pradesh: Opportunities & Reforms"],
+    ["simhastha", "panel5", "Panel 5: Simhastha: Preparing Ujjain for the Sacred Gathering"],
+    ["solar", "panel6", "Panel 6: Solar: Clean Energy for Madhya Pradesh's Cities"],
+    ["hackathon", "panel7", "Panel 7: Hackathon: Building Ideas for Smarter Cities"],
+    ["one-to-one", "panel8", "Panel 8: Meet one to one leadership"],
+  ];
+
+  function selectedText(name) {
+    const control = form.elements.namedItem(name);
+    const option = control?.selectedOptions?.[0];
+    if (!option || !String(option.value || "").trim()) return "";
+    return (option.dataset.en || option.textContent || "").trim();
   }
 
-  function showConfirmation(code) {
-    if (reference) reference.textContent = code;
-    hero?.setAttribute("hidden", "");
-    registration?.setAttribute("hidden", "");
-    confirmation?.removeAttribute("hidden");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+  function buildPayload() {
+    const draft = readDraft();
+    const meeting = draft.hcmRequested === "yes";
+    const chosen = new Set(draft.sessions);
+    const payload = {
+      registrationId: "",
+      fullName: draft.contactName.trim(),
+      designation: draft.designation.trim(),
+      organization: draft.companyName.trim(),
+      sector: selectedText("sector"),
+      emailId: draft.email.trim(),
+      mobileNumber: draft.mobile.trim(),
+      city: draft.city.trim(),
+      state: selectedText("stateRegion"),
+      companyWebsite: draft.website.trim(),
+      attendingAs: selectedText("attendingAs"),
+      requestHcmMeeting: meeting,
+      hcmOrganizationName: meeting ? draft.companyName.trim() : "",
+      hcmInvestmentSector: meeting ? draft.hcmSector.trim() : "",
+      proposedInvestmentCrore: meeting ? Number(draft.hcmAmount) : 0,
+      proposedLocation: meeting ? draft.hcmLocation.trim() : "",
+      briefMeetingAgenda: meeting ? draft.hcmAgenda.trim() : "",
+      informationConfirmed: true,
+      communicationConsent: true,
+      registrationStatus: "",
+      createdBy: "",
+      updatedBy: "",
+      plenarySession: "",
+      panel1: "",
+      panel2: "",
+      panel3: "",
+      panel4: "",
+      panel5: "",
+      panel6: "",
+      panel7: "",
+      panel8: "",
+      panel9: "",
+      panel10: "",
+      panel11: "",
+      panel12: "",
+      other1: "",
+      other2: "",
+      other3: "",
+      other4: "",
+    };
+    sessionMap.forEach(([value, key, label]) => {
+      if (chosen.has(value)) payload[key] = label;
+    });
+    return payload;
   }
+
+  let toastTimer = 0;
+  function showToast(message) {
+    if (!toast) return;
+    toast.textContent = message;
+    toast.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.hidden = true;
+    }, 8000);
+  }
+
+  toast?.addEventListener("click", () => {
+    toast.hidden = true;
+    clearTimeout(toastTimer);
+  });
 
   const saved = localStorage.getItem(draftKey);
   if (saved) {
@@ -357,7 +422,7 @@
     if (event.target?.name) refreshField(event.target.name);
   });
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
     ["contactName", "designation", "city", "mobile", "hcmAmount"].forEach((name) => tidy(form.elements.namedItem(name)));
     writeDraft();
@@ -367,25 +432,38 @@
       });
       return;
     }
+    if (toast) toast.hidden = true;
     submitButton.disabled = true;
     submitButton.textContent = text().submitting;
-    const code = referenceNumber();
-    sessionStorage.setItem("mpgis-last", JSON.stringify({ referenceNumber: code }));
-    localStorage.removeItem(draftKey);
-    showConfirmation(code);
-  });
-
-  another?.addEventListener("click", () => {
-    form.reset();
-    syncHcm();
-    refreshWords();
-    clearErrors();
-    submitButton.disabled = false;
-    submitButton.textContent = text().submit;
-    confirmation?.setAttribute("hidden", "");
-    hero?.removeAttribute("hidden");
-    registration?.removeAttribute("hidden");
-    location.hash = "registration";
+    try {
+      const response = await fetch("https://urbangis.mp.gov.in/api/UGC/Register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(buildPayload()),
+      });
+      const body = await response.json().catch(() => null);
+      if (!body || body.success !== true) {
+        showToast((body && body.message) || text().fail);
+        submitButton.disabled = false;
+        submitButton.textContent = text().submit;
+        return;
+      }
+      const registration = body.registration || {};
+      sessionStorage.setItem(
+        "ugc-registration-result",
+        JSON.stringify({
+          registrationId: registration.registrationId || body.registrationId || "",
+          notificationId: body.notification_id || "",
+          notificationMessage: body.notification_message || body.message || "",
+        }),
+      );
+      localStorage.removeItem(draftKey);
+      location.replace("thank-you.html");
+    } catch {
+      showToast(text().fail);
+      submitButton.disabled = false;
+      submitButton.textContent = text().submit;
+    }
   });
 
   document.addEventListener("localechange", () => {
