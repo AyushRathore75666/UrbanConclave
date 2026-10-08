@@ -923,21 +923,36 @@
         layout.className = "bar-layout";
         const max = drawn.reduce((peak, slice) => Math.max(peak, slice.value), 0);
         const peak = Math.max(1, max);
-        let step = 1;
-        if (peak > 5) step = 2;
-        if (peak > 10) step = 5;
-        if (peak > 25) step = 10;
-        if (peak > 50) step = 20;
-        if (peak > 100) step = 50;
+        const rough = Math.max(1, peak / 4);
+        const magnitude = Math.pow(10, Math.floor(Math.log10(rough)));
+        const normalized = rough / magnitude;
+        const niceSteps = [1, 2, 2.5, 5, 10];
+        let nice = 10;
+        for (let index = 0; index < niceSteps.length; index += 1) {
+          if (normalized <= niceSteps[index]) {
+            nice = niceSteps[index];
+            break;
+          }
+        }
+        const step = Math.max(1, Math.round(nice * magnitude));
         const axisTop = Math.ceil(peak / step) * step;
         const ticks = [];
         for (let value = 0; value <= axisTop; value += step) ticks.push(value);
+        const longestTick = ticks.reduce((best, tick) => {
+          const text = numberFormat.format(tick);
+          return text.length > best.length ? text : best;
+        }, "0");
+        const valueSample = numberFormat.format(peak);
+        const axisSize = 9;
         const vbW = 360;
         const vbH = 196;
-        const padL = 32;
+        const padL = Math.ceil(longestTick.length * axisSize * 0.68 + 10);
         const padR = 8;
-        const padT = 18;
         const padB = 16;
+        const plotBudget = vbW - padL - padR;
+        const slotBudget = plotBudget / Math.max(1, slices.length);
+        const valueSize = Math.max(7, Math.min(11, (slotBudget * 0.86) / (Math.max(1, valueSample.length) * 0.64)));
+        const padT = Math.ceil(valueSize + 8);
         const plotW = vbW - padL - padR;
         const plotH = vbH - padT - padB;
         const base = padT + plotH;
@@ -958,10 +973,11 @@
           line.setAttribute("y2", y.toFixed(2));
           const label = svgNode("text");
           label.setAttribute("class", "axis-label");
-          label.setAttribute("x", String(padL - 6));
+          label.setAttribute("x", String(padL - 5));
           label.setAttribute("y", y.toFixed(2));
           label.setAttribute("text-anchor", "end");
           label.setAttribute("dominant-baseline", "middle");
+          label.setAttribute("font-size", String(axisSize));
           label.textContent = numberFormat.format(tick);
           svg.append(line, label);
         });
@@ -988,6 +1004,7 @@
           valueText.setAttribute("x", cx.toFixed(2));
           valueText.setAttribute("y", (base - 6).toFixed(2));
           valueText.setAttribute("text-anchor", "middle");
+          valueText.setAttribute("font-size", valueSize.toFixed(2));
           valueText.textContent = numberFormat.format(slice.value);
           const title = svgNode("title");
           title.textContent = slice.label + ": " + slice.value;
@@ -1170,6 +1187,7 @@
         const centerValue = document.createElement("strong");
         centerValue.className = "donut-center-value";
         centerValue.textContent = numberFormat.format(total);
+        centerValue.dataset.digits = String(Math.min(9, centerValue.textContent.length));
         center.append(centerLabel, centerValue);
         visual.appendChild(center);
       }
@@ -1189,7 +1207,13 @@
         name.textContent = slice.label;
         const count = document.createElement("span");
         count.className = "pie-count";
-        count.textContent = donut && total ? numberFormat.format(slice.value) + "/" + numberFormat.format(total) : numberFormat.format(slice.value);
+        count.textContent = numberFormat.format(slice.value);
+        if (donut && total) {
+          const ratio = document.createElement("span");
+          ratio.className = "pie-ratio";
+          ratio.textContent = "/" + numberFormat.format(total);
+          count.appendChild(ratio);
+        }
         item.append(swatch, name, count);
         legend.appendChild(item);
       });
