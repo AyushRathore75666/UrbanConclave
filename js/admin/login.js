@@ -51,7 +51,6 @@
     try {
       const result = await api.login(id, pass);
       session.setToken(result.token);
-      session.setUserId(id);
       password.value = "";
       location.replace("dashboard.html");
     } catch (error) {

@@ -39,7 +39,7 @@
       </header>
 
       <main id="main" class="dashboard-main">
-        <section class="summary-bar" aria-labelledby="total-label investment-label">
+        <section class="summary-bar" aria-label="Registration summary">
           <div class="summary-stats">
             <p class="summary-count">
               <span id="total-label">Total Registrations</span>
@@ -47,7 +47,11 @@
             </p>
             <p class="summary-count">
               <span id="investment-label">Total Proposed Investment</span>
-              <strong id="investment-count" aria-live="polite">—</strong>
+              <strong id="investment-total" aria-live="polite">—</strong>
+            </p>
+            <p class="summary-count">
+              <span id="hcm-label">HCM Meeting Requests</span>
+              <strong id="hcm-count" aria-live="polite">—</strong>
             </p>
           </div>
           <div class="summary-actions">
@@ -103,7 +107,7 @@
                   <th scope="col" class="col-serial">S. No.</th>
                   <th scope="col" class="col-registration_id">Registration ID</th>
                   <th scope="col" class="col-full_name">Full Name</th>
-                  <th scope="col" class="col-request_hcm_meeting">HCM Meeting Request</th>
+                  <th scope="col">HCM Meeting Request &amp; Approval</th>
                   <th scope="col">Designation</th>
                   <th scope="col">Organization</th>
                   <th scope="col">Sector</th>

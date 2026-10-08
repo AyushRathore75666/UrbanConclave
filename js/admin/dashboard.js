@@ -39,8 +39,7 @@
     {
       title: "HCM meeting",
       fields: [
-        ["request_hcm_meeting", "HCM meeting request"],
-        ["cm_meeting_approval", "CM meeting approval"],
+        ["request_hcm_meeting", "HCM Meeting Request & Approval"],
         ["hcm_organization_name", "HCM organization"],
         ["hcm_investment_sector", "Investment sector"],
         ["brief_meeting_agenda", "Meeting agenda"],
@@ -92,7 +91,7 @@
   const TABLE_COLUMNS = [
     ["registration_id", "Registration ID"],
     ["full_name", "Full Name"],
-    ["request_hcm_meeting", "HCM Meeting Request"],
+    ["request_hcm_meeting", "HCM Meeting Request & Approval"],
     ["designation", "Designation"],
     ["organization", "Organization"],
     ["sector", "Sector"],
@@ -117,7 +116,9 @@
   const totalLabel = document.getElementById("total-label");
   const totalCount = document.getElementById("total-count");
   const investmentLabel = document.getElementById("investment-label");
-  const investmentCount = document.getElementById("investment-count");
+  const investmentTotal = document.getElementById("investment-total");
+  const hcmLabel = document.getElementById("hcm-label");
+  const hcmCount = document.getElementById("hcm-count");
   const refreshButton = document.getElementById("refresh-registrations");
   const exportButton = document.getElementById("export-registrations");
   const filterForm = document.getElementById("registration-filters");
@@ -149,7 +150,6 @@
     filters: { fullName: null, mobileNumber: null, emailId: null },
   };
   let inFlight = false;
-  const updatingMeetings = new Set();
 
   function redirectToLogin() {
     document.body.classList.add("admin-gate");
@@ -192,34 +192,21 @@
     }
   }
 
-  function requestedMeeting(row) {
-    const value = row.request_hcm_meeting;
-    if (value === true) return true;
-    if (typeof value === "string") {
-      const text = value.trim().toLowerCase();
-      return text === "true" || text === "yes";
-    }
-    return false;
-  }
-
-  function meetingOn(row) {
-    const approval = typeof row.cm_meeting_approval === "string" ? row.cm_meeting_approval.trim().toLowerCase() : "";
-    if (approval === "yes") return true;
-    if (approval === "no") return false;
-    if (String(row.registration_status || "").trim().toLowerCase() === "confirmed") return true;
-    return requestedMeeting(row);
-  }
-
   function displayCell(row, key) {
     if (key === "created_date_india") return formatValue(key, row.created_date_india || row.created_date);
     return formatValue(key, row[key]);
   }
 
-  function investmentTotal() {
-    return state.rows.reduce((sum, row) => {
-      const value = Number(row && row.proposed_investment_crore);
-      return sum + (Number.isFinite(value) ? value : 0);
+  function proposedInvestmentTotal() {
+    const total = state.rows.reduce((sum, row) => {
+      const amount = Number(row && row.proposed_investment_crore);
+      return Number.isFinite(amount) ? sum + amount : sum;
     }, 0);
+    return Math.round(total * 100) / 100;
+  }
+
+  function hcmRequestCount() {
+    return state.rows.reduce((count, row) => (row && row.request_hcm_meeting === true ? count + 1 : count), 0);
   }
 
   function filtersActive() {
@@ -330,24 +317,6 @@
             badge.dataset.status = String(record.registration_status || "").trim().toLowerCase();
             badge.textContent = displayCell(record, key);
             cell.appendChild(badge);
-          } else if (key === "request_hcm_meeting") {
-            const approved = meetingOn(record);
-            const registrationId = String(record.registration_id || "").trim();
-            const toggle = document.createElement("button");
-            toggle.type = "button";
-            toggle.className = "switch";
-            toggle.dataset.meeting = registrationId;
-            toggle.dataset.index = String(start + index);
-            toggle.setAttribute("role", "switch");
-            toggle.setAttribute("aria-checked", approved ? "true" : "false");
-            const person = blank(record.full_name) ? "this registration" : String(record.full_name);
-            toggle.setAttribute("aria-label", "HCM meeting request for " + person + ", " + (approved ? "on" : "off"));
-            toggle.disabled = updatingMeetings.has(registrationId);
-            const knob = document.createElement("span");
-            knob.className = "switch-knob";
-            knob.setAttribute("aria-hidden", "true");
-            toggle.appendChild(knob);
-            cell.appendChild(toggle);
           } else {
             cell.textContent = displayCell(record, key);
           }
@@ -376,9 +345,11 @@
     if (state.page < 1) state.page = 1;
     const filtered = filtersActive();
     totalLabel.textContent = filtered ? "Matching registrations" : "Total Registrations";
-    totalCount.textContent = state.loaded ? numberFormat.format(state.totalRecords) : "—";
     investmentLabel.textContent = filtered ? "Matching proposed investment" : "Total Proposed Investment";
-    investmentCount.textContent = state.loaded ? numberFormat.format(investmentTotal()) + " crore" : "—";
+    hcmLabel.textContent = filtered ? "Matching HCM meeting requests" : "HCM Meeting Requests";
+    totalCount.textContent = state.loaded ? numberFormat.format(state.totalRecords) : "—";
+    investmentTotal.textContent = state.loaded ? numberFormat.format(proposedInvestmentTotal()) + " crore" : "—";
+    hcmCount.textContent = state.loaded ? numberFormat.format(hcmRequestCount()) : "—";
     filterNote.hidden = !filtersActive();
     exportButton.disabled = state.loading || state.exporting || !state.rows.length;
     exportButton.textContent = state.exporting ? "Exporting CSV…" : "Export CSV";
@@ -556,39 +527,6 @@
     }
   }
 
-  async function setMeetingApproval(record, approved) {
-    const registrationId = String(record.registration_id || "").trim();
-    if (!registrationId || updatingMeetings.has(registrationId)) return;
-    const actor = session.userId();
-    if (!actor) {
-      endSession("Your session has ended. Please sign in again.");
-      return;
-    }
-    updatingMeetings.add(registrationId);
-    render();
-    try {
-      await api.updateRegistrationStatus({
-        registrationId,
-        registrationStatus: approved ? "Confirmed" : "Pending",
-        cm_meeting_approval: approved ? "Yes" : "No",
-        updatedBy: actor,
-      });
-      record.cm_meeting_approval = approved ? "Yes" : "No";
-      record.registration_status = approved ? "Confirmed" : "Pending";
-      record.request_hcm_meeting = approved;
-      showAlert("");
-    } catch (error) {
-      if (error && error.kind === "unauthorized") {
-        endSession(error.message);
-        return;
-      }
-      showAlert((error && error.message) || "The meeting status could not be updated.");
-    } finally {
-      updatingMeetings.delete(registrationId);
-      render();
-    }
-  }
-
   function init() {
     document.getElementById("admin-name").textContent = session.displayName();
     document.body.classList.remove("admin-gate");
@@ -647,13 +585,6 @@
     });
 
     tableBody.addEventListener("click", (event) => {
-      const toggle = event.target.closest("[data-meeting]");
-      if (toggle) {
-        const record = state.rows[Number(toggle.dataset.index)];
-        if (!record || toggle.disabled) return;
-        setMeetingApproval(record, toggle.getAttribute("aria-checked") !== "true");
-        return;
-      }
       const button = event.target.closest("[data-index]");
       if (!button) return;
       const record = state.rows[Number(button.dataset.index)];
