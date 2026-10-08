@@ -39,11 +39,17 @@
       </header>
 
       <main id="main" class="dashboard-main">
-        <section class="summary-bar" aria-labelledby="total-label">
-          <p class="summary-count">
-            <span id="total-label">Total Registrations</span>
-            <strong id="total-count" aria-live="polite">—</strong>
-          </p>
+        <section class="summary-bar" aria-labelledby="total-label investment-label">
+          <div class="summary-stats">
+            <p class="summary-count">
+              <span id="total-label">Total Registrations</span>
+              <strong id="total-count" aria-live="polite">—</strong>
+            </p>
+            <p class="summary-count">
+              <span id="investment-label">Total Proposed Investment</span>
+              <strong id="investment-count" aria-live="polite">—</strong>
+            </p>
+          </div>
           <div class="summary-actions">
             <button id="refresh-registrations" class="btn btn-line" type="button">Refresh</button>
             <button id="export-registrations" class="btn btn-accent" type="button" title="Download the current registrations as a CSV file" disabled>Export CSV</button>
@@ -97,6 +103,7 @@
                   <th scope="col" class="col-serial">S. No.</th>
                   <th scope="col" class="col-registration_id">Registration ID</th>
                   <th scope="col" class="col-full_name">Full Name</th>
+                  <th scope="col" class="col-request_hcm_meeting">HCM Meeting Request</th>
                   <th scope="col">Designation</th>
                   <th scope="col">Organization</th>
                   <th scope="col">Sector</th>
@@ -105,7 +112,6 @@
                   <th scope="col">City</th>
                   <th scope="col">State</th>
                   <th scope="col">Attending As</th>
-                  <th scope="col">HCM Meeting Request</th>
                   <th scope="col">Investment Sector</th>
                   <th scope="col">Proposed Investment</th>
                   <th scope="col">Registration Status</th>

@@ -3,6 +3,7 @@ window.UGC_ADMIN_CONFIG = {
   apiBase: "https://urbangis.mp.gov.in/api/UGC",
   loginPath: "/UGCLogin",
   registrationsPath: "/GetRegistrations",
+  statusPath: "/UpdateRegistrationStatus",
   timeoutMs: 30000,
   pageSize: 20,
   pageSizes: [10, 20, 50, 100],

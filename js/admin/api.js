@@ -134,5 +134,18 @@
     };
   }
 
-  global.UgcAdminApi = { login, getRegistrations, ApiError };
+  async function updateRegistrationStatus(payload) {
+    return post(
+      config.statusPath,
+      {
+        registrationId: payload.registrationId,
+        registrationStatus: payload.registrationStatus,
+        cm_meeting_approval: payload.cm_meeting_approval,
+        updatedBy: payload.updatedBy,
+      },
+      true,
+    );
+  }
+
+  global.UgcAdminApi = { login, getRegistrations, updateRegistrationStatus, ApiError };
 })(window);

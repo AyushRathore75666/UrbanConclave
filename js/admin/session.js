@@ -1,6 +1,7 @@
 /* Keeps the access token for this tab only. Registration records are never written to browser storage. */
 (function (global) {
   const TOKEN_KEY = "ugc-admin-token";
+  const USER_KEY = "ugc-admin-user";
   const NOTICE_KEY = "ugc-admin-notice";
 
   function storage() {
@@ -40,6 +41,7 @@
     if (!store) return;
     try {
       store.removeItem(TOKEN_KEY);
+      store.removeItem(USER_KEY);
     } catch {
       /* Storage can be blocked in private browsing. */
     }
@@ -88,6 +90,31 @@
     return name || "Administrator";
   }
 
+  function setUserId(userId) {
+    const store = storage();
+    if (!store) return;
+    const text = String(userId || "").trim().slice(0, 128);
+    try {
+      if (text) store.setItem(USER_KEY, text);
+      else store.removeItem(USER_KEY);
+    } catch {
+      /* The token remains usable if the user id cannot be stored. */
+    }
+  }
+
+  function userId() {
+    const store = storage();
+    try {
+      const saved = store ? store.getItem(USER_KEY) : "";
+      if (saved && saved.trim()) return saved.trim();
+    } catch {
+      /* Fall through to the token claim. */
+    }
+    const data = claims(getToken());
+    const id = data && typeof data.UserId === "string" ? data.UserId.trim() : "";
+    return id;
+  }
+
   function setNotice(message) {
     const store = storage();
     if (!store) return;
@@ -117,6 +144,8 @@
     setToken,
     clear: clearToken,
     displayName,
+    setUserId,
+    userId,
     isAuthenticated: () => Boolean(getToken()),
     setNotice,
     takeNotice,
