@@ -791,10 +791,34 @@
       + " Z";
   }
 
-  function playPie(svg, wedges) {
+  function playChart(owner, paint, delay, duration) {
     const token = String(Date.now()) + Math.random().toString(16).slice(2);
-    svg.dataset.motion = token;
-    function paint(progress) {
+    owner.dataset.motion = token;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      paint(1);
+      return;
+    }
+    paint(0);
+    const started = performance.now() + Math.max(0, delay || 0);
+    const length = Math.max(1, duration || 1000);
+    function frame(now) {
+      if (owner.dataset.motion !== token || !owner.isConnected) return;
+      if (now < started) {
+        window.requestAnimationFrame(frame);
+        return;
+      }
+      const t = Math.min(1, (now - started) / length);
+      const eased = 1 - Math.pow(1 - t, 3);
+      paint(eased);
+      if (t < 1) window.requestAnimationFrame(frame);
+      else paint(1);
+    }
+    window.requestAnimationFrame(frame);
+  }
+
+  function playPie(svg, wedges, delay, duration) {
+    playChart(svg, (progress) => {
       const amount = Math.max(0, Math.min(1, progress));
       let remaining = amount;
       let cursor = -Math.PI / 2;
@@ -805,58 +829,20 @@
         wedge.node.setAttribute("d", sweep <= 0.001 ? "" : wedgePath(46, cursor, cursor + sweep));
         cursor += wedge.fraction * Math.PI * 2;
       });
-    }
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
-      paint(1);
-      return;
-    }
-    paint(0);
-    const started = performance.now();
-    const duration = 900;
-    function frame(now) {
-      if (svg.dataset.motion !== token || !svg.isConnected) return;
-      const t = Math.min(1, (now - started) / duration);
-      const eased = 1 - Math.pow(1 - t, 3);
-      paint(eased);
-      if (t < 1) window.requestAnimationFrame(frame);
-      else paint(1);
-    }
-    window.requestAnimationFrame(frame);
+    }, delay, duration);
   }
 
-  function playDonut(svg, arcs) {
-    const token = String(Date.now()) + Math.random().toString(16).slice(2);
-    svg.dataset.motion = token;
-    function paint(progress) {
+  function playDonut(svg, arcs, delay, duration) {
+    playChart(svg, (progress) => {
       const amount = Math.max(0, Math.min(1, progress));
       arcs.forEach((arc) => {
         arc.node.setAttribute("stroke-dashoffset", (arc.length * (1 - arc.fraction * amount)).toFixed(2));
       });
-    }
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
-      paint(1);
-      return;
-    }
-    paint(0);
-    const started = performance.now();
-    const duration = 900;
-    function frame(now) {
-      if (svg.dataset.motion !== token || !svg.isConnected) return;
-      const t = Math.min(1, (now - started) / duration);
-      const eased = 1 - Math.pow(1 - t, 3);
-      paint(eased);
-      if (t < 1) window.requestAnimationFrame(frame);
-      else paint(1);
-    }
-    window.requestAnimationFrame(frame);
+    }, delay, duration);
   }
 
-  function playBars(root, bars) {
-    const token = String(Date.now()) + Math.random().toString(16).slice(2);
-    root.dataset.motion = token;
-    function paint(progress) {
+  function playBars(root, bars, delay, duration) {
+    playChart(root, (progress) => {
       const amount = Math.max(0, Math.min(1, progress));
       bars.forEach((bar) => {
         const height = bar.height * amount;
@@ -864,24 +850,7 @@
         bar.node.setAttribute("y", (bar.base - height).toFixed(2));
         if (bar.valueText) bar.valueText.setAttribute("y", (bar.base - height - 6).toFixed(2));
       });
-    }
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
-      paint(1);
-      return;
-    }
-    paint(0);
-    const started = performance.now();
-    const duration = 900;
-    function frame(now) {
-      if (root.dataset.motion !== token || !root.isConnected) return;
-      const t = Math.min(1, (now - started) / duration);
-      const eased = 1 - Math.pow(1 - t, 3);
-      paint(eased);
-      if (t < 1) window.requestAnimationFrame(frame);
-      else paint(1);
-    }
-    window.requestAnimationFrame(frame);
+    }, delay, duration);
   }
 
   let chartStamp = "";
@@ -906,7 +875,11 @@
       { key: "investment", unit: "registrations", kind: "bar", read: (row) => choiceLabels(row, ["hcm_investment_sector", "hcmInvestmentSector"], INVESTMENT_OPTIONS), options: INVESTMENT_OPTIONS },
       { key: "state", unit: "registrations", read: (row) => choiceLabels(row, ["state"], STATE_OPTIONS), options: STATE_OPTIONS },
     ];
+    const chartWave = { attending: 0, sector: 1, state: 2, plenary: 3, investment: 4 };
     charts.forEach((chart) => {
+      const chartOrder = chartWave[chart.key] || 0;
+      const chartDelay = chartOrder * 150;
+      const chartDuration = 1000 + chartOrder * 250;
       const slot = document.querySelector('.pie-slot[data-chart="' + chart.key + '"]');
       if (!slot) return;
       slot.replaceChildren();
@@ -962,6 +935,7 @@
         const barW = Math.min(26, slotW * 0.48);
         const svg = svgNode("svg");
         svg.setAttribute("class", "column-chart");
+        svg.dataset.chartOrder = String(chartWave[chart.key] || 0);
         svg.setAttribute("viewBox", "0 0 " + vbW + " " + vbH);
         svg.setAttribute("role", "img");
         svg.setAttribute("aria-label", slices.map((slice) => slice.label + " " + slice.value).join(", "));
@@ -1059,7 +1033,7 @@
         legend.addEventListener("mouseleave", () => focusBar(null));
         layout.append(legend, svg, summary);
         slot.appendChild(layout);
-        playBars(svg, bars);
+        playBars(svg, bars, chartDelay, chartDuration);
         return;
       }
       const donut = chart.kind === "donut";
@@ -1068,6 +1042,7 @@
       layout.className = donut ? "pie-layout is-donut" : ring ? "pie-layout is-ring" : "pie-layout";
       const visual = document.createElement("div");
       visual.className = !donut && !ring && drawn.length === 1 ? "pie-visual is-solo" : "pie-visual";
+      visual.dataset.chartOrder = String(chartWave[chart.key] || 0);
       const svg = svgNode("svg");
       svg.setAttribute("class", "pie-svg");
       svg.setAttribute("viewBox", "0 0 100 100");
@@ -1118,7 +1093,7 @@
           arcs.push({ node: arc, length: length, fraction: visible });
           cursor += fraction;
         });
-        playDonut(svg, arcs);
+        playDonut(svg, arcs, chartDelay, chartDuration);
       } else if (donut) {
         const outer = 46;
         const gap = drawn.length > 6 ? 1.15 : 2.1;
@@ -1162,7 +1137,7 @@
           arcs.push({ node: arc, length: length, fraction: fraction });
           radius -= width + gap;
         });
-        playDonut(svg, arcs);
+        playDonut(svg, arcs, chartDelay, chartDuration);
       } else {
         const wedges = [];
         drawn.forEach((slice, index) => {
@@ -1177,7 +1152,7 @@
           svg.appendChild(path);
           wedges.push({ node: path, fraction: total ? slice.value / total : 0 });
         });
-        playPie(svg, wedges);
+        playPie(svg, wedges, chartDelay, chartDuration);
       }
       visual.appendChild(svg);
       if (ring) {
