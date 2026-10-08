@@ -246,15 +246,14 @@
   }
 
   const sessionMap = [
-    ["plenary", "plenarySession", "Plenary Session"],
-    ["panel-1", "panel1", "Panel 1: Beyond Metros: Re-densification, TOD & TDR as Catalysts for Tier-2 Urban Growth"],
-    ["panel-2", "panel2", "Panel 2: Reimagining Urban Governance: Master Planning, Regulatory Reforms & Ease of Approvals"],
-    ["panel-3", "panel3", "Panel 3: Building Climate-Smart Cities: Water Security, Circular Economy & Green Urban Futures"],
-    ["panel-4", "panel4", "Panel 4: Urban Financing & Investment in Madhya Pradesh: Opportunities & Reforms"],
-    ["simhastha", "panel5", "Panel 5: Simhastha: Preparing Ujjain for the Sacred Gathering"],
-    ["solar", "panel6", "Panel 6: Solar: Clean Energy for Madhya Pradesh's Cities"],
-    ["hackathon", "panel7", "Panel 7: Hackathon: Building Ideas for Smarter Cities"],
-    ["one-to-one", "panel8", "Panel 8: Meet one to one leadership"],
+    ["panel-1", "panel1", "Beyond Metros"],
+    ["panel-2", "panel2", "Reimagining Urban Governance"],
+    ["panel-3", "panel3", "Building Climate-Smart Cities"],
+    ["panel-4", "panel4", "Urban Financing & Investment in Madhya Pradesh"],
+    ["simhastha", "panel5", "Simhastha"],
+    ["solar", "panel6", "Solar"],
+    ["hackathon", "panel7", "Hackathon"],
+    ["one-to-one", "panel8", "Meet one to one leadership"],
   ];
 
   function selectedText(name) {
@@ -359,7 +358,7 @@
 
   const params = new URLSearchParams(location.search);
   const initialSession = params.get("session") || params.get("sector");
-  const allowed = new Set(["plenary", ...[...form.querySelectorAll("input[name='sessions']")].map((input) => input.value)]);
+  const allowed = new Set([...form.querySelectorAll("input[name='sessions']")].map((input) => input.value));
   if (initialSession && allowed.has(initialSession)) {
     const box = form.querySelector("input[name='sessions'][value='" + initialSession + "']");
     if (box) box.checked = true;
