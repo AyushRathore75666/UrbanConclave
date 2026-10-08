@@ -40,23 +40,47 @@
 
       <main id="main" class="dashboard-main">
         <section class="summary-bar" aria-label="Registration summary">
-          <div class="summary-stats">
-            <p class="summary-count">
-              <span id="total-label">Total Registrations</span>
-              <strong id="total-count" aria-live="polite">—</strong>
-            </p>
-            <p class="summary-count">
-              <span id="investment-label">Total Proposed Investment</span>
-              <strong id="investment-total" aria-live="polite">—</strong>
-            </p>
-            <p class="summary-count">
-              <span id="hcm-label">HCM Meeting Requests</span>
-              <strong id="hcm-count" aria-live="polite">—</strong>
-            </p>
+          <div class="summary-top">
+            <div class="summary-stats">
+              <p class="summary-count">
+                <span id="total-label">Total Registrations</span>
+                <strong id="total-count" aria-live="polite">—</strong>
+              </p>
+              <p class="summary-count">
+                <span id="investment-label">Total Proposed Investment</span>
+                <strong id="investment-total" aria-live="polite">—</strong>
+              </p>
+              <p class="summary-count">
+                <span id="hcm-label">HCM Meeting Requests</span>
+                <strong id="hcm-count" aria-live="polite">—</strong>
+              </p>
+            </div>
+            <div class="summary-actions">
+              <button id="refresh-registrations" class="btn btn-line" type="button">Refresh</button>
+              <button id="export-registrations" class="btn btn-accent" type="button" title="Download the current registrations as a CSV file" disabled>Export CSV</button>
+            </div>
           </div>
-          <div class="summary-actions">
-            <button id="refresh-registrations" class="btn btn-line" type="button">Refresh</button>
-            <button id="export-registrations" class="btn btn-accent" type="button" title="Download the current registrations as a CSV file" disabled>Export CSV</button>
+          <div class="summary-charts">
+            <figure class="pie-card">
+              <figcaption>Attending As</figcaption>
+              <div class="pie-slot" data-chart="attending">—</div>
+            </figure>
+            <figure class="pie-card">
+              <figcaption>Sector / Interested</figcaption>
+              <div class="pie-slot" data-chart="sector">—</div>
+            </figure>
+            <figure class="pie-card">
+              <figcaption>Select Plenary Session</figcaption>
+              <div class="pie-slot" data-chart="plenary">—</div>
+            </figure>
+            <figure class="pie-card">
+              <figcaption>Investment Sector</figcaption>
+              <div class="pie-slot" data-chart="investment">—</div>
+            </figure>
+            <figure class="pie-card">
+              <figcaption>State</figcaption>
+              <div class="pie-slot" data-chart="state">—</div>
+            </figure>
           </div>
         </section>
 
@@ -105,20 +129,20 @@
               <thead>
                 <tr>
                   <th scope="col" class="col-serial">S. No.</th>
-                  <th scope="col" class="col-registration_id">Registration ID</th>
                   <th scope="col" class="col-full_name">Full Name</th>
+                  <th scope="col" class="col-mobile_number">Mobile Number</th>
+                  <th scope="col" class="col-email_id">Email</th>
                   <th scope="col">HCM Meeting Request &amp; Approval</th>
-                  <th scope="col">Designation</th>
                   <th scope="col">Organization</th>
+                  <th scope="col">Designation</th>
                   <th scope="col">Sector</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Mobile Number</th>
+                  <th scope="col" class="col-registration_id">Registration ID</th>
+                  <th scope="col">Registration Status</th>
                   <th scope="col">City</th>
                   <th scope="col">State</th>
                   <th scope="col">Attending As</th>
                   <th scope="col">Investment Sector</th>
                   <th scope="col">Proposed Investment</th>
-                  <th scope="col">Registration Status</th>
                   <th scope="col">Created Date</th>
                   <th scope="col" class="col-action">Details</th>
                 </tr>

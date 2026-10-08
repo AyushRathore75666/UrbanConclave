@@ -90,21 +90,90 @@
   ];
 
   const TABLE_COLUMNS = [
-    ["registration_id", "Registration ID"],
     ["full_name", "Full Name"],
-    ["request_hcm_meeting", "HCM Meeting Request & Approval"],
-    ["designation", "Designation"],
-    ["organization", "Organization"],
-    ["sector", "Sector"],
-    ["email_id", "Email"],
     ["mobile_number", "Mobile Number"],
+    ["email_id", "Email"],
+    ["request_hcm_meeting", "HCM Meeting Request & Approval"],
+    ["organization", "Organization"],
+    ["designation", "Designation"],
+    ["sector", "Sector"],
+    ["registration_id", "Registration ID"],
+    ["registration_status", "Registration Status"],
     ["city", "City"],
     ["state", "State"],
     ["attending_as", "Attending As"],
     ["hcm_investment_sector", "Investment Sector"],
     ["proposed_investment_crore", "Proposed Investment"],
-    ["registration_status", "Registration Status"],
     ["created_date_india", "Created Date"],
+  ];
+
+  const CHART_COLORS = ["#0b1f3a", "#9a3412", "#1d6a4f", "#c2410c", "#315a86", "#8a5a12", "#5c3d6e", "#0f6e6e", "#a33b4a", "#4d5d2e", "#6b4f3a", "#245c7a"];
+
+  const ATTENDING_OPTIONS = [
+    ["investor", "Investor"],
+    ["developer", "Developer"],
+    ["infrastructure", "Infrastructure Company"],
+    ["startup", "Startup"],
+    ["association", "Industry Association"],
+    ["consultant", "Consultant"],
+    ["government", "Government Official"],
+    ["academia", "Academia"],
+    ["other", "Other"],
+  ];
+
+  const SECTOR_OPTIONS = [
+    ["government-public", "Government & Public Sector"],
+    ["real-estate", "Real Estate & Township"],
+    ["urban-infrastructure", "Urban Infrastructure & Mobility"],
+    ["sustainability", "Sustainability & Waste Management"],
+    ["finance", "Finance & Investment"],
+    ["technology", "Technology & Smart Governance"],
+    ["other", "Other"],
+  ];
+
+  const PLENARY_OPTIONS = [
+    ["panel-1", "Beyond Metros"],
+    ["panel-2", "Reimagining Urban Governance"],
+    ["panel-3", "Building Climate-Smart Cities"],
+    ["panel-4", "Urban Financing & Investment in Madhya Pradesh"],
+    ["simhastha", "Simhastha"],
+    ["solar", "Solar"],
+    ["hackathon", "Hackathon"],
+    ["one-to-one", "Meet one to one leadership"],
+  ];
+
+  const PLENARY_FIELDS = [
+    [["panel_1", "panel1"], "Beyond Metros"],
+    [["panel_2", "panel2"], "Reimagining Urban Governance"],
+    [["panel_3", "panel3"], "Building Climate-Smart Cities"],
+    [["panel_4", "panel4"], "Urban Financing & Investment in Madhya Pradesh"],
+    [["panel_5", "panel5"], "Simhastha"],
+    [["panel_6", "panel6"], "Solar"],
+    [["panel_7", "panel7"], "Hackathon"],
+    [["panel_8", "panel8"], "Meet one to one leadership"],
+  ];
+
+  const INVESTMENT_OPTIONS = [
+    ["Public", "Public"],
+    ["Private", "Private"],
+    ["State Government", "State Government"],
+    ["Semi Government", "Semi Government"],
+    ["Central Government", "Central Government"],
+    ["Public Sector Undertaking", "Public Sector Undertaking"],
+    ["Other", "Other"],
+  ];
+
+  const STATE_OPTIONS = [
+    ["Madhya Pradesh", "Madhya Pradesh"],
+    ["Maharashtra", "Maharashtra"],
+    ["Delhi NCR", "Delhi NCR"],
+    ["Gujarat", "Gujarat"],
+    ["Karnataka", "Karnataka"],
+    ["Telangana", "Telangana"],
+    ["Uttar Pradesh", "Uttar Pradesh"],
+    ["Rajasthan", "Rajasthan"],
+    ["Tamil Nadu", "Tamil Nadu"],
+    ["Other State / UT", "Other State / UT"],
   ];
 
   const WIDE_FIELDS = new Set(["brief_meeting_agenda"]);
@@ -500,6 +569,187 @@
     renderStatus();
     renderPagination();
     renderTable();
+    renderCharts();
+  }
+
+  function fieldValue(row, keys) {
+    for (let index = 0; index < keys.length; index += 1) {
+      const value = row[keys[index]];
+      if (!blank(value)) return value;
+    }
+    return "";
+  }
+
+  function matchOption(text, options) {
+    const lower = String(text || "").trim().toLowerCase();
+    if (!lower) return "";
+    for (let index = 0; index < options.length; index += 1) {
+      if (options[index][0].toLowerCase() === lower || options[index][1].toLowerCase() === lower) return options[index][1];
+    }
+    return "";
+  }
+
+  function selectionText(value) {
+    if (value === true) return "yes";
+    if (value === false || value == null) return "";
+    const text = String(value).trim();
+    const lower = text.toLowerCase();
+    if (!text || lower === "no" || lower === "false" || lower === "0") return "";
+    if (lower === "yes" || lower === "true" || lower === "1") return "yes";
+    return text;
+  }
+
+  function choiceLabels(row, keys, options) {
+    const raw = fieldValue(row, keys);
+    if (blank(raw) || typeof raw === "boolean") return [];
+    const text = String(raw).trim();
+    return [matchOption(text, options) || text];
+  }
+
+  function plenaryLabels(row) {
+    const labels = [];
+    const seen = new Set();
+    function add(label) {
+      const text = String(label || "").trim();
+      const key = text.toLowerCase();
+      if (!text || seen.has(key)) return;
+      seen.add(key);
+      labels.push(text);
+    }
+    PLENARY_FIELDS.forEach(([keys, label]) => {
+      const selected = selectionText(fieldValue(row, keys));
+      if (!selected) return;
+      add(selected === "yes" ? label : matchOption(selected, PLENARY_OPTIONS) || selected);
+    });
+    String(fieldValue(row, ["plenary_session", "plenarySession"]) || "")
+      .split(/[,;|]/)
+      .forEach((part) => {
+        const selected = selectionText(part);
+        if (!selected || selected === "yes") return;
+        add(matchOption(selected, PLENARY_OPTIONS) || selected);
+      });
+    return labels;
+  }
+
+  function tallyChoices(rows, readLabels, options) {
+    const counts = new Map();
+    options.forEach((option) => counts.set(option[1], 0));
+    const extras = new Map();
+    rows.forEach((row) => {
+      readLabels(row).forEach((label) => {
+        if (counts.has(label)) counts.set(label, counts.get(label) + 1);
+        else extras.set(label, (extras.get(label) || 0) + 1);
+      });
+    });
+    const slices = [];
+    counts.forEach((value, label) => slices.push({ label, value }));
+    extras.forEach((value, label) => {
+      if (value > 0) slices.push({ label, value });
+    });
+    return slices;
+  }
+
+  function wedgePath(cx, cy, radius, start, end) {
+    const x1 = cx + radius * Math.cos(start);
+    const y1 = cy + radius * Math.sin(start);
+    const x2 = cx + radius * Math.cos(end);
+    const y2 = cy + radius * Math.sin(end);
+    const large = end - start > Math.PI ? 1 : 0;
+    return "M " + cx + " " + cy + " L " + x1.toFixed(2) + " " + y1.toFixed(2) + " A " + radius + " " + radius + " 0 " + large + " 1 " + x2.toFixed(2) + " " + y2.toFixed(2) + " Z";
+  }
+
+  function svgNode(name) {
+    return document.createElementNS("http://www.w3.org/2000/svg", name);
+  }
+
+  function renderCharts() {
+    const charts = [
+      { key: "attending", unit: "registrations", read: (row) => choiceLabels(row, ["attending_as", "attendingAs"], ATTENDING_OPTIONS), options: ATTENDING_OPTIONS },
+      { key: "sector", unit: "registrations", read: (row) => choiceLabels(row, ["sector"], SECTOR_OPTIONS), options: SECTOR_OPTIONS },
+      { key: "plenary", unit: "selections", read: plenaryLabels, options: PLENARY_OPTIONS },
+      { key: "investment", unit: "registrations", read: (row) => choiceLabels(row, ["hcm_investment_sector", "hcmInvestmentSector"], INVESTMENT_OPTIONS), options: INVESTMENT_OPTIONS },
+      { key: "state", unit: "registrations", read: (row) => choiceLabels(row, ["state"], STATE_OPTIONS), options: STATE_OPTIONS },
+    ];
+    charts.forEach((chart) => {
+      const slot = document.querySelector('.pie-slot[data-chart="' + chart.key + '"]');
+      if (!slot) return;
+      slot.replaceChildren();
+      if (!state.loaded) {
+        const waiting = document.createElement("p");
+        waiting.className = "pie-empty";
+        waiting.textContent = state.loading ? "Loading…" : "—";
+        slot.appendChild(waiting);
+        return;
+      }
+      const slices = tallyChoices(state.rows, chart.read, chart.options);
+      const drawn = slices.filter((slice) => slice.value > 0);
+      const total = drawn.reduce((sum, slice) => sum + slice.value, 0);
+      const layout = document.createElement("div");
+      layout.className = "pie-layout";
+      const svg = svgNode("svg");
+      svg.setAttribute("class", "pie-svg");
+      svg.setAttribute("viewBox", "0 0 100 100");
+      svg.setAttribute("role", "img");
+      svg.setAttribute("aria-label", slices.map((slice) => slice.label + " " + slice.value).join(", "));
+      if (!drawn.length) {
+        const circle = svgNode("circle");
+        circle.setAttribute("cx", "50");
+        circle.setAttribute("cy", "50");
+        circle.setAttribute("r", "46");
+        circle.setAttribute("fill", "#e7e4de");
+        const title = svgNode("title");
+        title.textContent = "No responses yet";
+        circle.appendChild(title);
+        svg.appendChild(circle);
+      } else if (drawn.length === 1) {
+        const circle = svgNode("circle");
+        circle.setAttribute("cx", "50");
+        circle.setAttribute("cy", "50");
+        circle.setAttribute("r", "46");
+        circle.setAttribute("fill", CHART_COLORS[0]);
+        const title = svgNode("title");
+        title.textContent = drawn[0].label + ": " + drawn[0].value;
+        circle.appendChild(title);
+        svg.appendChild(circle);
+      } else {
+        let angle = -Math.PI / 2;
+        drawn.forEach((slice, index) => {
+          const sweep = (slice.value / total) * Math.PI * 2;
+          const path = svgNode("path");
+          path.setAttribute("d", wedgePath(50, 50, 46, angle, angle + sweep));
+          path.setAttribute("fill", CHART_COLORS[index % CHART_COLORS.length]);
+          const title = svgNode("title");
+          title.textContent = slice.label + ": " + slice.value;
+          path.appendChild(title);
+          svg.appendChild(path);
+          angle += sweep;
+        });
+      }
+      const legend = document.createElement("ul");
+      legend.className = "pie-legend";
+      slices.forEach((slice) => {
+        const drawnIndex = drawn.findIndex((item) => item.label === slice.label);
+        const item = document.createElement("li");
+        if (!slice.value) item.className = "is-zero";
+        const swatch = document.createElement("span");
+        swatch.className = "pie-swatch";
+        if (drawnIndex >= 0) swatch.dataset.color = String(drawnIndex % CHART_COLORS.length);
+        else swatch.classList.add("is-zero");
+        const name = document.createElement("span");
+        name.className = "pie-label";
+        name.textContent = slice.label;
+        const count = document.createElement("span");
+        count.className = "pie-count";
+        count.textContent = numberFormat.format(slice.value);
+        item.append(swatch, name, count);
+        legend.appendChild(item);
+      });
+      const summary = document.createElement("p");
+      summary.className = "pie-total";
+      summary.textContent = numberFormat.format(total) + " " + chart.unit;
+      layout.append(svg, legend, summary);
+      slot.appendChild(layout);
+    });
   }
 
   function readFilters() {

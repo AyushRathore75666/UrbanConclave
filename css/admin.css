@@ -303,10 +303,122 @@ p {
 
 .summary-bar {
   display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.summary-top {
+  display: flex;
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
   gap: 0.85rem;
+}
+
+.summary-charts {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.85rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--line);
+}
+
+.pie-card {
+  min-width: 0;
+  margin: 0;
+}
+
+.pie-card figcaption {
+  margin-bottom: 0.55rem;
+  color: var(--mute);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.pie-layout {
+  display: grid;
+  grid-template-columns: 5.6rem minmax(0, 1fr);
+  gap: 0.45rem 0.55rem;
+  align-items: start;
+}
+
+.pie-svg {
+  width: 5.6rem;
+  height: 5.6rem;
+  display: block;
+}
+
+.pie-total {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--mute);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.pie-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pie-legend li.is-zero .pie-label,
+.pie-legend li.is-zero .pie-count {
+  color: #6d7b8c;
+}
+
+.pie-swatch.is-zero {
+  background: #d5dbe3;
+}
+
+.pie-legend li {
+  display: grid;
+  grid-template-columns: 0.55rem minmax(0, 1fr) auto;
+  gap: 0.3rem;
+  align-items: start;
+  margin-bottom: 0.28rem;
+  font-size: 0.72rem;
+  line-height: 1.25;
+}
+
+.pie-swatch {
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-top: 0.18rem;
+  border-radius: 0.12rem;
+  background: #0b1f3a;
+}
+
+.pie-swatch[data-color="1"] { background: #9a3412; }
+.pie-swatch[data-color="2"] { background: #1d6a4f; }
+.pie-swatch[data-color="3"] { background: #c2410c; }
+.pie-swatch[data-color="4"] { background: #315a86; }
+.pie-swatch[data-color="5"] { background: #8a5a12; }
+.pie-swatch[data-color="6"] { background: #5c3d6e; }
+.pie-swatch[data-color="7"] { background: #0f6e6e; }
+.pie-swatch[data-color="8"] { background: #a33b4a; }
+.pie-swatch[data-color="9"] { background: #4d5d2e; }
+.pie-swatch[data-color="10"] { background: #6b4f3a; }
+.pie-swatch[data-color="11"] { background: #245c7a; }
+
+.pie-label {
+  overflow-wrap: anywhere;
+}
+
+.pie-count {
+  color: var(--navy-900);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.pie-empty {
+  margin: 0;
+  color: var(--mute);
+  font-size: 0.82rem;
+  font-weight: 700;
 }
 
 .summary-stats {
@@ -461,9 +573,6 @@ p {
   overflow-wrap: anywhere;
 }
 
-.admin-table .col-serial,
-.admin-table .col-registration_id,
-.admin-table .col-mobile_number,
 .admin-table .col-request_hcm_meeting,
 .admin-table .col-action {
   white-space: nowrap;
@@ -559,40 +668,60 @@ p {
 }
 
 .admin-table .col-serial,
-.admin-table .col-registration_id,
-.admin-table .col-full_name {
+.admin-table .col-full_name,
+.admin-table .col-mobile_number,
+.admin-table .col-email_id {
   position: sticky;
   z-index: 1;
+  padding-right: 0.4rem;
+  padding-left: 0.4rem;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 .admin-table .col-serial {
   left: 0;
-  width: 5.5rem;
-  min-width: 5.5rem;
-  max-width: 5.5rem;
-  text-align: right;
+  width: 3.15rem;
+  min-width: 3.15rem;
+  max-width: 3.15rem;
+  padding-left: 0.45rem;
+  text-align: left;
 }
 
 .admin-table .col-registration_id {
-  left: 5.5rem;
   width: 10.5rem;
   min-width: 10.5rem;
   max-width: 10.5rem;
+  white-space: normal;
+  overflow-wrap: break-word;
 }
 
 .admin-table .col-full_name {
-  left: 16rem;
-  width: 12rem;
-  min-width: 12rem;
-  max-width: 12rem;
-  white-space: normal;
-  overflow-wrap: anywhere;
+  left: 3.15rem;
+  width: 7.75rem;
+  min-width: 7.75rem;
+  max-width: 7.75rem;
+}
+
+.admin-table .col-mobile_number {
+  left: 10.9rem;
+  width: 6.6rem;
+  min-width: 6.6rem;
+  max-width: 6.6rem;
+}
+
+.admin-table .col-email_id {
+  left: 17.5rem;
+  width: 9.25rem;
+  min-width: 9.25rem;
+  max-width: 9.25rem;
   box-shadow: 1px 0 0 rgba(11, 31, 58, 0.08);
 }
 
 .admin-table th.col-serial,
-.admin-table th.col-registration_id,
-.admin-table th.col-full_name {
+.admin-table th.col-full_name,
+.admin-table th.col-mobile_number,
+.admin-table th.col-email_id {
   z-index: 4;
   background: #f6f3ed;
 }
@@ -775,20 +904,32 @@ p {
   font-weight: 700;
 }
 
+@media (max-width: 1180px) {
+  .summary-charts {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 980px) {
   .filter-grid {
     grid-template-columns: 1fr;
   }
 
   .admin-table .col-serial,
-  .admin-table .col-registration_id,
-  .admin-table .col-full_name {
+  .admin-table .col-full_name,
+  .admin-table .col-mobile_number,
+  .admin-table .col-email_id {
     position: static;
+    left: auto;
     box-shadow: none;
   }
 }
 
 @media (max-width: 720px) {
+  .summary-charts {
+    grid-template-columns: 1fr;
+  }
+
   .admin-session {
     width: 100%;
     margin-left: 0;
