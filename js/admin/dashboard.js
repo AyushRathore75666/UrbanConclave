@@ -603,10 +603,10 @@
     investmentLabel.textContent = filtered ? "Matching proposed investment" : "Total Proposed Investment";
     hcmLabel.textContent = filtered ? "Matching HCM meeting requests" : "Total HCM Meeting Requests";
     hcmApprovedLabel.textContent = filtered ? "Matching HCM meetings approved" : "HCM Meeting Approved by Department";
-    setRollingStat(totalCount, state.loaded ? numberFormat.format(state.totalRecords) : "—");
-    setRollingStat(investmentTotal, state.loaded ? numberFormat.format(proposedInvestmentTotal()) + " crore" : "—");
-    setRollingStat(hcmCount, state.loaded ? numberFormat.format(hcmRequestCount()) : "—");
-    setRollingStat(hcmApprovedCount, state.loaded ? numberFormat.format(departmentApprovedCount()) : "—");
+    setRollingStat(totalCount, state.loaded ? numberFormat.format(state.totalRecords) : "—", 0);
+    setRollingStat(investmentTotal, state.loaded ? numberFormat.format(proposedInvestmentTotal()) + " crore" : "—", 1);
+    setRollingStat(hcmCount, state.loaded ? numberFormat.format(hcmRequestCount()) : "—", 2);
+    setRollingStat(hcmApprovedCount, state.loaded ? numberFormat.format(departmentApprovedCount()) : "—", 3);
     filterNote.hidden = !filtersActive();
     exportButton.disabled = state.loading || state.exporting || !state.rows.length;
     exportButton.textContent = state.exporting ? "Exporting CSV…" : "Export CSV";
@@ -704,9 +704,11 @@
     return Number.isFinite(value) ? value : null;
   }
 
-  function setRollingStat(el, text) {
+  function setRollingStat(el, text, order) {
     const previous = el.dataset.value || "";
     if (previous === text) return;
+    const stagger = Math.max(0, Number(order) || 0);
+    el.dataset.statOrder = String(stagger);
     el.dataset.value = text;
     el.setAttribute("aria-label", text);
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -765,7 +767,7 @@
       el.dataset.rolling = "0";
       el.classList.remove("is-ticking");
       el.textContent = text;
-    }, 1200);
+    }, 1200 + stagger * 150);
   }
 
   function wedgePath(radius, start, end) {

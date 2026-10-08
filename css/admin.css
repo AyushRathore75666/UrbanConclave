@@ -715,8 +715,12 @@ p {
   transform-origin: left bottom;
 }
 
+.summary-count strong[data-stat-order="1"] { --stat-delay: 0.15s; }
+.summary-count strong[data-stat-order="2"] { --stat-delay: 0.3s; }
+.summary-count strong[data-stat-order="3"] { --stat-delay: 0.45s; }
+
 .summary-count strong.is-ticking {
-  animation: stat-pop 0.72s cubic-bezier(0.22, 1.35, 0.36, 1);
+  animation: stat-pop 0.72s cubic-bezier(0.22, 1.35, 0.36, 1) var(--stat-delay, 0s) forwards;
 }
 
 .stat-roll {
@@ -748,15 +752,16 @@ p {
   animation-duration: 0.72s;
   animation-timing-function: cubic-bezier(0.22, 1.2, 0.36, 1);
   animation-fill-mode: forwards;
+  animation-delay: var(--stat-delay, 0s);
 }
 
-.stat-digit:nth-child(2) .stat-digit-strip { animation-delay: 0.06s; }
-.stat-digit:nth-child(3) .stat-digit-strip { animation-delay: 0.12s; }
-.stat-digit:nth-child(4) .stat-digit-strip { animation-delay: 0.18s; }
-.stat-digit:nth-child(5) .stat-digit-strip { animation-delay: 0.24s; }
-.stat-digit:nth-child(6) .stat-digit-strip { animation-delay: 0.3s; }
-.stat-digit:nth-child(7) .stat-digit-strip { animation-delay: 0.36s; }
-.stat-digit:nth-child(8) .stat-digit-strip { animation-delay: 0.42s; }
+.stat-digit:nth-child(2) .stat-digit-strip { animation-delay: calc(var(--stat-delay, 0s) + 0.06s); }
+.stat-digit:nth-child(3) .stat-digit-strip { animation-delay: calc(var(--stat-delay, 0s) + 0.12s); }
+.stat-digit:nth-child(4) .stat-digit-strip { animation-delay: calc(var(--stat-delay, 0s) + 0.18s); }
+.stat-digit:nth-child(5) .stat-digit-strip { animation-delay: calc(var(--stat-delay, 0s) + 0.24s); }
+.stat-digit:nth-child(6) .stat-digit-strip { animation-delay: calc(var(--stat-delay, 0s) + 0.3s); }
+.stat-digit:nth-child(7) .stat-digit-strip { animation-delay: calc(var(--stat-delay, 0s) + 0.36s); }
+.stat-digit:nth-child(8) .stat-digit-strip { animation-delay: calc(var(--stat-delay, 0s) + 0.42s); }
 
 .stat-digit-strip.is-up {
   animation-name: digit-up;
