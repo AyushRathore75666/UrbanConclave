@@ -210,6 +210,8 @@
   const localClearButton = document.getElementById("clear-local-filters");
   const pagination = document.getElementById("pagination");
   const pageNumbers = document.getElementById("page-numbers");
+  const pageJumpForm = document.getElementById("page-jump");
+  const pageJumpInput = document.getElementById("page-jump-input");
   const dialog = document.getElementById("detail-dialog");
   const dialogTitle = document.getElementById("detail-title");
   const dialogBody = document.getElementById("detail-body");
@@ -518,6 +520,8 @@
     pagination.querySelector("[data-page='prev']").disabled = state.page <= 1;
     pagination.querySelector("[data-page='next']").disabled = state.page >= pages;
     pagination.querySelector("[data-page='last']").disabled = state.page >= pages;
+    pageJumpInput.max = String(pages);
+    pageJumpInput.value = String(state.page);
     const numbers = document.createDocumentFragment();
     visiblePages(state.page, pages).forEach((page) => {
       const button = document.createElement("button");
@@ -1481,6 +1485,20 @@
         if (!Number.isInteger(page) || page < 1 || page > pages || page === state.page) return;
         state.page = page;
       }
+      render();
+      tablePanel.scrollIntoView({ block: "nearest" });
+    });
+
+    pageJumpForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const pages = pageCount();
+      const page = Number(pageJumpInput.value);
+      if (!Number.isInteger(page) || page < 1 || page > pages) {
+        pageJumpInput.value = String(state.page);
+        return;
+      }
+      if (page === state.page) return;
+      state.page = page;
       render();
       tablePanel.scrollIntoView({ block: "nearest" });
     });

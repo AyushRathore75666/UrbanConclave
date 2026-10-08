@@ -1121,9 +1121,43 @@ p {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem 1rem;
+  margin-top: 0.85rem;
+}
+
+.page-jump {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--mute);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.page-jump input {
+  width: 4.6rem;
+  border: 1px solid rgba(11, 31, 58, 0.22);
+  border-radius: 0.4rem;
+  background: #fff;
+  color: var(--navy-900);
+  padding: 0.35rem 0.45rem;
+  font-weight: 700;
+}
+
+.page-jump input:focus {
+  border-color: var(--navy-900);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(154, 52, 18, 0.22);
+}
+
+.page-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: flex-end;
   gap: 0.5rem;
-  margin-top: 0.85rem;
+  margin-left: auto;
 }
 
 .page-numbers {

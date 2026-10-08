@@ -180,11 +180,18 @@
             </table>
           </div>
           <nav id="pagination" class="pagination" aria-label="Registration pages" hidden>
-            <button class="btn btn-line btn-small" type="button" data-page="first">First</button>
-            <button class="btn btn-line btn-small" type="button" data-page="prev">Previous</button>
-            <div id="page-numbers" class="page-numbers"></div>
-            <button class="btn btn-line btn-small" type="button" data-page="next">Next</button>
-            <button class="btn btn-line btn-small" type="button" data-page="last">Last</button>
+            <form id="page-jump" class="page-jump" novalidate>
+              <label for="page-jump-input">Jump to page</label>
+              <input id="page-jump-input" type="number" min="1" step="1" inputmode="numeric">
+              <button class="btn btn-line btn-small" type="submit">Go</button>
+            </form>
+            <div class="page-nav">
+              <button class="btn btn-line btn-small" type="button" data-page="first">First</button>
+              <button class="btn btn-line btn-small" type="button" data-page="prev">Previous</button>
+              <div id="page-numbers" class="page-numbers"></div>
+              <button class="btn btn-line btn-small" type="button" data-page="next">Next</button>
+              <button class="btn btn-line btn-small" type="button" data-page="last">Last</button>
+            </div>
           </nav>
         </section>
       </main>
