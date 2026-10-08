@@ -107,7 +107,7 @@
     ["created_date_india", "Created Date"],
   ];
 
-  const CHART_COLORS = ["#0b1f3a", "#9a3412", "#1d6a4f", "#c2410c", "#315a86", "#8a5a12", "#5c3d6e", "#0f6e6e", "#a33b4a", "#4d5d2e", "#6b4f3a", "#245c7a"];
+  const CHART_COLORS = ["#5B7CFA", "#F4A574", "#C4B5FD", "#7ED0C4", "#F6C453", "#F09AB8", "#8EC5F6", "#A9D48C", "#F0A3A3", "#C6B39A", "#9BB6E0", "#E3B4E6"];
 
   const ATTENDING_OPTIONS = [
     ["investor", "Investor"],
@@ -189,6 +189,8 @@
   const investmentTotal = document.getElementById("investment-total");
   const hcmLabel = document.getElementById("hcm-label");
   const hcmCount = document.getElementById("hcm-count");
+  const hcmApprovedLabel = document.getElementById("hcm-approved-label");
+  const hcmApprovedCount = document.getElementById("hcm-approved-count");
   const refreshButton = document.getElementById("refresh-registrations");
   const exportButton = document.getElementById("export-registrations");
   const filterForm = document.getElementById("registration-filters");
@@ -203,6 +205,9 @@
   const tablePanel = document.getElementById("registry-panel");
   const tableBody = document.getElementById("registry-body");
   const pageSizeSelect = document.getElementById("page-size");
+  const requestFilter = document.getElementById("filter-hcm-request");
+  const approvalFilter = document.getElementById("filter-hcm-approved");
+  const localClearButton = document.getElementById("clear-local-filters");
   const pagination = document.getElementById("pagination");
   const pageNumbers = document.getElementById("page-numbers");
   const dialog = document.getElementById("detail-dialog");
@@ -282,9 +287,7 @@
   function savedApproval(record) {
     const raw = record && record.cmmeetapproval != null ? record.cmmeetapproval : record && record.cm_meeting_approval;
     const approval = String(raw != null ? raw : "").trim().toLowerCase();
-    if (approval === "yes" || approval === "true") return true;
-    if (approval === "no" || approval === "false") return false;
-    return String(record && record.registration_status != null ? record.registration_status : "").trim().toLowerCase() === "confirmed";
+    return approval === "yes" || approval === "true";
   }
 
   function rememberLoadedApprovals() {
@@ -414,6 +417,17 @@
     return state.rows.reduce((count, row) => (row && row.request_hcm_meeting === true ? count + 1 : count), 0);
   }
 
+  function rowApproved(row) {
+    if (!row) return false;
+    const id = blank(row.registration_id) ? "" : String(row.registration_id);
+    if (id && approvals.has(id)) return approvals.get(id) === true;
+    return savedApproval(row);
+  }
+
+  function departmentApprovedCount() {
+    return state.rows.reduce((count, row) => (rowApproved(row) ? count + 1 : count), 0);
+  }
+
   function filtersActive() {
     return Boolean(state.filters.fullName || state.filters.mobileNumber || state.filters.emailId);
   }
@@ -423,8 +437,28 @@
     alertBox.hidden = !message;
   }
 
+  function matchesLocalFilters(record) {
+    const request = requestFilter ? requestFilter.value : "";
+    const approval = approvalFilter ? approvalFilter.value : "";
+    const requested = Boolean(record && record.request_hcm_meeting === true);
+    if (request === "yes" && !requested) return false;
+    if (request === "no" && requested) return false;
+    const approved = rowApproved(record);
+    if (approval === "yes" && !approved) return false;
+    if (approval === "no" && approved) return false;
+    return true;
+  }
+
+  function visibleEntries() {
+    const entries = [];
+    state.rows.forEach((record, index) => {
+      if (matchesLocalFilters(record)) entries.push({ record: record, index: index });
+    });
+    return entries;
+  }
+
   function pageCount() {
-    return Math.max(1, Math.ceil(state.rows.length / state.pageSize));
+    return Math.max(1, Math.ceil(visibleEntries().length / state.pageSize));
   }
 
   function visiblePages(current, total) {
@@ -466,9 +500,14 @@
       listStatus.textContent = "";
       return;
     }
+    const total = visibleEntries().length;
+    if (!total) {
+      listStatus.textContent = "Showing 0 of 0";
+      return;
+    }
     const start = (state.page - 1) * state.pageSize;
-    const end = Math.min(start + state.pageSize, state.rows.length);
-    listStatus.textContent = "Showing " + (start + 1) + "–" + end + " of " + numberFormat.format(state.rows.length);
+    const end = Math.min(start + state.pageSize, total);
+    listStatus.textContent = "Showing " + (start + 1) + "–" + end + " of " + numberFormat.format(total);
   }
 
   function renderPagination() {
@@ -495,19 +534,22 @@
 
   function renderTable() {
     const fragment = document.createDocumentFragment();
-    if (!state.rows.length) {
+    const entries = state.loaded ? visibleEntries() : [];
+    if (!entries.length) {
       const row = document.createElement("tr");
       const cell = document.createElement("td");
       cell.colSpan = TABLE_COLUMNS.length + 2;
       cell.className = "empty-cell";
       if (!state.loaded && state.loading) cell.textContent = "Loading registrations…";
       else if (!state.loaded) cell.textContent = "Registrations could not be loaded.";
+      else if (state.rows.length) cell.textContent = "No registrations match these filters";
       else cell.textContent = "No registrations found";
       row.appendChild(cell);
       fragment.appendChild(row);
     } else {
       const start = (state.page - 1) * state.pageSize;
-      state.rows.slice(start, start + state.pageSize).forEach((record, index) => {
+      entries.slice(start, start + state.pageSize).forEach((entry, index) => {
+        const record = entry.record;
         const row = document.createElement("tr");
         const serial = document.createElement("td");
         serial.className = "col-serial";
@@ -540,7 +582,7 @@
         const button = document.createElement("button");
         button.type = "button";
         button.className = "btn btn-line btn-small";
-        button.dataset.index = String(start + index);
+        button.dataset.index = String(entry.index);
         const name = blank(record.full_name) ? "this registration" : String(record.full_name);
         button.setAttribute("aria-label", "View details for " + name);
         button.textContent = "View details";
@@ -559,10 +601,12 @@
     const filtered = filtersActive();
     totalLabel.textContent = filtered ? "Matching registrations" : "Total Registrations";
     investmentLabel.textContent = filtered ? "Matching proposed investment" : "Total Proposed Investment";
-    hcmLabel.textContent = filtered ? "Matching HCM meeting requests" : "HCM Meeting Requests";
-    totalCount.textContent = state.loaded ? numberFormat.format(state.totalRecords) : "—";
-    investmentTotal.textContent = state.loaded ? numberFormat.format(proposedInvestmentTotal()) + " crore" : "—";
-    hcmCount.textContent = state.loaded ? numberFormat.format(hcmRequestCount()) : "—";
+    hcmLabel.textContent = filtered ? "Matching HCM meeting requests" : "Total HCM Meeting Requests";
+    hcmApprovedLabel.textContent = filtered ? "Matching HCM meetings approved" : "HCM Meeting Approved by Department";
+    setRollingStat(totalCount, state.loaded ? numberFormat.format(state.totalRecords) : "—");
+    setRollingStat(investmentTotal, state.loaded ? numberFormat.format(proposedInvestmentTotal()) + " crore" : "—");
+    setRollingStat(hcmCount, state.loaded ? numberFormat.format(hcmRequestCount()) : "—");
+    setRollingStat(hcmApprovedCount, state.loaded ? numberFormat.format(departmentApprovedCount()) : "—");
     filterNote.hidden = !filtersActive();
     exportButton.disabled = state.loading || state.exporting || !state.rows.length;
     exportButton.textContent = state.exporting ? "Exporting CSV…" : "Export CSV";
@@ -649,25 +693,184 @@
     return slices;
   }
 
-  function wedgePath(cx, cy, radius, start, end) {
-    const x1 = cx + radius * Math.cos(start);
-    const y1 = cy + radius * Math.sin(start);
-    const x2 = cx + radius * Math.cos(end);
-    const y2 = cy + radius * Math.sin(end);
-    const large = end - start > Math.PI ? 1 : 0;
-    return "M " + cx + " " + cy + " L " + x1.toFixed(2) + " " + y1.toFixed(2) + " A " + radius + " " + radius + " 0 " + large + " 1 " + x2.toFixed(2) + " " + y2.toFixed(2) + " Z";
-  }
-
   function svgNode(name) {
     return document.createElementNS("http://www.w3.org/2000/svg", name);
   }
 
+  function statNumber(text) {
+    const core = String(text || "").replace(/\s+crore$/, "").replace(/,/g, "").trim();
+    if (!core || core === "—") return null;
+    const value = Number(core);
+    return Number.isFinite(value) ? value : null;
+  }
+
+  function setRollingStat(el, text) {
+    const previous = el.dataset.value || "";
+    if (previous === text) return;
+    el.dataset.value = text;
+    el.setAttribute("aria-label", text);
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const previousNumber = statNumber(previous);
+    const nextNumber = statNumber(text);
+    if (text === "—" || reduce || nextNumber == null) {
+      el.dataset.rolling = "0";
+      el.textContent = text;
+      return;
+    }
+    const nextCore = text.replace(/\s+crore$/, "");
+    const prevCore = previous && previous !== "—" ? previous.replace(/\s+crore$/, "") : "";
+    const suffix = text.endsWith(" crore") ? "crore" : "";
+    const nextChars = nextCore.split("");
+    const prevChars = prevCore.split("");
+    const width = Math.max(nextChars.length, prevChars.length);
+    while (nextChars.length < width) nextChars.unshift("");
+    while (prevChars.length < width) prevChars.unshift("");
+    const increased = previousNumber == null || nextNumber >= previousNumber;
+    const roll = document.createElement("span");
+    roll.className = "stat-roll";
+    roll.setAttribute("aria-hidden", "true");
+    nextChars.forEach((glyph, index) => {
+      const before = prevChars[index];
+      const digit = document.createElement("span");
+      digit.className = "stat-digit";
+      if (before === glyph) {
+        digit.textContent = glyph;
+      } else {
+        const strip = document.createElement("span");
+        strip.className = "stat-digit-strip " + (increased ? "is-up" : "is-down");
+        const oldGlyph = document.createElement("span");
+        oldGlyph.textContent = before || "\u00a0";
+        const newGlyph = document.createElement("span");
+        newGlyph.textContent = glyph || "\u00a0";
+        if (increased) strip.append(oldGlyph, newGlyph);
+        else strip.append(newGlyph, oldGlyph);
+        digit.appendChild(strip);
+      }
+      roll.appendChild(digit);
+    });
+    const token = String(Date.now());
+    el.dataset.roll = token;
+    el.dataset.rolling = "1";
+    el.classList.add("is-ticking");
+    el.replaceChildren(roll);
+    if (suffix) {
+      const suffixEl = document.createElement("span");
+      suffixEl.className = "stat-suffix";
+      suffixEl.setAttribute("aria-hidden", "true");
+      suffixEl.textContent = suffix;
+      el.appendChild(suffixEl);
+    }
+    window.setTimeout(() => {
+      if (el.dataset.roll !== token) return;
+      el.dataset.rolling = "0";
+      el.classList.remove("is-ticking");
+      el.textContent = text;
+    }, 1200);
+  }
+
+  function wedgePath(radius, start, end) {
+    const cx = 50;
+    const cy = 50;
+    const sweep = end - start;
+    if (sweep >= Math.PI * 2 - 0.001) {
+      return "M " + (cx - radius) + " " + cy
+        + " A " + radius + " " + radius + " 0 1 1 " + (cx + radius) + " " + cy
+        + " A " + radius + " " + radius + " 0 1 1 " + (cx - radius) + " " + cy
+        + " Z";
+    }
+    const x1 = cx + radius * Math.cos(start);
+    const y1 = cy + radius * Math.sin(start);
+    const x2 = cx + radius * Math.cos(end);
+    const y2 = cy + radius * Math.sin(end);
+    const large = sweep > Math.PI ? 1 : 0;
+    return "M " + cx + " " + cy
+      + " L " + x1.toFixed(2) + " " + y1.toFixed(2)
+      + " A " + radius + " " + radius + " 0 " + large + " 1 " + x2.toFixed(2) + " " + y2.toFixed(2)
+      + " Z";
+  }
+
+  function playPie(svg, wedges) {
+    const token = String(Date.now()) + Math.random().toString(16).slice(2);
+    svg.dataset.motion = token;
+    function paint(progress) {
+      const amount = Math.max(0, Math.min(1, progress));
+      let remaining = amount;
+      let cursor = -Math.PI / 2;
+      wedges.forEach((wedge) => {
+        const visible = Math.max(0, Math.min(wedge.fraction, remaining));
+        remaining -= wedge.fraction;
+        const sweep = visible * Math.PI * 2;
+        wedge.node.setAttribute("d", sweep <= 0.001 ? "" : wedgePath(46, cursor, cursor + sweep));
+        cursor += wedge.fraction * Math.PI * 2;
+      });
+    }
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      paint(1);
+      return;
+    }
+    paint(0);
+    const started = performance.now();
+    const duration = 900;
+    function frame(now) {
+      if (svg.dataset.motion !== token || !svg.isConnected) return;
+      const t = Math.min(1, (now - started) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      paint(eased);
+      if (t < 1) window.requestAnimationFrame(frame);
+      else paint(1);
+    }
+    window.requestAnimationFrame(frame);
+  }
+
+  function playDonut(svg, arcs) {
+    const token = String(Date.now()) + Math.random().toString(16).slice(2);
+    svg.dataset.motion = token;
+    function paint(progress) {
+      const amount = Math.max(0, Math.min(1, progress));
+      arcs.forEach((arc) => {
+        arc.node.setAttribute("stroke-dashoffset", (arc.length * (1 - arc.fraction * amount)).toFixed(2));
+      });
+    }
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      paint(1);
+      return;
+    }
+    paint(0);
+    const started = performance.now();
+    const duration = 900;
+    function frame(now) {
+      if (svg.dataset.motion !== token || !svg.isConnected) return;
+      const t = Math.min(1, (now - started) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      paint(eased);
+      if (t < 1) window.requestAnimationFrame(frame);
+      else paint(1);
+    }
+    window.requestAnimationFrame(frame);
+  }
+
+  let chartStamp = "";
+
   function renderCharts() {
+    const stamp = state.rows.reduce((hash, row) => {
+      const bits = [row.attending_as, row.attendingAs, row.sector, row.state, row.hcm_investment_sector, row.hcmInvestmentSector, row.plenary_session, row.plenarySession, row.panel_1, row.panel1, row.panel_2, row.panel2, row.panel_3, row.panel3, row.panel_4, row.panel4, row.panel_5, row.panel5, row.panel_6, row.panel6, row.panel_7, row.panel7, row.panel_8, row.panel8];
+      return bits.reduce((sum, bit) => {
+        const text = String(bit == null ? "" : bit);
+        let next = sum + 1;
+        for (let index = 0; index < text.length; index += 1) next = (next * 33 + text.charCodeAt(index)) % 1000000007;
+        return next;
+      }, hash);
+    }, (state.loaded ? 17 : 3) + state.rows.length);
+    const nextStamp = stamp + ":" + (state.loading ? "1" : "0");
+    if (nextStamp === chartStamp) return;
+    chartStamp = nextStamp;
     const charts = [
       { key: "attending", unit: "registrations", read: (row) => choiceLabels(row, ["attending_as", "attendingAs"], ATTENDING_OPTIONS), options: ATTENDING_OPTIONS },
-      { key: "sector", unit: "registrations", read: (row) => choiceLabels(row, ["sector"], SECTOR_OPTIONS), options: SECTOR_OPTIONS },
-      { key: "plenary", unit: "selections", read: plenaryLabels, options: PLENARY_OPTIONS },
-      { key: "investment", unit: "registrations", read: (row) => choiceLabels(row, ["hcm_investment_sector", "hcmInvestmentSector"], INVESTMENT_OPTIONS), options: INVESTMENT_OPTIONS },
+      { key: "sector", unit: "registrations", kind: "ring", read: (row) => choiceLabels(row, ["sector"], SECTOR_OPTIONS), options: SECTOR_OPTIONS },
+      { key: "plenary", unit: "selections", kind: "donut", read: plenaryLabels, options: PLENARY_OPTIONS },
+      { key: "investment", unit: "registrations", kind: "donut", read: (row) => choiceLabels(row, ["hcm_investment_sector", "hcmInvestmentSector"], INVESTMENT_OPTIONS), options: INVESTMENT_OPTIONS },
       { key: "state", unit: "registrations", read: (row) => choiceLabels(row, ["state"], STATE_OPTIONS), options: STATE_OPTIONS },
     ];
     charts.forEach((chart) => {
@@ -684,8 +887,12 @@
       const slices = tallyChoices(state.rows, chart.read, chart.options);
       const drawn = slices.filter((slice) => slice.value > 0);
       const total = drawn.reduce((sum, slice) => sum + slice.value, 0);
+      const donut = chart.kind === "donut";
+      const ring = chart.kind === "ring";
       const layout = document.createElement("div");
-      layout.className = "pie-layout";
+      layout.className = donut ? "pie-layout is-donut" : ring ? "pie-layout is-ring" : "pie-layout";
+      const visual = document.createElement("div");
+      visual.className = !donut && !ring && drawn.length === 1 ? "pie-visual is-solo" : "pie-visual";
       const svg = svgNode("svg");
       svg.setAttribute("class", "pie-svg");
       svg.setAttribute("viewBox", "0 0 100 100");
@@ -695,35 +902,120 @@
         const circle = svgNode("circle");
         circle.setAttribute("cx", "50");
         circle.setAttribute("cy", "50");
-        circle.setAttribute("r", "46");
-        circle.setAttribute("fill", "#e7e4de");
-        const title = svgNode("title");
-        title.textContent = "No responses yet";
-        circle.appendChild(title);
+        circle.setAttribute("r", donut ? "36" : ring ? "38" : "46");
+        circle.setAttribute("fill", donut || ring ? "none" : "#ece7e1");
+        if (donut || ring) {
+          circle.setAttribute("stroke", "#ece7e1");
+          circle.setAttribute("stroke-width", "8");
+        }
         svg.appendChild(circle);
-      } else if (drawn.length === 1) {
-        const circle = svgNode("circle");
-        circle.setAttribute("cx", "50");
-        circle.setAttribute("cy", "50");
-        circle.setAttribute("r", "46");
-        circle.setAttribute("fill", CHART_COLORS[0]);
-        const title = svgNode("title");
-        title.textContent = drawn[0].label + ": " + drawn[0].value;
-        circle.appendChild(title);
-        svg.appendChild(circle);
-      } else {
-        let angle = -Math.PI / 2;
+      } else if (ring) {
+        const radius = 38;
+        const width = 8;
+        const length = 2 * Math.PI * radius;
+        const gapFraction = drawn.length > 1 ? 0.012 : 0;
+        let cursor = 0;
+        const arcs = [];
         drawn.forEach((slice, index) => {
-          const sweep = (slice.value / total) * Math.PI * 2;
+          const fraction = total ? slice.value / total : 0;
+          const visible = fraction > gapFraction * 2 ? fraction - gapFraction : fraction;
+          const group = svgNode("g");
+          group.setAttribute("class", "pie-slice");
+          group.setAttribute("data-slice", String(index));
+          const arc = svgNode("circle");
+          arc.setAttribute("class", "donut-arc");
+          arc.setAttribute("data-slice", String(index));
+          arc.setAttribute("cx", "50");
+          arc.setAttribute("cy", "50");
+          arc.setAttribute("r", String(radius));
+          arc.setAttribute("fill", "none");
+          arc.setAttribute("stroke", CHART_COLORS[index % CHART_COLORS.length]);
+          arc.setAttribute("stroke-width", String(width));
+          arc.setAttribute("stroke-linecap", "butt");
+          arc.setAttribute("transform", "rotate(" + (-90 + cursor * 360).toFixed(2) + " 50 50)");
+          arc.setAttribute("stroke-dasharray", length.toFixed(2) + " " + length.toFixed(2));
+          arc.setAttribute("stroke-dashoffset", length.toFixed(2));
+          const title = svgNode("title");
+          title.textContent = slice.label + ": " + slice.value;
+          arc.appendChild(title);
+          group.appendChild(arc);
+          svg.appendChild(group);
+          arcs.push({ node: arc, length: length, fraction: visible });
+          cursor += fraction;
+        });
+        playDonut(svg, arcs);
+      } else if (donut) {
+        const outer = 46;
+        const gap = drawn.length > 6 ? 1.15 : 2.1;
+        const span = 30;
+        const width = Math.min(8, (span - gap * (drawn.length - 1)) / drawn.length);
+        let radius = outer - width / 2;
+        const arcs = [];
+        drawn.forEach((slice, index) => {
+          const color = CHART_COLORS[index % CHART_COLORS.length];
+          const length = 2 * Math.PI * radius;
+          const fraction = total ? slice.value / total : 0;
+          const group = svgNode("g");
+          group.setAttribute("class", "pie-slice");
+          group.setAttribute("data-slice", String(index));
+          const track = svgNode("circle");
+          track.setAttribute("class", "donut-track");
+          track.setAttribute("cx", "50");
+          track.setAttribute("cy", "50");
+          track.setAttribute("r", radius.toFixed(2));
+          track.setAttribute("fill", "none");
+          track.setAttribute("stroke", "#ece7e1");
+          track.setAttribute("stroke-width", width.toFixed(2));
+          const arc = svgNode("circle");
+          arc.setAttribute("class", "donut-arc");
+          arc.setAttribute("data-slice", String(index));
+          arc.setAttribute("cx", "50");
+          arc.setAttribute("cy", "50");
+          arc.setAttribute("r", radius.toFixed(2));
+          arc.setAttribute("fill", "none");
+          arc.setAttribute("stroke", color);
+          arc.setAttribute("stroke-width", width.toFixed(2));
+          arc.setAttribute("stroke-linecap", fraction > 0.98 ? "butt" : "round");
+          arc.setAttribute("transform", "rotate(-90 50 50)");
+          arc.setAttribute("stroke-dasharray", length.toFixed(2) + " " + length.toFixed(2));
+          arc.setAttribute("stroke-dashoffset", length.toFixed(2));
+          const title = svgNode("title");
+          title.textContent = slice.label + ": " + slice.value + "/" + total;
+          arc.appendChild(title);
+          group.append(track, arc);
+          svg.appendChild(group);
+          arcs.push({ node: arc, length: length, fraction: fraction });
+          radius -= width + gap;
+        });
+        playDonut(svg, arcs);
+      } else {
+        const wedges = [];
+        drawn.forEach((slice, index) => {
           const path = svgNode("path");
-          path.setAttribute("d", wedgePath(50, 50, 46, angle, angle + sweep));
+          path.setAttribute("class", "pie-slice");
+          path.setAttribute("data-slice", String(index));
           path.setAttribute("fill", CHART_COLORS[index % CHART_COLORS.length]);
+          path.setAttribute("d", "");
           const title = svgNode("title");
           title.textContent = slice.label + ": " + slice.value;
           path.appendChild(title);
           svg.appendChild(path);
-          angle += sweep;
+          wedges.push({ node: path, fraction: total ? slice.value / total : 0 });
         });
+        playPie(svg, wedges);
+      }
+      visual.appendChild(svg);
+      if (ring) {
+        const center = document.createElement("div");
+        center.className = "donut-center";
+        const centerLabel = document.createElement("span");
+        centerLabel.className = "donut-center-label";
+        centerLabel.textContent = "Total";
+        const centerValue = document.createElement("strong");
+        centerValue.className = "donut-center-value";
+        centerValue.textContent = numberFormat.format(total);
+        center.append(centerLabel, centerValue);
+        visual.appendChild(center);
       }
       const legend = document.createElement("ul");
       legend.className = "pie-legend";
@@ -731,6 +1023,7 @@
         const drawnIndex = drawn.findIndex((item) => item.label === slice.label);
         const item = document.createElement("li");
         if (!slice.value) item.className = "is-zero";
+        if (drawnIndex >= 0) item.dataset.slice = String(drawnIndex);
         const swatch = document.createElement("span");
         swatch.className = "pie-swatch";
         if (drawnIndex >= 0) swatch.dataset.color = String(drawnIndex % CHART_COLORS.length);
@@ -740,14 +1033,40 @@
         name.textContent = slice.label;
         const count = document.createElement("span");
         count.className = "pie-count";
-        count.textContent = numberFormat.format(slice.value);
+        count.textContent = donut && total ? numberFormat.format(slice.value) + "/" + numberFormat.format(total) : numberFormat.format(slice.value);
         item.append(swatch, name, count);
         legend.appendChild(item);
       });
       const summary = document.createElement("p");
       summary.className = "pie-total";
       summary.textContent = numberFormat.format(total) + " " + chart.unit;
-      layout.append(svg, legend, summary);
+      function focusSlice(index) {
+        const active = index != null && index !== "";
+        layout.classList.toggle("is-pointing", active);
+        svg.querySelectorAll(".pie-slice").forEach((slice) => {
+          slice.classList.toggle("is-hot", active && slice.getAttribute("data-slice") === index);
+        });
+        legend.querySelectorAll("li").forEach((item) => {
+          item.classList.toggle("is-linked", active && item.dataset.slice === index);
+        });
+      }
+      visual.addEventListener("mouseenter", () => visual.classList.add("is-live"));
+      visual.addEventListener("mouseleave", () => {
+        visual.classList.remove("is-live");
+        focusSlice(null);
+      });
+      svg.addEventListener("mouseover", (event) => {
+        const slice = event.target.closest ? event.target.closest(".pie-slice, .donut-arc") : null;
+        if (!slice || !svg.contains(slice)) return;
+        focusSlice(slice.getAttribute("data-slice"));
+      });
+      legend.addEventListener("mouseover", (event) => {
+        const item = event.target.closest("li");
+        if (!item || !legend.contains(item)) return;
+        focusSlice(item.dataset.slice || null);
+      });
+      legend.addEventListener("mouseleave", () => focusSlice(null));
+      layout.append(visual, legend, summary);
       slot.appendChild(layout);
     });
   }
@@ -955,6 +1274,8 @@
       filterName.value = "";
       filterMobile.value = "";
       filterEmail.value = "";
+      if (requestFilter) requestFilter.value = "";
+      if (approvalFilter) approvalFilter.value = "";
       loadRegistrations({
         filters: { fullName: null, mobileNumber: null, emailId: null },
         resetPage: true,
@@ -963,6 +1284,23 @@
     });
 
     exportButton.addEventListener("click", () => exportRegistrations());
+
+    function resetLocalFilters() {
+      if (requestFilter) requestFilter.value = "";
+      if (approvalFilter) approvalFilter.value = "";
+      state.page = 1;
+      render();
+    }
+
+    if (requestFilter) requestFilter.addEventListener("change", () => {
+      state.page = 1;
+      render();
+    });
+    if (approvalFilter) approvalFilter.addEventListener("change", () => {
+      state.page = 1;
+      render();
+    });
+    if (localClearButton) localClearButton.addEventListener("click", resetLocalFilters);
 
     pageSizeSelect.addEventListener("change", () => {
       const next = Number(pageSizeSelect.value);

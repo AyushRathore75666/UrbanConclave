@@ -51,8 +51,12 @@
                 <strong id="investment-total" aria-live="polite">—</strong>
               </p>
               <p class="summary-count">
-                <span id="hcm-label">HCM Meeting Requests</span>
+                <span id="hcm-label">Total HCM Meeting Requests</span>
                 <strong id="hcm-count" aria-live="polite">—</strong>
+              </p>
+              <p class="summary-count">
+                <span id="hcm-approved-label">HCM Meeting Approved by Department</span>
+                <strong id="hcm-approved-count" aria-live="polite">—</strong>
               </p>
             </div>
             <div class="summary-actions">
@@ -70,16 +74,16 @@
               <div class="pie-slot" data-chart="sector">—</div>
             </figure>
             <figure class="pie-card">
+              <figcaption>State</figcaption>
+              <div class="pie-slot" data-chart="state">—</div>
+            </figure>
+            <figure class="pie-card pie-card-wide">
               <figcaption>Select Plenary Session</figcaption>
               <div class="pie-slot" data-chart="plenary">—</div>
             </figure>
-            <figure class="pie-card">
+            <figure class="pie-card pie-card-wide">
               <figcaption>Investment Sector</figcaption>
               <div class="pie-slot" data-chart="investment">—</div>
-            </figure>
-            <figure class="pie-card">
-              <figcaption>State</figcaption>
-              <div class="pie-slot" data-chart="state">—</div>
             </figure>
           </div>
         </section>
@@ -107,7 +111,26 @@
 
         <section id="registry-panel" class="panel" aria-labelledby="registry-title">
           <div class="panel-head">
-            <h2 id="registry-title">Registered users</h2>
+            <div class="registry-filters">
+              <h2 id="registry-title">Registered users</h2>
+              <label class="page-size" for="filter-hcm-request">
+                HCM Meeting Requests
+                <select id="filter-hcm-request">
+                  <option value="" selected>Select</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </label>
+              <label class="page-size" for="filter-hcm-approved">
+                HCM Meeting Approved by Department
+                <select id="filter-hcm-approved">
+                  <option value="" selected>Select</option>
+                  <option value="yes">Yes</option>
+                  <option value="no">No</option>
+                </select>
+              </label>
+              <button id="clear-local-filters" class="btn btn-line btn-small" type="button">Clear</button>
+            </div>
             <div class="list-tools">
               <label class="page-size" for="page-size">
                 Show
