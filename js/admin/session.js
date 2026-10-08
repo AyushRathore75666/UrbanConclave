@@ -1,6 +1,7 @@
 /* Keeps the access token for this tab only. Registration records are never written to browser storage. */
 (function (global) {
   const TOKEN_KEY = "ugc-admin-token";
+  const ACTOR_KEY = "ugc-admin-actor";
   const NOTICE_KEY = "ugc-admin-notice";
 
   function storage() {
@@ -40,6 +41,7 @@
     if (!store) return;
     try {
       store.removeItem(TOKEN_KEY);
+      store.removeItem(ACTOR_KEY);
     } catch {
       /* Storage can be blocked in private browsing. */
     }
@@ -82,6 +84,35 @@
     }
   }
 
+  function setActor(userId) {
+    const store = storage();
+    if (!store) return;
+    const text = String(userId || "").trim().slice(0, 80);
+    try {
+      if (text) store.setItem(ACTOR_KEY, text);
+      else store.removeItem(ACTOR_KEY);
+    } catch {
+      /* The token can still identify the administrator. */
+    }
+  }
+
+  function actorId() {
+    const store = storage();
+    try {
+      const stored = store ? String(store.getItem(ACTOR_KEY) || "").trim() : "";
+      if (stored) return stored;
+    } catch {
+      /* Fall through to the signed-in token. */
+    }
+    const data = claims(getToken());
+    if (!data) return "";
+    const candidates = [data.UserId, data.userId];
+    for (let index = 0; index < candidates.length; index += 1) {
+      if (typeof candidates[index] === "string" && candidates[index].trim()) return candidates[index].trim();
+    }
+    return "";
+  }
+
   function displayName() {
     const data = claims(getToken());
     const name = data && typeof data.UserName === "string" ? data.UserName.trim() : "";
@@ -116,6 +147,8 @@
     getToken,
     setToken,
     clear: clearToken,
+    setActor,
+    actorId,
     displayName,
     isAuthenticated: () => Boolean(getToken()),
     setNotice,

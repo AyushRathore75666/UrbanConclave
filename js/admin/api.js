@@ -134,5 +134,23 @@
     };
   }
 
-  global.UgcAdminApi = { login, getRegistrations, ApiError };
+  async function updateRegistrationStatus(registrationId, approved, updatedBy) {
+    const id = String(registrationId || "").trim();
+    const actor = String(updatedBy || "").trim();
+    if (!id || !actor) {
+      throw new ApiError("bad-request", "The request could not be processed.");
+    }
+    return post(
+      config.statusPath,
+      {
+        registrationId: id,
+        registrationStatus: approved ? "Confirmed" : "Pending",
+        cm_meeting_approval: approved ? "Yes" : "No",
+        updatedBy: actor,
+      },
+      true,
+    );
+  }
+
+  global.UgcAdminApi = { login, getRegistrations, updateRegistrationStatus, ApiError };
 })(window);

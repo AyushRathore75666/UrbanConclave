@@ -40,6 +40,7 @@
       title: "HCM meeting",
       fields: [
         ["request_hcm_meeting", "HCM Meeting Request & Approval"],
+        ["cmmeetapproval", "CM meeting approval"],
         ["hcm_organization_name", "HCM organization"],
         ["hcm_investment_sector", "Investment sector"],
         ["brief_meeting_agenda", "Meeting agenda"],
@@ -139,6 +140,10 @@
   const dialogTitle = document.getElementById("detail-title");
   const dialogBody = document.getElementById("detail-body");
 
+  const approvals = new Map();
+  const pendingApprovals = new Set();
+  let detailId = "";
+
   const state = {
     rows: [],
     totalRecords: 0,
@@ -205,6 +210,137 @@
     return Math.round(total * 100) / 100;
   }
 
+  function savedApproval(record) {
+    const raw = record && record.cmmeetapproval != null ? record.cmmeetapproval : record && record.cm_meeting_approval;
+    const approval = String(raw != null ? raw : "").trim().toLowerCase();
+    if (approval === "yes" || approval === "true") return true;
+    if (approval === "no" || approval === "false") return false;
+    return String(record && record.registration_status != null ? record.registration_status : "").trim().toLowerCase() === "confirmed";
+  }
+
+  function rememberLoadedApprovals() {
+    const next = new Map();
+    state.rows.forEach((row) => {
+      const id = blank(row.registration_id) ? "" : String(row.registration_id);
+      if (!id) return;
+      if (pendingApprovals.has(id)) next.set(id, approvals.get(id) === true);
+      else next.set(id, savedApproval(row));
+    });
+    approvals.clear();
+    next.forEach((value, id) => approvals.set(id, value));
+  }
+
+  function paintApproval(input) {
+    const mark = input.closest(".approval-mark");
+    if (!mark) return;
+    const saving = pendingApprovals.has(input.dataset.approvalId);
+    mark.classList.toggle("is-approved", input.checked);
+    mark.classList.toggle("is-saving", saving);
+    const text = mark.querySelector(".approval-text");
+    if (text) text.textContent = input.checked ? "Decline" : "Accept";
+  }
+
+  function syncApproval(id, checked) {
+    approvals.set(id, checked);
+    document.querySelectorAll(".switch-input").forEach((other) => {
+      if (other.dataset.approvalId !== id) return;
+      other.checked = checked;
+      other.disabled = pendingApprovals.has(id);
+      paintApproval(other);
+    });
+  }
+
+  function applyStatusToRow(id, checked, actor) {
+    state.rows.forEach((row) => {
+      if (!row || String(row.registration_id) !== id) return;
+      row.registration_status = checked ? "Confirmed" : "Pending";
+      row.cmmeetapproval = checked ? "Yes" : "No";
+      row.updated_by = actor;
+    });
+  }
+
+  function approvalSwitch(record) {
+    const id = blank(record.registration_id) ? "" : String(record.registration_id);
+    const name = blank(record.full_name) ? "this registration" : String(record.full_name);
+    const approved = id ? approvals.get(id) === true : false;
+    const mark = document.createElement("label");
+    mark.className = "approval-mark" + (approved ? " is-approved" : "") + (id && pendingApprovals.has(id) ? " is-saving" : "");
+    const input = document.createElement("input");
+    input.type = "checkbox";
+    input.className = "switch-input";
+    input.checked = approved;
+    input.disabled = !id || pendingApprovals.has(id);
+    input.dataset.approvalId = id;
+    input.setAttribute("aria-label", "HCM meeting approval for " + name);
+    const slider = document.createElement("span");
+    slider.className = "switch-slider";
+    slider.setAttribute("aria-hidden", "true");
+    const text = document.createElement("span");
+    text.className = "approval-text";
+    text.textContent = approved ? "Decline" : "Accept";
+    mark.append(input, slider, text);
+    return mark;
+  }
+
+  async function rememberApproval(event) {
+    const input = event.target;
+    if (!input || !input.classList || !input.classList.contains("switch-input")) return;
+    const id = input.dataset.approvalId;
+    if (!id || inFlight || pendingApprovals.has(id)) {
+      if (id) syncApproval(id, approvals.get(id) === true);
+      else {
+        input.checked = false;
+        paintApproval(input);
+      }
+      return;
+    }
+
+    const next = input.checked;
+    const previous = approvals.get(id) === true;
+    if (next === previous) {
+      paintApproval(input);
+      return;
+    }
+
+    const actor = session.actorId();
+    if (!actor) {
+      syncApproval(id, previous);
+      showAlert("The signed-in account could not be identified. Please sign in again.");
+      return;
+    }
+
+    pendingApprovals.add(id);
+    syncApproval(id, next);
+    refreshButton.disabled = true;
+    searchButton.disabled = true;
+    clearButton.disabled = true;
+    showAlert("");
+    try {
+      await api.updateRegistrationStatus(id, next, actor);
+      applyStatusToRow(id, next, actor);
+    } catch (error) {
+      syncApproval(id, previous);
+      if (error && error.kind === "unauthorized") {
+        endSession(error.message);
+        return;
+      }
+      showAlert((error && error.message) || "The request could not be completed.");
+    } finally {
+      pendingApprovals.delete(id);
+      if (!session.isAuthenticated()) return;
+      const locked = state.loading || pendingApprovals.size > 0;
+      refreshButton.disabled = locked;
+      searchButton.disabled = locked;
+      clearButton.disabled = locked;
+      syncApproval(id, approvals.get(id) === true);
+      render();
+      if (dialog.open && detailId === id) {
+        const record = state.rows.find((row) => row && String(row.registration_id) === id);
+        if (record) openDetails(record);
+      }
+    }
+  }
+
   function hcmRequestCount() {
     return state.rows.reduce((count, row) => (row && row.request_hcm_meeting === true ? count + 1 : count), 0);
   }
@@ -244,9 +380,10 @@
 
   function setBusy(loading) {
     state.loading = loading;
-    refreshButton.disabled = loading;
-    searchButton.disabled = loading;
-    clearButton.disabled = loading;
+    const locked = loading || pendingApprovals.size > 0;
+    refreshButton.disabled = locked;
+    searchButton.disabled = locked;
+    clearButton.disabled = locked;
     refreshButton.textContent = loading ? "Refreshing…" : "Refresh";
     tablePanel.setAttribute("aria-busy", loading ? "true" : "false");
   }
@@ -317,6 +454,13 @@
             badge.dataset.status = String(record.registration_status || "").trim().toLowerCase();
             badge.textContent = displayCell(record, key);
             cell.appendChild(badge);
+          } else if (key === "request_hcm_meeting") {
+            const group = document.createElement("div");
+            group.className = "hcm-approval";
+            const text = document.createElement("span");
+            text.textContent = displayCell(record, key);
+            group.append(text, approvalSwitch(record));
+            cell.appendChild(group);
           } else {
             cell.textContent = displayCell(record, key);
           }
@@ -389,6 +533,7 @@
       state.rows = result.rows;
       state.totalRecords = result.totalRecords;
       state.loaded = true;
+      rememberLoadedApprovals();
       if (options.resetPage) state.page = 1;
       showAlert("");
     } catch (error) {
@@ -409,14 +554,23 @@
     }
   }
 
-  function addDefinition(parent, label, value, wide) {
+  function addDefinition(parent, label, value, wide, extra) {
     const wrap = document.createElement("div");
     wrap.className = wide ? "detail-field is-wide" : "detail-field";
     const term = document.createElement("dt");
     term.textContent = label;
     const description = document.createElement("dd");
     description.setAttribute("translate", "no");
-    description.textContent = value;
+    if (extra) {
+      const group = document.createElement("div");
+      group.className = "hcm-approval";
+      const text = document.createElement("span");
+      text.textContent = value;
+      group.append(text, extra);
+      description.appendChild(group);
+    } else {
+      description.textContent = value;
+    }
     wrap.append(term, description);
     parent.appendChild(wrap);
   }
@@ -424,6 +578,7 @@
   function openDetails(record) {
     const name = blank(record.full_name) ? "Registration" : String(record.full_name);
     const id = blank(record.registration_id) ? "" : String(record.registration_id);
+    detailId = id;
     dialogTitle.textContent = id ? name + " — " + id : name;
     dialogBody.replaceChildren();
     const seen = new Set();
@@ -436,7 +591,8 @@
       list.className = "detail-grid";
       group.fields.forEach(([key, label]) => {
         seen.add(key);
-        addDefinition(list, label, formatValue(key, record[key]), WIDE_FIELDS.has(key));
+        const extra = key === "request_hcm_meeting" ? approvalSwitch(record) : null;
+        addDefinition(list, label, formatValue(key, record[key]), WIDE_FIELDS.has(key), extra);
       });
       section.append(heading, list);
       dialogBody.appendChild(section);
@@ -585,17 +741,20 @@
     });
 
     tableBody.addEventListener("click", (event) => {
-      const button = event.target.closest("[data-index]");
+      const button = event.target.closest("button[data-index]");
       if (!button) return;
       const record = state.rows[Number(button.dataset.index)];
       if (record) openDetails(record);
     });
+    tableBody.addEventListener("change", rememberApproval);
+    dialog.addEventListener("change", rememberApproval);
 
     document.getElementById("detail-close").addEventListener("click", () => dialog.close());
     dialog.addEventListener("click", (event) => {
       if (event.target === dialog) dialog.close();
     });
     dialog.addEventListener("close", () => {
+      detailId = "";
       dialogTitle.textContent = "Registration details";
       dialogBody.replaceChildren();
     });

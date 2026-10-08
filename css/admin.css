@@ -464,8 +464,98 @@ p {
 .admin-table .col-serial,
 .admin-table .col-registration_id,
 .admin-table .col-mobile_number,
+.admin-table .col-request_hcm_meeting,
 .admin-table .col-action {
   white-space: nowrap;
+}
+
+.hcm-approval {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.approval-mark {
+  position: relative;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-width: 6.4rem;
+  padding: 0.35rem 0.7rem;
+  border: 1.5px solid rgba(11, 31, 58, 0.35);
+  border-radius: 0.7rem;
+  background: #fff;
+  cursor: pointer;
+}
+
+.approval-mark.is-approved {
+  border-color: var(--navy-900);
+}
+
+.approval-text {
+  color: var(--mute);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.approval-mark.is-approved .approval-text {
+  color: var(--navy-900);
+}
+
+.switch-input {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.switch-slider {
+  position: relative;
+  width: 2.15rem;
+  height: 1.2rem;
+  border-radius: 999px;
+  background: #c5ced8;
+  transition: background 0.2s ease;
+}
+
+.switch-slider::after {
+  content: "";
+  position: absolute;
+  top: 0.14rem;
+  left: 0.14rem;
+  width: 0.92rem;
+  height: 0.92rem;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(7, 20, 34, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.switch-input:checked + .switch-slider {
+  background: var(--navy-900);
+}
+
+.switch-input:checked + .switch-slider::after {
+  transform: translateX(0.95rem);
+}
+
+.approval-mark:has(.switch-input:focus-visible) {
+  outline: 3px solid var(--saffron-700);
+  outline-offset: 2px;
+}
+
+.approval-mark.is-saving,
+.switch-input:disabled {
+  cursor: progress;
+}
+
+.approval-mark.is-saving {
+  opacity: 0.7;
 }
 
 .admin-table .col-serial,
@@ -533,6 +623,11 @@ p {
 .status-badge[data-status="pending"] {
   background: #f6e7d8;
   color: var(--saffron-800);
+}
+
+.status-badge[data-status="confirmed"] {
+  background: #e5f2ea;
+  color: #14532d;
 }
 
 .pagination {
@@ -712,5 +807,10 @@ p {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  .switch-slider,
+  .switch-slider::after {
+    transition: none;
   }
 }
