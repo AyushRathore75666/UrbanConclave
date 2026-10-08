@@ -851,6 +851,37 @@
     window.requestAnimationFrame(frame);
   }
 
+  function playBars(root, bars) {
+    const token = String(Date.now()) + Math.random().toString(16).slice(2);
+    root.dataset.motion = token;
+    function paint(progress) {
+      const amount = Math.max(0, Math.min(1, progress));
+      bars.forEach((bar) => {
+        const height = bar.height * amount;
+        bar.node.setAttribute("height", Math.max(0, height).toFixed(2));
+        bar.node.setAttribute("y", (bar.base - height).toFixed(2));
+        if (bar.valueText) bar.valueText.setAttribute("y", (bar.base - height - 6).toFixed(2));
+      });
+    }
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      paint(1);
+      return;
+    }
+    paint(0);
+    const started = performance.now();
+    const duration = 900;
+    function frame(now) {
+      if (root.dataset.motion !== token || !root.isConnected) return;
+      const t = Math.min(1, (now - started) / duration);
+      const eased = 1 - Math.pow(1 - t, 3);
+      paint(eased);
+      if (t < 1) window.requestAnimationFrame(frame);
+      else paint(1);
+    }
+    window.requestAnimationFrame(frame);
+  }
+
   let chartStamp = "";
 
   function renderCharts() {
@@ -870,7 +901,7 @@
       { key: "attending", unit: "registrations", read: (row) => choiceLabels(row, ["attending_as", "attendingAs"], ATTENDING_OPTIONS), options: ATTENDING_OPTIONS },
       { key: "sector", unit: "registrations", kind: "ring", read: (row) => choiceLabels(row, ["sector"], SECTOR_OPTIONS), options: SECTOR_OPTIONS },
       { key: "plenary", unit: "selections", kind: "donut", read: plenaryLabels, options: PLENARY_OPTIONS },
-      { key: "investment", unit: "registrations", kind: "donut", read: (row) => choiceLabels(row, ["hcm_investment_sector", "hcmInvestmentSector"], INVESTMENT_OPTIONS), options: INVESTMENT_OPTIONS },
+      { key: "investment", unit: "registrations", kind: "bar", read: (row) => choiceLabels(row, ["hcm_investment_sector", "hcmInvestmentSector"], INVESTMENT_OPTIONS), options: INVESTMENT_OPTIONS },
       { key: "state", unit: "registrations", read: (row) => choiceLabels(row, ["state"], STATE_OPTIONS), options: STATE_OPTIONS },
     ];
     charts.forEach((chart) => {
@@ -887,6 +918,131 @@
       const slices = tallyChoices(state.rows, chart.read, chart.options);
       const drawn = slices.filter((slice) => slice.value > 0);
       const total = drawn.reduce((sum, slice) => sum + slice.value, 0);
+      if (chart.kind === "bar") {
+        const layout = document.createElement("div");
+        layout.className = "bar-layout";
+        const max = drawn.reduce((peak, slice) => Math.max(peak, slice.value), 0);
+        const peak = Math.max(1, max);
+        let step = 1;
+        if (peak > 5) step = 2;
+        if (peak > 10) step = 5;
+        if (peak > 25) step = 10;
+        if (peak > 50) step = 20;
+        if (peak > 100) step = 50;
+        const axisTop = Math.ceil(peak / step) * step;
+        const ticks = [];
+        for (let value = 0; value <= axisTop; value += step) ticks.push(value);
+        const vbW = 360;
+        const vbH = 196;
+        const padL = 32;
+        const padR = 8;
+        const padT = 18;
+        const padB = 16;
+        const plotW = vbW - padL - padR;
+        const plotH = vbH - padT - padB;
+        const base = padT + plotH;
+        const slotW = plotW / Math.max(1, slices.length);
+        const barW = Math.min(26, slotW * 0.48);
+        const svg = svgNode("svg");
+        svg.setAttribute("class", "column-chart");
+        svg.setAttribute("viewBox", "0 0 " + vbW + " " + vbH);
+        svg.setAttribute("role", "img");
+        svg.setAttribute("aria-label", slices.map((slice) => slice.label + " " + slice.value).join(", "));
+        ticks.forEach((tick) => {
+          const y = base - (tick / axisTop) * plotH;
+          const line = svgNode("line");
+          line.setAttribute("class", "axis-grid");
+          line.setAttribute("x1", String(padL));
+          line.setAttribute("x2", String(vbW - padR));
+          line.setAttribute("y1", y.toFixed(2));
+          line.setAttribute("y2", y.toFixed(2));
+          const label = svgNode("text");
+          label.setAttribute("class", "axis-label");
+          label.setAttribute("x", String(padL - 6));
+          label.setAttribute("y", y.toFixed(2));
+          label.setAttribute("text-anchor", "end");
+          label.setAttribute("dominant-baseline", "middle");
+          label.textContent = numberFormat.format(tick);
+          svg.append(line, label);
+        });
+        const bars = [];
+        slices.forEach((slice, index) => {
+          const cx = padL + slotW * index + slotW / 2;
+          const height = (slice.value / axisTop) * plotH;
+          const group = svgNode("g");
+          group.setAttribute("class", "bar-col");
+          group.setAttribute("data-slice", String(index));
+          const rect = svgNode("rect");
+          rect.setAttribute("class", "bar-fill");
+          rect.setAttribute("data-slice", String(index));
+          rect.setAttribute("x", (cx - barW / 2).toFixed(2));
+          rect.setAttribute("width", barW.toFixed(2));
+          rect.setAttribute("y", base.toFixed(2));
+          rect.setAttribute("height", "0");
+          const color = CHART_COLORS[index % CHART_COLORS.length];
+          rect.setAttribute("rx", "3");
+          rect.setAttribute("fill", color);
+          const valueText = svgNode("text");
+          valueText.setAttribute("class", "bar-value");
+          valueText.setAttribute("fill", color);
+          valueText.setAttribute("x", cx.toFixed(2));
+          valueText.setAttribute("y", (base - 6).toFixed(2));
+          valueText.setAttribute("text-anchor", "middle");
+          valueText.textContent = numberFormat.format(slice.value);
+          const title = svgNode("title");
+          title.textContent = slice.label + ": " + slice.value;
+          group.append(rect, valueText, title);
+          svg.appendChild(group);
+          bars.push({ node: rect, valueText: valueText, height: height, base: base });
+        });
+        const legend = document.createElement("ul");
+        legend.className = "pie-legend";
+        slices.forEach((slice, index) => {
+          const item = document.createElement("li");
+          if (!slice.value) item.className = "is-zero";
+          item.dataset.slice = String(index);
+          const swatch = document.createElement("span");
+          swatch.className = "pie-swatch";
+          swatch.dataset.color = String(index % CHART_COLORS.length);
+          const name = document.createElement("span");
+          name.className = "pie-label";
+          name.textContent = slice.label;
+          const count = document.createElement("span");
+          count.className = "pie-count";
+          count.textContent = numberFormat.format(slice.value);
+          item.append(swatch, name, count);
+          legend.appendChild(item);
+        });
+        const summary = document.createElement("p");
+        summary.className = "pie-total";
+        summary.textContent = numberFormat.format(total) + " " + chart.unit;
+        function focusBar(index) {
+          const active = index != null && index !== "";
+          layout.classList.toggle("is-pointing", active);
+          svg.querySelectorAll(".bar-col").forEach((bar) => {
+            bar.classList.toggle("is-hot", active && bar.getAttribute("data-slice") === index);
+          });
+          legend.querySelectorAll("li").forEach((item) => {
+            item.classList.toggle("is-linked", active && item.dataset.slice === index);
+          });
+        }
+        svg.addEventListener("mouseover", (event) => {
+          const bar = event.target.closest ? event.target.closest(".bar-col") : null;
+          if (!bar || !svg.contains(bar)) return;
+          focusBar(bar.getAttribute("data-slice"));
+        });
+        svg.addEventListener("mouseleave", () => focusBar(null));
+        legend.addEventListener("mouseover", (event) => {
+          const item = event.target.closest("li");
+          if (!item || !legend.contains(item)) return;
+          focusBar(item.dataset.slice || null);
+        });
+        legend.addEventListener("mouseleave", () => focusBar(null));
+        layout.append(legend, svg, summary);
+        slot.appendChild(layout);
+        playBars(svg, bars);
+        return;
+      }
       const donut = chart.kind === "donut";
       const ring = chart.kind === "ring";
       const layout = document.createElement("div");

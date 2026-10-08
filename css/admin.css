@@ -546,6 +546,62 @@ p {
   white-space: nowrap;
 }
 
+.bar-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.2fr);
+  gap: 0.35rem 0.7rem;
+  align-items: center;
+}
+
+.bar-layout .pie-legend {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.bar-layout .column-chart {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.column-chart {
+  width: 100%;
+  height: 13.5rem;
+  display: block;
+  overflow: visible;
+}
+
+.column-chart .axis-grid {
+  stroke: #ece7e1;
+  stroke-width: 1;
+}
+
+.column-chart .axis-label {
+  fill: #8b95a5;
+  font-size: 10px;
+}
+
+.column-chart .bar-value {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.column-chart .bar-col {
+  cursor: pointer;
+}
+
+.bar-layout.is-pointing .bar-col {
+  opacity: 0.28;
+}
+
+.bar-layout.is-pointing .bar-col.is-hot {
+  opacity: 1;
+}
+
+.bar-layout .pie-total {
+  grid-column: 1 / -1;
+  margin-top: 0.2rem;
+}
+
 .pie-empty {
   margin: 0;
   color: var(--mute);
@@ -1140,6 +1196,16 @@ p {
     font-size: 1.25rem;
   }
 
+  .bar-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .bar-layout .pie-legend,
+  .bar-layout .column-chart {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
   .pie-layout.is-donut {
     grid-template-columns: minmax(0, 1fr) 10rem;
   }
@@ -1233,6 +1299,7 @@ p {
   .pie-card,
   .pie-visual,
   .pie-legend li,
+  .column-chart .bar-col,
   .pie-svg .pie-slice {
     transition: none;
   }
