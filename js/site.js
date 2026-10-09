@@ -103,41 +103,26 @@
   function bindPin(root, onProgress) {
     const pane = root.querySelector(".pin-pane");
     if (!pane) return;
-    let current = 0;
-    let target = 0;
     let raf = 0;
-    const apply = (value) => {
+    const apply = () => {
+      raf = 0;
+      if (reduce.matches) {
+        pane.style.setProperty("--p", "1");
+        onProgress?.(1);
+        return;
+      }
+      const rootRect = root.getBoundingClientRect();
+      const paneRect = pane.getBoundingClientRect();
+      const total = rootRect.height - paneRect.height;
+      const scrolled = Math.min(Math.max(-rootRect.top, 0), Math.max(total, 0));
+      const value = total > 0 ? scrolled / total : 0;
       pane.style.setProperty("--p", value.toFixed(4));
       onProgress?.(value);
     };
-    const measure = () => {
-      if (reduce.matches) {
-        target = 1;
-        return;
-      }
-      const total = root.offsetHeight - window.innerHeight;
-      const scrolled = Math.min(Math.max(-root.getBoundingClientRect().top, 0), Math.max(total, 0));
-      target = total > 0 ? scrolled / total : 0;
-    };
-    const tick = () => {
-      if (reduce.matches) {
-        current = 1;
-        apply(1);
-        raf = 0;
-        return;
-      }
-      current += (target - current) * 0.16;
-      if (Math.abs(target - current) < 0.0006) current = target;
-      apply(current);
-      raf = current === target ? 0 : requestAnimationFrame(tick);
-    };
     const onScroll = () => {
-      measure();
-      if (!raf) raf = requestAnimationFrame(tick);
+      if (!raf) raf = requestAnimationFrame(apply);
     };
-    measure();
-    current = target;
-    apply(current);
+    apply();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll);
     reduce.addEventListener("change", onScroll);
