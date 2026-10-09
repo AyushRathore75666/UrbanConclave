@@ -1186,6 +1186,8 @@ p {
   flex-shrink: 0;
   flex-direction: column;
   align-items: center;
+  width: 5.75rem;
+  min-width: 0;
   text-align: center;
 }
 
@@ -1197,18 +1199,20 @@ p {
 
 .hero-leaders .name {
   margin-top: 0.25rem;
+  max-width: 100%;
   font-size: 11px;
   font-weight: 600;
   line-height: 1.15;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .hero-leaders .role {
+  max-width: 100%;
   font-size: 10px;
   font-weight: 500;
   line-height: 1.15;
   color: var(--peach);
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .hero-copy {
@@ -1221,11 +1225,16 @@ p {
 }
 
 .hero-kicker {
+  max-width: 48rem;
   font-size: 1rem;
   font-weight: 600;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--peach);
+}
+
+.hero-kicker span {
+  display: block;
 }
 
 .hero-org {
@@ -2271,6 +2280,10 @@ textarea.field {
     padding-inline: 1rem;
   }
 
+  .hero-leaders li {
+    width: 6.75rem;
+  }
+
   .hero-leaders img {
     width: 6rem;
     height: 6rem;
@@ -2434,6 +2447,14 @@ textarea.field {
     padding: 0;
   }
 
+  .hero-leaders li {
+    width: 9.25rem;
+  }
+
+  .hero-kicker {
+    max-width: calc(100vw - 33rem);
+  }
+
   .hero-leaders img {
     width: 7rem;
     height: 7rem;
@@ -2465,6 +2486,19 @@ textarea.field {
 
   .agenda-grid {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1140px) {
+  .hero-kicker {
+    max-width: 32rem;
+    letter-spacing: 0;
+  }
+}
+
+@media (min-width: 1152px) {
+  .hero-kicker {
+    max-width: calc(50vw + 2.5rem);
   }
 }
 
