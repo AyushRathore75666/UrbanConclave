@@ -598,19 +598,20 @@
     tableBody.replaceChildren(fragment);
   }
 
-  function render() {
+  function render(options = {}) {
     const pages = pageCount();
     if (state.page > pages) state.page = pages;
     if (state.page < 1) state.page = 1;
     const filtered = filtersActive();
+    const replayStats = options.replayStats === true;
     totalLabel.textContent = filtered ? "Matching registrations" : "Total Registrations";
     investmentLabel.textContent = filtered ? "Matching proposed investment" : "Total Proposed Investment";
     hcmLabel.textContent = filtered ? "Matching HCM meeting requests" : "Total HCM Meeting Requests";
     hcmApprovedLabel.textContent = filtered ? "Matching HCM meetings approved" : "HCM Meeting Approved by Department";
-    setRollingStat(totalCount, state.loaded ? numberFormat.format(state.totalRecords) : "—", 0);
-    setRollingStat(investmentTotal, state.loaded ? numberFormat.format(proposedInvestmentTotal()) + " crore" : "—", 1);
-    setRollingStat(hcmCount, state.loaded ? numberFormat.format(hcmRequestCount()) : "—", 2);
-    setRollingStat(hcmApprovedCount, state.loaded ? numberFormat.format(departmentApprovedCount()) : "—", 3);
+    setRollingStat(totalCount, state.loaded ? numberFormat.format(state.totalRecords) : "—", 0, replayStats);
+    setRollingStat(investmentTotal, state.loaded ? numberFormat.format(proposedInvestmentTotal()) + " crore" : "—", 1, replayStats);
+    setRollingStat(hcmCount, state.loaded ? numberFormat.format(hcmRequestCount()) : "—", 2, replayStats);
+    setRollingStat(hcmApprovedCount, state.loaded ? numberFormat.format(departmentApprovedCount()) : "—", 3, replayStats);
     filterNote.hidden = !filtersActive();
     exportButton.disabled = state.loading || state.exporting || !state.rows.length;
     exportButton.textContent = state.exporting ? "Exporting CSV…" : "Export CSV";
@@ -708,9 +709,9 @@
     return Number.isFinite(value) ? value : null;
   }
 
-  function setRollingStat(el, text, order) {
-    const previous = el.dataset.value || "";
-    if (previous === text) return;
+  function setRollingStat(el, text, order, replay) {
+    const previous = replay ? "" : el.dataset.value || "";
+    if (!replay && previous === text && el.dataset.rolling !== "1") return;
     const stagger = Math.max(0, Number(order) || 0);
     el.dataset.statOrder = String(stagger);
     el.dataset.value = text;
@@ -719,7 +720,9 @@
     const previousNumber = statNumber(previous);
     const nextNumber = statNumber(text);
     if (text === "—" || reduce || nextNumber == null) {
+      el.dataset.roll = "";
       el.dataset.rolling = "0";
+      el.classList.remove("is-ticking");
       el.textContent = text;
       return;
     }
@@ -754,10 +757,10 @@
       }
       roll.appendChild(digit);
     });
-    const token = String(Date.now());
+    const token = String(Date.now()) + "-" + String(order);
     el.dataset.roll = token;
     el.dataset.rolling = "1";
-    el.classList.add("is-ticking");
+    el.classList.remove("is-ticking");
     el.replaceChildren(roll);
     if (suffix) {
       const suffixEl = document.createElement("span");
@@ -766,6 +769,8 @@
       suffixEl.textContent = suffix;
       el.appendChild(suffixEl);
     }
+    void el.offsetWidth;
+    el.classList.add("is-ticking");
     window.setTimeout(() => {
       if (el.dataset.roll !== token) return;
       el.dataset.rolling = "0";
@@ -1280,7 +1285,7 @@
     } finally {
       inFlight = false;
       setBusy(false);
-      render();
+      render({ replayStats: options.replayStats === true });
     }
   }
 
@@ -1422,7 +1427,7 @@
       redirectToLogin();
     });
 
-    refreshButton.addEventListener("click", () => loadRegistrations());
+    refreshButton.addEventListener("click", () => loadRegistrations({ replayStats: true }));
 
     filterForm.addEventListener("submit", (event) => {
       event.preventDefault();
