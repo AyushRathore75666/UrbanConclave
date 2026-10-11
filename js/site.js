@@ -100,36 +100,62 @@
     observer.observe(node);
   });
 
-  function bindPin(root, onProgress) {
+  function bindPin(root, onProgress, steps) {
     const pane = root.querySelector(".pin-pane");
     if (!pane) return;
     let raf = 0;
+    let last = -1;
+    let paneHeight = 0;
+    const measure = () => {
+      paneHeight = pane.offsetHeight;
+    };
     const apply = () => {
       raf = 0;
       if (reduce.matches) {
-        pane.style.setProperty("--p", "1");
-        onProgress?.(1);
+        if (last !== 1) {
+          last = 1;
+          pane.style.setProperty("--p", "1");
+          onProgress?.(1);
+        }
         return;
       }
       const rootRect = root.getBoundingClientRect();
-      const paneRect = pane.getBoundingClientRect();
-      const total = rootRect.height - paneRect.height;
-      const scrolled = Math.min(Math.max(-rootRect.top, 0), Math.max(total, 0));
-      const value = total > 0 ? scrolled / total : 0;
+      const view = window.innerHeight;
+      let value = 0;
+      if (rootRect.bottom <= 0) value = 1;
+      else if (rootRect.top < view) {
+        const total = Math.max(rootRect.height - (paneHeight || view), 0);
+        const scrolled = Math.min(Math.max(-rootRect.top, 0), total);
+        value = total > 0 ? scrolled / total : 0;
+      }
+      if (root.dataset.pin === "panels") {
+        // Follow the scroll the whole way so each highlight eases open and
+        // closed. Hold the last one open before the section lets go.
+        value = Math.min(1, Math.max(0, (value - 0.02) / 0.9));
+      } else if (steps) {
+        value = Math.round(value * steps) / steps;
+      }
+      if (value === last) return;
+      last = value;
       pane.style.setProperty("--p", value.toFixed(4));
       onProgress?.(value);
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(apply);
     };
+    measure();
     apply();
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll);
+    window.addEventListener("resize", () => {
+      measure();
+      onScroll();
+    });
     reduce.addEventListener("change", onScroll);
   }
 
   document.querySelectorAll("[data-pin]").forEach((root) => {
-    if (root.dataset.pin !== "rail") bindPin(root);
+    if (root.dataset.pin === "rail") return;
+    bindPin(root, null, 0);
   });
 
   const rail = document.querySelector("[data-pin='rail']");
@@ -137,32 +163,41 @@
     const viewport = document.getElementById("rail-viewport");
     const track = document.getElementById("rail-track");
     const countEl = document.getElementById("rail-count");
+    let metrics = { cards: [], gap: 0, cardWidth: 0, view: 0 };
+    const measureRail = () => {
+      const cards = track ? [...track.querySelectorAll(".rail-card")] : [];
+      const gap = track ? Number.parseFloat(getComputedStyle(track).columnGap || "0") || 0 : 0;
+      metrics = {
+        cards,
+        gap,
+        cardWidth: cards[0]?.offsetWidth ?? 0,
+        view: viewport?.clientWidth ?? 0,
+      };
+    };
+    measureRail();
+    window.addEventListener("resize", measureRail);
     bindPin(rail, (progress) => {
-      if (!viewport || !track) return;
-      const cards = [...track.querySelectorAll(".rail-card")];
+      const { cards, gap, cardWidth, view } = metrics;
       const count = cards.length;
-      if (reduce.matches || count < 2) {
-        track.style.transform = "";
+      if (!viewport || !track || reduce.matches || count < 2 || !cardWidth) {
+        if (track) track.style.transform = "";
         cards.forEach((card) => {
           card.style.transform = "";
-          card.style.filter = "";
+          card.style.opacity = "";
           card.style.zIndex = "";
         });
         return;
       }
-      const gap = Number.parseFloat(getComputedStyle(track).columnGap || "0") || 0;
-      const cardWidth = cards[0]?.offsetWidth ?? 0;
-      if (!cardWidth) return;
       const index = progress * (count - 1);
-      const x = viewport.clientWidth / 2 - cardWidth / 2 - index * (cardWidth + gap);
+      const x = view / 2 - cardWidth / 2 - index * (cardWidth + gap);
       track.style.transform = "translate3d(" + x + "px, 0, 0)";
       cards.forEach((card, cardIndex) => {
         const delta = cardIndex - index;
         const abs = Math.min(Math.abs(delta), 1.4);
-        const scale = 1 - Math.min(abs, 1) * 0.16;
-        const rotate = Math.max(-8, Math.min(8, delta * 6));
-        card.style.transform = "translate3d(0, " + abs * abs * 28 + "px, 0) rotate(" + rotate + "deg) scale(" + scale + ")";
-        card.style.filter = "blur(" + Math.min(abs * 2.2, 3.2) + "px) brightness(" + (1 - Math.min(abs, 1) * 0.32) + ")";
+        const scale = 1 - Math.min(abs, 1) * 0.12;
+        const lift = abs * abs * 18;
+        card.style.transform = "translate3d(0, " + lift + "px, 0) scale(" + scale + ")";
+        card.style.opacity = String(1 - Math.min(abs, 1) * 0.28);
         card.style.zIndex = String(20 - Math.round(abs * 10));
       });
       if (countEl) {
@@ -178,15 +213,6 @@
     const frame = about.querySelector(".about-photo");
     const photo = frame?.querySelector(".about-photo-motion");
     let raf = 0;
-    const layoutTop = (el) => {
-      let top = 0;
-      let node = el;
-      while (node) {
-        top += node.offsetTop;
-        node = node.offsetParent;
-      }
-      return top;
-    };
     const apply = () => {
       raf = 0;
       if (reduce.matches) {
@@ -194,6 +220,8 @@
         photo?.style.setProperty("--zoom", "0");
         return;
       }
+      const aboutRect = about.getBoundingClientRect();
+      if (aboutRect.bottom < -40 || aboutRect.top > window.innerHeight + 40) return;
       const start = window.innerHeight * 0.98;
       const end = window.innerHeight * 0.78;
       items.forEach((item) => {
@@ -203,11 +231,7 @@
       });
       if (photo && frame) {
         const rect = frame.getBoundingClientRect();
-        const stickyTop = Number.parseFloat(getComputedStyle(frame).top);
-        const stuck = getComputedStyle(frame).position === "sticky" && Number.isFinite(stickyTop) && rect.top <= stickyTop + 1;
-        let center = rect.top + rect.height / 2;
-        if (stuck) center -= Math.max(0, window.scrollY - (layoutTop(frame) - stickyTop));
-        const zoom = (window.innerHeight - center) / (window.innerHeight - window.innerHeight * 0.08);
+        const zoom = (window.innerHeight - (rect.top + rect.height / 2)) / (window.innerHeight * 0.92);
         photo.style.setProperty("--zoom", Math.min(1, Math.max(0, zoom)).toFixed(3));
       }
     };
