@@ -1288,6 +1288,14 @@ p {
   text-align: center;
 }
 
+.admin-footer .app-version {
+  margin: 0.35rem 0 0;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--mute);
+  opacity: 0.8;
+}
+
 .noscript {
   margin: 1rem;
   padding: 1rem;

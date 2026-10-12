@@ -2395,6 +2395,13 @@ p {
   color: rgba(255, 255, 255, 0.7);
 }
 
+.app-version {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.45);
+}
+
 .inner-grid {
   position: relative;
   z-index: 10;
