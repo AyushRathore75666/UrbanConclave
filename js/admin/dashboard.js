@@ -98,7 +98,6 @@
     ["designation", "Designation"],
     ["sector", "Sector"],
     ["registration_id", "Registration ID"],
-    ["registration_status", "Registration Status"],
     ["city", "City"],
     ["state", "State"],
     ["attending_as", "Attending As"],
@@ -563,13 +562,7 @@
           const cell = document.createElement("td");
           cell.className = "col-" + key;
           cell.setAttribute("translate", "no");
-          if (key === "registration_status") {
-            const badge = document.createElement("span");
-            badge.className = "status-badge";
-            badge.dataset.status = String(record.registration_status || "").trim().toLowerCase();
-            badge.textContent = displayCell(record, key);
-            cell.appendChild(badge);
-          } else if (key === "request_hcm_meeting") {
+          if (key === "request_hcm_meeting") {
             const group = document.createElement("div");
             group.className = "hcm-approval";
             const text = document.createElement("span");
