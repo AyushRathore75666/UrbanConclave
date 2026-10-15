@@ -2491,6 +2491,34 @@ p {
   color: var(--saffron-700);
 }
 
+.amount-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.amount-head .lbl {
+  margin: 0;
+}
+
+.crore-unit {
+  font-weight: 800;
+  color: var(--saffron-700);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.amount-rupees {
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #dc2626;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
 .split {
   display: grid;
   gap: 1rem;

@@ -67,9 +67,11 @@
   const hcmFields = document.getElementById("hcm-fields");
   const agenda = document.getElementById("hcmAgenda");
   const wordCount = document.getElementById("word-count");
+  const amountRupees = document.getElementById("hcm-amount-rupees");
   const formError = document.getElementById("form-error");
   const submitButton = document.getElementById("submit-registration");
   const toast = document.getElementById("form-toast");
+  const rupeeFormat = new Intl.NumberFormat("en-IN");
 
   function lang() {
     return localStorage.getItem("ugc-locale") === "hi" ? "hi" : "en";
@@ -222,6 +224,19 @@
     wordCount.classList.toggle("over", count > 150);
   }
 
+  function refreshAmountRupees() {
+    if (!amountRupees) return;
+    const raw = controlValue(form.elements.namedItem("hcmAmount")).trim();
+    const crore = Number(raw);
+    if (!raw || !Number.isFinite(crore) || crore <= 0) {
+      amountRupees.textContent = "";
+      amountRupees.hidden = true;
+      return;
+    }
+    amountRupees.textContent = "₹ " + rupeeFormat.format(Math.round(crore * 1e7));
+    amountRupees.hidden = false;
+  }
+
   function syncHcm() {
     const yes = form.querySelector("input[name='hcmRequested'][value='yes']")?.checked;
     if (hcmFields) hcmFields.hidden = !yes;
@@ -371,6 +386,7 @@
   ["contactName", "designation", "city", "mobile", "hcmAmount"].forEach((name) => tidy(form.elements.namedItem(name)));
   syncHcm();
   refreshWords();
+  refreshAmountRupees();
   form.addEventListener("change", (event) => {
     if (event.target.name === "hcmRequested") syncHcm();
     writeDraft();
@@ -413,6 +429,7 @@
   form.addEventListener("input", (event) => {
     tidy(event.target);
     refreshWords();
+    if (event.target?.name === "hcmAmount") refreshAmountRupees();
     writeDraft();
     const slot = event.target?.name && form.querySelector("[data-error='" + event.target.name + "']");
     if (slot && !slot.hidden) refreshField(event.target.name);
