@@ -1,7 +1,7 @@
 /* Bump this number each time you deploy to the server. */
 window.UGC_VERSION = {
-  number: "1.0.1",
-  updated: "2026-10-15",
+  number: "1.0.2",
+  updated: "2026-10-20",
 };
 
 (function () {

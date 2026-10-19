@@ -2277,6 +2277,19 @@ p {
   font-size: 0.875rem;
 }
 
+.agenda-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+}
+
+.agenda-download {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
 .agenda-grid,
 .why-grid {
   display: grid;
@@ -2310,6 +2323,33 @@ p {
   font-size: 0.875rem;
   line-height: 1.6;
   color: var(--mute);
+}
+
+.agenda-sublist {
+  margin: 0.65rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.45rem;
+}
+
+.agenda-sublist li {
+  position: relative;
+  padding-left: 0.85rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--mute);
+}
+
+.agenda-sublist li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: var(--saffron-700);
 }
 
 .icon {
