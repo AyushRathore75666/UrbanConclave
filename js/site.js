@@ -4,6 +4,8 @@
     hi: { menu: "मेनू", close: "बंद करें" },
   };
 
+  document.addEventListener("contextmenu", (event) => event.preventDefault());
+
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   function locale() {
