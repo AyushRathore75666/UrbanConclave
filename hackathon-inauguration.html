@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ujjain Simhastha · Grand Innovation Challenge Launch</title>
+    <link rel="icon" href="brand/mp-icon.png" type="image/png" />
+    <meta
+      name="description"
+      content="Ujjain Simhastha Grand Innovation Challenge — technology-enabled, scalable and field-deployable solutions for predictive urban management."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                navy: "#0a0f1c",
+                red: "#e62429",
+                gold: "#f59e0b",
+                goldHover: "#fbbf24",
+              },
+            },
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              serif: ["Playfair Display", "serif"],
+            },
+            animation: {
+              "fade-in": "fadeIn 1.5s ease-out forwards",
+              "slide-up": "slideUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+              "pulse-glow": "pulseGlow 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+              pop: "pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards",
+              float: "float 6s ease-in-out infinite",
+              "spin-slow": "spin 12s linear infinite",
+              shimmer: "shimmer 3.5s linear infinite",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: "0" },
+                "100%": { opacity: "1" },
+              },
+              slideUp: {
+                "0%": { opacity: "0", transform: "translateY(50px)" },
+                "100%": { opacity: "1", transform: "translateY(0)" },
+              },
+              pulseGlow: {
+                "0%, 100%": { opacity: "1", boxShadow: "0 0 30px rgba(230, 36, 41, 0.5)" },
+                "50%": { opacity: ".9", boxShadow: "0 0 60px rgba(245, 158, 11, 0.8)" },
+              },
+              pop: {
+                "0%": { transform: "scale(0.3) translateY(20px)", opacity: "0" },
+                "70%": { transform: "scale(1.1) translateY(-10px)" },
+                "100%": { transform: "scale(1) translateY(0)", opacity: "1" },
+              },
+              float: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-20px)" },
+              },
+              shimmer: {
+                "0%": { backgroundPosition: "200% center" },
+                "100%": { backgroundPosition: "-200% center" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="stylesheet" href="css/inauguration.css?v=20261020e" />
+  </head>
+  <body class="font-sans antialiased text-gray-200 selection:bg-brand-red selection:text-white">
+    <div id="flash-overlay"></div>
+
+    <!-- STATE 1: HERO -->
+    <section id="hero-view" class="relative min-h-screen flex flex-col items-center justify-center transition-opacity duration-1000 p-6 hero-bg">
+      <div class="absolute inset-0 bg-brand-navy/75 backdrop-blur-[1px]"></div>
+      <div class="hero-aurora" aria-hidden="true"></div>
+
+      <div class="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto animate-slide-up">
+        <div class="w-32 h-32 md:w-40 md:h-40 mb-8 animate-float relative">
+          <div class="absolute inset-0 bg-brand-gold rounded-2xl blur-xl opacity-40"></div>
+          <img
+            src="brand/challenge/ujjain-simhastha.png"
+            alt="Ujjain Simhastha Logo"
+            class="w-full h-full object-contain relative z-10 bg-white p-3 rounded-2xl shadow-[0_0_40px_rgba(230,36,41,0.65)]"
+          />
+        </div>
+
+        <span class="text-brand-gold font-bold tracking-[0.22em] uppercase text-sm md:text-base mb-4 block">
+          Government of Madhya Pradesh
+        </span>
+
+        <h1 class="text-5xl md:text-8xl font-serif font-extrabold mb-6 leading-tight drop-shadow-lg">
+          Grand Innovation<br />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red via-brand-gold to-yellow-300 animate-shimmer bg-[length:200%_auto]">
+            Challenge
+          </span>
+        </h1>
+
+        <p class="text-xl md:text-2xl text-gray-200 mb-12 font-light max-w-3xl mx-auto">
+          Shaping tech-enabled, scalable, and predictive solutions for the world's largest gathering.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+          <a
+            href="index.html"
+            class="px-8 py-4 rounded-full border border-gray-500 text-gray-200 hover:border-brand-gold hover:text-brand-gold transition-all duration-300 w-full sm:w-auto font-medium uppercase tracking-wider text-sm"
+          >
+            Back to Conclave
+          </a>
+
+          <button
+            type="button"
+            id="open-cm-portal"
+            class="ripple-btn relative group px-8 py-4 rounded-full bg-gradient-to-r from-brand-red to-red-700 text-white font-bold hover:from-red-600 hover:to-brand-red transition-all duration-300 w-full sm:w-auto animate-pulse-glow flex items-center justify-center gap-3 transform hover:scale-105 shadow-[0_0_30px_rgba(230,36,41,0.45)]"
+          >
+            <span class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 rounded-full transition-opacity"></span>
+            <i class="ph-fill ph-rocket-launch text-2xl relative z-10"></i>
+            <span class="relative z-10 uppercase tracking-wide text-sm">Hackathon Inauguration</span>
+          </button>
+        </div>
+
+        <p class="mt-14 text-xs tracking-[0.2em] uppercase text-gray-400 flex flex-col items-center gap-2">
+          Scroll to discover
+          <span class="scroll-line"></span>
+        </p>
+      </div>
+    </section>
+
+    <!-- STATE 2: CM LAUNCH PAD -->
+    <section
+      id="launch-view"
+      class="fixed inset-0 z-40 bg-[#070b14] hidden flex-col items-center justify-center opacity-0 transition-opacity duration-1000"
+    >
+      <div class="launch-stage-bg" aria-hidden="true">
+        <span class="launch-ring launch-ring-a"></span>
+        <span class="launch-ring launch-ring-b"></span>
+        <span class="launch-ring launch-ring-c"></span>
+        <span class="launch-glow"></span>
+      </div>
+
+      <div id="cm-card" class="cm-launch-card translate-y-10 transition-all duration-1000 relative z-10">
+        <div class="cm-portrait-panel">
+          <div class="cm-portrait-aura" aria-hidden="true"></div>
+          <img
+            src="leaders/cm-inauguration.png?v=remote-launch"
+            alt="Hon'ble Chief Minister Dr. Mohan Yadav"
+            class="cm-launch-photo"
+          />
+        </div>
+
+        <div class="cm-launch-copy">
+          <div class="cm-launch-logo">
+            <img src="brand/challenge/ujjain-simhastha.png" alt="Simhastha" />
+          </div>
+
+          <p class="cm-launch-role">
+            <span class="cm-role-line" aria-hidden="true"></span>
+            Hon'ble Chief Minister, MP
+          </p>
+          <h1 class="cm-launch-name">Dr. Mohan Yadav</h1>
+
+          <p class="cm-launch-quote">
+            "Empowering the youth and innovators to build scalable, predictive solutions for a glorious Simhastha 2028."
+          </p>
+
+          <button type="button" id="start-countdown" class="ripple-btn cm-launch-btn">
+            <span class="cm-launch-btn-glow" aria-hidden="true"></span>
+            <span class="relative z-10 flex items-center gap-3">
+              <i class="ph-fill ph-rocket-launch text-2xl"></i>
+              Initiate Launch Sequence
+            </span>
+          </button>
+
+          <button type="button" id="back-to-hero" class="cm-return-btn">Return</button>
+        </div>
+      </div>
+
+      <!-- Full-screen cinematic countdown -->
+      <div id="countdown-display" class="countdown-screen hidden">
+        <div class="countdown-screen-bg" aria-hidden="true">
+          <span class="countdown-ripple r1"></span>
+          <span class="countdown-ripple r2"></span>
+          <span class="countdown-ripple r3"></span>
+          <span class="countdown-core-glow"></span>
+        </div>
+        <div class="countdown-content">
+          <span class="countdown-label">Launching in</span>
+          <span id="countdown-number" class="countdown-number"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATE 3: LIVE CHALLENGE -->
+    <section id="live-view" class="fixed inset-0 z-30 live-bg hidden flex-col items-center pt-20 pb-16 px-5 overflow-y-auto opacity-0 transition-opacity duration-1000">
+      <div class="max-w-7xl w-full mx-auto relative z-10 flex flex-col items-center">
+        <div class="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-brand-red/20 border border-brand-red/50 text-red-300 font-bold tracking-[0.2em] uppercase mb-8 animate-slide-up shadow-[0_0_20px_rgba(230,36,41,0.35)]">
+          <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+          </span>
+          Challenge is Live
+        </div>
+
+        <div class="flex flex-col items-center text-center mb-14 animate-slide-up" style="animation-delay: 0.15s">
+          <img src="brand/challenge/ujjain-simhastha.png" alt="Simhastha" class="w-20 h-20 mb-6 drop-shadow-[0_0_18px_rgba(230,36,41,0.55)] bg-white rounded-xl p-2" />
+          <h1 class="text-4xl md:text-7xl font-serif font-black mb-6">
+            Grand Innovation <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-brand-gold">Challenge</span>
+          </h1>
+
+          <div class="glass-panel p-7 md:p-9 rounded-2xl max-w-4xl mt-2 border-l-4 border-l-brand-gold text-left md:text-center">
+            <p class="text-lg md:text-xl text-gray-100 leading-relaxed font-light">
+              The Grand Innovation Challenge seeks technology-enabled, scalable, interoperable and field-deployable solutions that can help authorities transition from predominantly reactive management to predictive, preventive and real-time decision making.
+            </p>
+            <p class="mt-4 text-brand-gold font-medium">
+              The challenge is organised under four interconnected problem areas. Participants are encouraged to submit proposals that comprehensively address one of these areas.
+            </p>
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+              <a href="register.html?session=hackathon" class="bg-brand-gold text-brand-navy font-bold px-10 py-4 rounded-full uppercase tracking-wider hover:bg-brand-goldHover transition-colors shadow-[0_0_24px_rgba(245,158,11,0.45)]">
+                Apply Now
+              </a>
+              <a href="#tracks" class="px-8 py-4 rounded-full border border-gray-500 text-gray-200 hover:border-brand-gold hover:text-brand-gold transition-all uppercase tracking-wider text-sm font-semibold">
+                Scroll to discover
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Vibrant track mosaic -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-6xl mb-10">
+          <button type="button" data-scroll="#track-mobility" class="mosaic-tile group">
+            <img src="scenes/transit.jpg" alt="" />
+            <span><i class="ph-fill ph-traffic-signal"></i> Mobility</span>
+          </button>
+          <button type="button" data-scroll="#track-crowd" class="mosaic-tile group">
+            <img src="scenes/simhastha.webp" alt="" />
+            <span><i class="ph-fill ph-users-three"></i> Crowd Safety</span>
+          </button>
+          <button type="button" data-scroll="#track-sanitation" class="mosaic-tile group">
+            <img src="scenes/smart-city.jpg" alt="" />
+            <span><i class="ph-fill ph-recycle"></i> Sanitation</span>
+          </button>
+          <button type="button" data-scroll="#track-supply" class="mosaic-tile group">
+            <img src="scenes/infrastructure.jpg" alt="" />
+            <span><i class="ph-fill ph-truck"></i> Logistics</span>
+          </button>
+        </div>
+
+        <div id="tracks" class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl mb-16">
+          <article id="track-mobility" class="glass-card rounded-2xl overflow-hidden track-card track-delay-1 flex flex-col h-full border-t-4 border-t-blue-500 group">
+            <div class="track-media">
+              <img src="scenes/transit.jpg" alt="Mobility and traffic" />
+            </div>
+            <div class="p-7 flex flex-col flex-grow">
+              <div class="flex items-center gap-4 mb-5">
+                <div class="w-14 h-14 rounded-full bg-blue-500/20 flex items-center justify-center text-blue-400 group-hover:scale-110 transition-transform duration-500">
+                  <i class="ph ph-traffic-signal text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white font-serif group-hover:text-blue-400 transition-colors">Mobility &amp; Traffic Management</h3>
+              </div>
+              <div class="text-gray-300 text-sm leading-relaxed space-y-3 flex-grow">
+                <p>During Simhastha, Ujjain will experience significant and rapidly changing movement of pilgrims, residents, vehicles and pedestrians. Traffic conditions can shift quickly due to religious events, bathing schedules, peak travel periods, weather and crowd density.</p>
+                <p>At such times, temporary traffic arrangements such as diversions, pedestrian corridors, parking zones and emergency routes are needed.</p>
+                <p class="text-white">The challenge is to develop solutions that help authorities monitor, predict and manage mobility across the Mela area in real time.</p>
+                <p class="italic text-xs text-gray-400">Applicants should demonstrate capabilities in technology, urban planning and/or transport planning. Proposals may address one or more of the challenges.</p>
+              </div>
+              <p class="mt-5 pt-4 border-t border-gray-700/50 text-blue-400 text-sm font-semibold uppercase tracking-wider">Track 1 · Mobility and Traffic Management</p>
+            </div>
+          </article>
+
+          <article id="track-crowd" class="glass-card rounded-2xl overflow-hidden track-card track-delay-2 flex flex-col h-full border-t-4 border-t-brand-gold group">
+            <div class="track-media">
+              <img src="scenes/simhastha.webp" alt="Crowd management" />
+            </div>
+            <div class="p-7 flex flex-col flex-grow">
+              <div class="flex items-center gap-4 mb-5">
+                <div class="w-14 h-14 rounded-full bg-brand-gold/20 flex items-center justify-center text-brand-gold group-hover:scale-110 transition-transform duration-500">
+                  <i class="ph ph-users-three text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white font-serif group-hover:text-brand-gold transition-colors">Crowd Management &amp; Pilgrim Safety</h3>
+              </div>
+              <div class="text-gray-300 text-sm leading-relaxed space-y-3 flex-grow">
+                <p>Simhastha will bring together large numbers of people across ghats, temples, transit hubs, marketplaces, accommodation areas and public spaces. Crowd conditions can change rapidly due to religious events, weather, transport arrivals and movement patterns.</p>
+                <p class="text-white">Authorities need solutions that provide real-time situational awareness, help anticipate risks and support timely interventions while preserving the safety, dignity and experience of pilgrims.</p>
+                <p class="italic text-xs text-gray-400">Applicants should demonstrate capabilities in technology, urban design and planning, and/or behavioural science. Proposals may address one or more of the challenges.</p>
+              </div>
+              <p class="mt-5 pt-4 border-t border-gray-700/50 text-brand-gold text-sm font-semibold uppercase tracking-wider">Track 2 · Crowd Management and Pilgrim Safety</p>
+            </div>
+          </article>
+
+          <article id="track-sanitation" class="glass-card rounded-2xl overflow-hidden track-card track-delay-3 flex flex-col h-full border-t-4 border-t-teal-500 group">
+            <div class="track-media">
+              <img src="scenes/smart-city.jpg" alt="Sanitation management" />
+            </div>
+            <div class="p-7 flex flex-col flex-grow">
+              <div class="flex items-center gap-4 mb-5">
+                <div class="w-14 h-14 rounded-full bg-teal-500/20 flex items-center justify-center text-teal-400 group-hover:scale-110 transition-transform duration-500">
+                  <i class="ph ph-recycle text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white font-serif group-hover:text-teal-400 transition-colors">Sanitation &amp; Cleanliness Management</h3>
+              </div>
+              <div class="text-gray-300 text-sm leading-relaxed space-y-3 flex-grow">
+                <p>The large and temporary nature of Simhastha will create significant demand for waste management, sanitation services and public hygiene infrastructure.</p>
+                <p>Waste generation and the use of sanitation facilities will vary across locations and time, requiring a responsive and data-driven approach to service delivery.</p>
+                <p class="text-white">The challenge is to develop solutions that help authorities maintain cleanliness, improve operational efficiency and ensure reliable sanitation services throughout the event.</p>
+                <p class="italic text-xs text-gray-400">Applicants should demonstrate capabilities in technology and/or planning. Proposals may address one or more of the challenges.</p>
+              </div>
+              <p class="mt-5 pt-4 border-t border-gray-700/50 text-teal-400 text-sm font-semibold uppercase tracking-wider">Track 3 · Sanitation and Cleanliness Management</p>
+            </div>
+          </article>
+
+          <article id="track-supply" class="glass-card rounded-2xl overflow-hidden track-card track-delay-4 flex flex-col h-full border-t-4 border-t-brand-red group">
+            <div class="track-media">
+              <img src="scenes/infrastructure.jpg" alt="Supply chain logistics" />
+            </div>
+            <div class="p-7 flex flex-col flex-grow">
+              <div class="flex items-center gap-4 mb-5">
+                <div class="w-14 h-14 rounded-full bg-brand-red/20 flex items-center justify-center text-brand-red group-hover:scale-110 transition-transform duration-500">
+                  <i class="ph ph-truck text-3xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white font-serif group-hover:text-brand-red transition-colors">Supply Chain Management &amp; Logistics</h3>
+              </div>
+              <div class="text-gray-300 text-sm leading-relaxed space-y-3 flex-grow">
+                <p>Simhastha will function as a temporary city, requiring the timely delivery of food, drinking water, medical supplies, sanitation materials, fuel and other essential goods across a large and dynamic event area.</p>
+                <p class="text-white">The challenge is to ensure reliable supply while minimizing congestion, stock shortages and unnecessary vehicle movement.</p>
+                <p>Authorities need solutions that can help forecast demand, manage inventories and coordinate logistics efficiently in a rapidly changing environment.</p>
+                <p class="italic text-xs text-gray-400">Applicants should demonstrate capabilities in technology and/or supply chain and logistics planning. Proposals may address one or more of the challenges.</p>
+              </div>
+              <p class="mt-5 pt-4 border-t border-gray-700/50 text-brand-red text-sm font-semibold uppercase tracking-wider">Track 4 · Supply Chain Management and Logistics</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-6 mb-14">
+          <section id="who" class="glass-panel rounded-2xl p-7 lg:col-span-1">
+            <p class="text-brand-gold text-xs tracking-[0.18em] uppercase font-bold mb-2">Eligibility</p>
+            <h2 class="text-2xl font-serif font-bold mb-4">Who Should Apply</h2>
+            <ul class="space-y-3 text-sm text-gray-300">
+              <li class="flex gap-3"><i class="ph-fill ph-buildings text-brand-gold text-xl"></i><span>Startups &amp; enterprises building scalable urban platforms</span></li>
+              <li class="flex gap-3"><i class="ph-fill ph-graduation-cap text-brand-gold text-xl"></i><span>Research labs and academic teams</span></li>
+              <li class="flex gap-3"><i class="ph-fill ph-compass-tool text-brand-gold text-xl"></i><span>Urban, transport and behavioural planners</span></li>
+              <li class="flex gap-3"><i class="ph-fill ph-handshake text-brand-gold text-xl"></i><span>Cross-disciplinary consortia ready for field deployment</span></li>
+            </ul>
+          </section>
+
+          <section id="timeline" class="glass-panel rounded-2xl p-7 lg:col-span-1">
+            <p class="text-brand-gold text-xs tracking-[0.18em] uppercase font-bold mb-2">How it works</p>
+            <h2 class="text-2xl font-serif font-bold mb-4">Process &amp; Timeline</h2>
+            <ol class="space-y-3 text-sm text-gray-300">
+              <li><span class="text-brand-red font-bold">01</span> Submit a track-focused proposal</li>
+              <li><span class="text-brand-red font-bold">02</span> Expert shortlisting for feasibility &amp; impact</li>
+              <li><span class="text-brand-red font-bold">03</span> Prototype refinement and live demo</li>
+              <li><span class="text-brand-red font-bold">04</span> Pilot consideration for Simhastha operations</li>
+            </ol>
+          </section>
+
+          <section id="resources" class="glass-panel rounded-2xl p-7 lg:col-span-1">
+            <p class="text-brand-gold text-xs tracking-[0.18em] uppercase font-bold mb-2">Support</p>
+            <h2 class="text-2xl font-serif font-bold mb-4">Resources &amp; FAQs</h2>
+            <div class="space-y-3 text-sm text-gray-300">
+              <p><strong class="text-white">Strong proposal?</strong> Predictive capability, interoperability and a clear field path.</p>
+              <p><strong class="text-white">Multiple tracks?</strong> Choose one primary track and note cross-track value.</p>
+              <p><strong class="text-white">Only software?</strong> No — hardware, sensing and hybrid systems are welcome.</p>
+            </div>
+          </section>
+        </div>
+
+        <div class="flex flex-wrap justify-center gap-4 mb-10">
+          <a href="register.html?session=hackathon" class="bg-gradient-to-r from-brand-red to-red-700 text-white font-bold px-10 py-4 rounded-full uppercase tracking-wider shadow-[0_0_30px_rgba(230,36,41,0.4)] hover:scale-105 transition-transform">Apply Now</a>
+          <a href="docs/Event_Brochure-MPUGC_2026.pdf" download class="px-8 py-4 rounded-full border border-gray-500 hover:border-brand-gold hover:text-brand-gold transition-all uppercase tracking-wider text-sm font-semibold">Download Brochure</a>
+          <a href="index.html" class="px-8 py-4 rounded-full border border-gray-500 hover:border-brand-gold hover:text-brand-gold transition-all uppercase tracking-wider text-sm font-semibold">Conclave Home</a>
+        </div>
+
+        <button type="button" id="replay-inauguration" class="text-xs tracking-widest uppercase text-gray-600 hover:text-brand-red transition-colors pb-8">
+          Restart Inauguration Sequence
+        </button>
+      </div>
+    </section>
+
+    <script src="js/inauguration.js?v=20261020e"></script>
+  </body>
+</html>
