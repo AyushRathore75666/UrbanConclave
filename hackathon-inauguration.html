@@ -74,7 +74,7 @@
         },
       };
     </script>
-    <link rel="stylesheet" href="css/inauguration.css?v=20261020e" />
+    <link rel="stylesheet" href="css/inauguration.css?v=20261021c" />
   </head>
   <body class="font-sans antialiased text-gray-200 selection:bg-brand-red selection:text-white">
     <div id="flash-overlay"></div>
@@ -200,9 +200,31 @@
     </section>
 
     <!-- STATE 3: LIVE CHALLENGE -->
-    <section id="live-view" class="fixed inset-0 z-30 live-bg hidden flex-col items-center pt-20 pb-16 px-5 overflow-y-auto opacity-0 transition-opacity duration-1000">
+    <section id="live-view" class="fixed inset-0 z-30 live-bg hidden flex-col items-center pt-20 pb-16 px-5 overflow-y-auto opacity-0">
+      <!-- Red theater curtains -->
+      <div id="curtain-stage" class="curtain-stage" aria-hidden="true">
+        <div class="curtain curtain-left">
+          <span class="curtain-fold"></span>
+          <span class="curtain-fold"></span>
+          <span class="curtain-fold"></span>
+          <span class="curtain-fold"></span>
+          <span class="curtain-fold"></span>
+          <span class="curtain-shine"></span>
+        </div>
+        <div class="curtain curtain-right">
+          <span class="curtain-fold"></span>
+          <span class="curtain-fold"></span>
+          <span class="curtain-fold"></span>
+          <span class="curtain-fold"></span>
+          <span class="curtain-fold"></span>
+          <span class="curtain-shine"></span>
+        </div>
+        <div class="curtain-valance"></div>
+        <div class="curtain-seam"></div>
+      </div>
+
       <div class="max-w-7xl w-full mx-auto relative z-10 flex flex-col items-center">
-        <div class="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-brand-red/20 border border-brand-red/50 text-red-300 font-bold tracking-[0.2em] uppercase mb-8 animate-slide-up shadow-[0_0_20px_rgba(230,36,41,0.35)]">
+        <div class="reveal-from-left inline-flex items-center gap-3 px-6 py-2 rounded-full bg-brand-red/20 border border-brand-red/50 text-red-300 font-bold tracking-[0.2em] uppercase mb-8 shadow-[0_0_20px_rgba(230,36,41,0.35)]">
           <span class="relative flex h-3 w-3">
             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
             <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
@@ -210,13 +232,15 @@
           Challenge is Live
         </div>
 
-        <div class="flex flex-col items-center text-center mb-14 animate-slide-up" style="animation-delay: 0.15s">
-          <img src="brand/challenge/ujjain-simhastha.png" alt="Simhastha" class="w-20 h-20 mb-6 drop-shadow-[0_0_18px_rgba(230,36,41,0.55)] bg-white rounded-xl p-2" />
-          <h1 class="text-4xl md:text-7xl font-serif font-black mb-6">
+        <div class="flex flex-col items-center text-center mb-14 w-full">
+          <div class="reveal-from-left">
+            <img src="brand/challenge/ujjain-simhastha.png" alt="Simhastha" class="w-20 h-20 mb-6 drop-shadow-[0_0_18px_rgba(230,36,41,0.55)] bg-white rounded-xl p-2 mx-auto" />
+          </div>
+          <h1 class="reveal-from-right text-4xl md:text-7xl font-serif font-black mb-6">
             Grand Innovation <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-brand-gold">Challenge</span>
           </h1>
 
-          <div class="glass-panel p-7 md:p-9 rounded-2xl max-w-4xl mt-2 border-l-4 border-l-brand-gold text-left md:text-center">
+          <div class="reveal-from-left glass-panel p-7 md:p-9 rounded-2xl max-w-4xl mt-2 border-l-4 border-l-brand-gold text-left md:text-center">
             <p class="text-lg md:text-xl text-gray-100 leading-relaxed font-light">
               The Grand Innovation Challenge seeks technology-enabled, scalable, interoperable and field-deployable solutions that can help authorities transition from predominantly reactive management to predictive, preventive and real-time decision making.
             </p>
@@ -236,19 +260,19 @@
 
         <!-- Vibrant track mosaic -->
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-6xl mb-10">
-          <button type="button" data-scroll="#track-mobility" class="mosaic-tile group">
+          <button type="button" data-scroll="#track-mobility" class="mosaic-tile group reveal-from-left">
             <img src="scenes/transit.jpg" alt="" />
             <span><i class="ph-fill ph-traffic-signal"></i> Mobility</span>
           </button>
-          <button type="button" data-scroll="#track-crowd" class="mosaic-tile group">
+          <button type="button" data-scroll="#track-crowd" class="mosaic-tile group reveal-from-left" style="--reveal-delay: 0.08s">
             <img src="scenes/simhastha.webp" alt="" />
             <span><i class="ph-fill ph-users-three"></i> Crowd Safety</span>
           </button>
-          <button type="button" data-scroll="#track-sanitation" class="mosaic-tile group">
+          <button type="button" data-scroll="#track-sanitation" class="mosaic-tile group reveal-from-right" style="--reveal-delay: 0.08s">
             <img src="scenes/smart-city.jpg" alt="" />
             <span><i class="ph-fill ph-recycle"></i> Sanitation</span>
           </button>
-          <button type="button" data-scroll="#track-supply" class="mosaic-tile group">
+          <button type="button" data-scroll="#track-supply" class="mosaic-tile group reveal-from-right">
             <img src="scenes/infrastructure.jpg" alt="" />
             <span><i class="ph-fill ph-truck"></i> Logistics</span>
           </button>
@@ -385,6 +409,6 @@
       </div>
     </section>
 
-    <script src="js/inauguration.js?v=20261020e"></script>
+    <script src="js/inauguration.js?v=20261021c"></script>
   </body>
 </html>

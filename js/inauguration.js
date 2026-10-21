@@ -131,6 +131,34 @@
     }, 600);
   }
 
+  function playCurtainReveal() {
+    const curtainStage = document.getElementById("curtain-stage");
+    if (!curtainStage) {
+      fireMassiveConfetti();
+      launching = false;
+      return;
+    }
+
+    liveView.classList.remove("curtains-revealed");
+    curtainStage.classList.remove("is-open", "is-done");
+    curtainStage.classList.add("is-ready");
+
+    // Hold closed red blanket, then open from center
+    setTimeout(() => {
+      curtainStage.classList.add("is-open");
+      liveView.classList.add("curtains-revealed");
+      playTone(392, 0.35, "triangle");
+      setTimeout(() => playTone(523, 0.45, "triangle"), 180);
+      fireMassiveConfetti();
+    }, 700);
+
+    setTimeout(() => {
+      curtainStage.classList.add("is-done");
+      curtainStage.classList.remove("is-ready");
+      launching = false;
+    }, 3200);
+  }
+
   function triggerFlashbangAndLaunch() {
     flashOverlay.classList.add("flash-active");
 
@@ -142,14 +170,11 @@
       launchView.classList.remove("flex", "opacity-100");
       launchView.classList.add("opacity-0");
 
-      liveView.classList.remove("hidden");
-      liveView.classList.add("flex");
-      liveView.classList.remove("opacity-0");
-      liveView.classList.add("opacity-100");
+      liveView.classList.remove("hidden", "opacity-0", "curtains-revealed");
+      liveView.classList.add("flex", "opacity-100");
 
       flashOverlay.classList.remove("flash-active");
-      fireMassiveConfetti();
-      launching = false;
+      playCurtainReveal();
     }, 150);
   }
 
@@ -233,5 +258,10 @@
     heroView.classList.remove("flex");
     liveView.classList.remove("hidden", "opacity-0");
     liveView.classList.add("flex", "opacity-100");
+    if (params.get("curtain") === "1") {
+      playCurtainReveal();
+    } else {
+      liveView.classList.add("curtains-revealed");
+    }
   }
 })();
