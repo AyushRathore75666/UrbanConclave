@@ -12,6 +12,8 @@
   const liveView = document.getElementById("live-view");
   const flashOverlay = document.getElementById("flash-overlay");
   const challengeTopbar = document.getElementById("challenge-topbar");
+  const topbarLeaders = document.getElementById("topbar-leaders");
+  let leadersObserver = null;
   const COUNTDOWN_VOICE = {
     10: "ten",
     9: "nine",
@@ -38,6 +40,46 @@
     if (!challengeTopbar) return;
     challengeTopbar.classList.toggle("is-hidden", !visible);
     challengeTopbar.setAttribute("aria-hidden", visible ? "false" : "true");
+    if (!visible) setTopbarLeadersVisible(false);
+  }
+
+  function setTopbarLeadersVisible(visible) {
+    if (!challengeTopbar) return;
+    challengeTopbar.classList.toggle("is-leaders-visible", visible);
+    if (topbarLeaders) topbarLeaders.setAttribute("aria-hidden", visible ? "false" : "true");
+  }
+
+  /** When hero PM/CM leave the live scroll frame, slowly reveal them in the top bar. */
+  function setupTopbarLeadersScroll() {
+    const source = document.querySelector(".live-corner-leaders");
+    if (!challengeTopbar || !liveView || !source) return;
+
+    if (leadersObserver) {
+      leadersObserver.disconnect();
+      leadersObserver = null;
+    }
+
+    leadersObserver = new IntersectionObserver(
+      ([entry]) => {
+        // Show topbar portraits once the page portraits are mostly out of view
+        const showInTopbar = !entry.isIntersecting || entry.intersectionRatio < 0.15;
+        setTopbarLeadersVisible(showInTopbar);
+      },
+      {
+        root: liveView,
+        threshold: [0, 0.15, 0.35, 0.6, 1],
+        rootMargin: "-64px 0px 0px 0px",
+      }
+    );
+
+    leadersObserver.observe(source);
+    // Initial state after layout
+    requestAnimationFrame(() => {
+      const rect = source.getBoundingClientRect();
+      const rootRect = liveView.getBoundingClientRect();
+      const visible = rect.bottom > rootRect.top + 64 && rect.top < rootRect.bottom;
+      setTopbarLeadersVisible(!visible);
+    });
   }
 
   function ensureAudio() {
@@ -320,6 +362,7 @@
       liveView.classList.remove("hidden", "opacity-0", "curtains-revealed");
       liveView.classList.add("flex", "opacity-100");
       setTopbarVisible(true);
+      setupTopbarLeadersScroll();
 
       flashOverlay.classList.remove("flash-active");
       playCurtainReveal();
@@ -407,6 +450,7 @@
     liveView.classList.remove("hidden", "opacity-0");
     liveView.classList.add("flex", "opacity-100");
     setTopbarVisible(true);
+    setupTopbarLeadersScroll();
     if (params.get("curtain") === "1") {
       playCurtainReveal();
     } else {

@@ -74,7 +74,7 @@
         },
       };
     </script>
-    <link rel="stylesheet" href="css/inauguration.css?v=20261022u" />
+    <link rel="stylesheet" href="css/inauguration.css?v=20261022v" />
   </head>
   <body class="font-sans antialiased text-gray-200 selection:bg-brand-red selection:text-white">
     <div id="flash-overlay"></div>
@@ -96,7 +96,29 @@
           height="72"
         />
       </div>
-      <a class="challenge-topbar-apply" href="register.html?session=hackathon">Apply Now</a>
+      <div class="challenge-topbar-actions">
+        <a class="challenge-topbar-apply" href="register.html?session=hackathon">Apply Now</a>
+        <ul class="topbar-leaders" id="topbar-leaders" aria-label="Leadership" aria-hidden="true">
+          <li>
+            <span class="portrait">
+              <img src="leaders/prime-minister.png?v=2" alt="Shri. Narendra Modi" width="96" height="96" />
+            </span>
+            <span class="topbar-leader-meta">
+              <span class="name">Shri. Narendra Modi</span>
+              <span class="role">Hon'ble Prime Minister</span>
+            </span>
+          </li>
+          <li>
+            <span class="portrait portrait-cm">
+              <img src="leaders/chief-minister.png?v=4" alt="Dr. Mohan Yadav" width="96" height="96" />
+            </span>
+            <span class="topbar-leader-meta">
+              <span class="name">Dr. Mohan Yadav</span>
+              <span class="role">Hon'ble Chief Minister</span>
+            </span>
+          </li>
+        </ul>
+      </div>
     </header>
 
     <!-- STATE 1: HERO -->
@@ -471,6 +493,6 @@
       </div>
     </section>
 
-    <script src="js/inauguration.js?v=20261022j"></script>
+    <script src="js/inauguration.js?v=20261022v"></script>
   </body>
 </html>
