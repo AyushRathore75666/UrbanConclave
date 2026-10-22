@@ -74,19 +74,28 @@
         },
       };
     </script>
-    <link rel="stylesheet" href="css/inauguration.css?v=20261022i" />
+    <link rel="stylesheet" href="css/inauguration.css?v=20261022u" />
   </head>
   <body class="font-sans antialiased text-gray-200 selection:bg-brand-red selection:text-white">
     <div id="flash-overlay"></div>
 
     <header class="challenge-topbar is-hidden" id="challenge-topbar" aria-hidden="true">
-      <p class="challenge-topbar-title">
-        <span class="topbar-title-mark" aria-hidden="true"></span>
-        <span class="topbar-title-text">
-          <span class="topbar-title-grand">Grand Innovation</span>
-          <span class="topbar-title-challenge">Challenge</span>
-        </span>
-      </p>
+      <div class="challenge-topbar-brand">
+        <p class="challenge-topbar-title">
+          <span class="topbar-title-mark" aria-hidden="true"></span>
+          <span class="topbar-title-text">
+            <span class="topbar-title-grand">Grand Innovation</span>
+            <span class="topbar-title-challenge">Challenge</span>
+          </span>
+        </p>
+        <img
+          class="topbar-simhasth-icon"
+          src="brand/challenge/simhasth-2028-logo.jpg?v=1"
+          alt="Simhasth 2028 Ujjain"
+          width="220"
+          height="72"
+        />
+      </div>
       <a class="challenge-topbar-apply" href="register.html?session=hackathon">Apply Now</a>
     </header>
 
@@ -104,7 +113,7 @@
           <p class="role">Hon'ble Prime Minister</p>
         </li>
         <li>
-          <span class="portrait">
+          <span class="portrait portrait-cm">
             <img src="leaders/chief-minister.png?v=4" alt="Dr. Mohan Yadav" width="500" height="500" />
           </span>
           <p class="name">Dr. Mohan Yadav</p>
@@ -237,7 +246,7 @@
     </section>
 
     <!-- STATE 3: LIVE CHALLENGE -->
-    <section id="live-view" class="fixed inset-0 z-30 live-bg hidden flex-col items-center pt-20 pb-12 px-3 sm:px-5 overflow-y-auto opacity-0">
+    <section id="live-view" class="fixed inset-0 z-30 live-bg hidden flex-col items-stretch pt-16 sm:pt-[4.75rem] pb-12 overflow-y-auto opacity-0">
       <!-- Red theater curtains -->
       <div id="curtain-stage" class="curtain-stage" aria-hidden="true">
         <div class="curtain curtain-left">
@@ -260,43 +269,45 @@
         <div class="curtain-seam"></div>
       </div>
 
-      <div class="live-page-shell max-w-7xl w-full mx-auto relative z-10 flex flex-col items-center">
-        <div class="live-top-row">
-          <div class="live-top-spacer" aria-hidden="true"></div>
-          <div class="reveal-from-left live-status-badge">
-            <span class="relative flex h-3 w-3">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-            </span>
-            Challenge is Live
-          </div>
-          <ul class="live-corner-leaders" aria-label="Leadership">
-            <li>
-              <span class="portrait">
-                <img src="leaders/prime-minister.png?v=2" alt="Shri. Narendra Modi" width="368" height="368" />
-              </span>
-              <p class="name">Shri. Narendra Modi</p>
-              <p class="role">Hon'ble Prime Minister</p>
-            </li>
-            <li>
-              <span class="portrait">
-                <img src="leaders/chief-minister.png?v=4" alt="Dr. Mohan Yadav" width="500" height="500" />
-              </span>
-              <p class="name">Dr. Mohan Yadav</p>
-              <p class="role">Hon'ble Chief Minister</p>
-            </li>
-          </ul>
+      <div class="live-top-row">
+        <div class="live-status-badge">
+          <span class="relative flex h-3 w-3">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+          </span>
+          Challenge is Live
         </div>
 
-        <div class="live-hero-block flex flex-col items-center text-center mb-10 sm:mb-14 w-full">
-          <div class="reveal-from-left mb-5 sm:mb-6">
+        <div class="live-logo-slot">
+          <div class="live-logo-wrap">
             <img
               src="brand/challenge/simhasth-2028-logo.jpg?v=1"
               alt="Simhasth 2028 Ujjain Grand Innovation Challenge"
-              class="challenge-logo challenge-logo-sm mx-auto"
+              class="challenge-logo challenge-logo-live"
             />
           </div>
+        </div>
 
+        <ul class="live-corner-leaders" aria-label="Leadership">
+          <li>
+            <span class="portrait">
+              <img src="leaders/prime-minister.png?v=2" alt="Shri. Narendra Modi" width="368" height="368" />
+            </span>
+            <p class="name">Shri. Narendra Modi</p>
+            <p class="role">Hon'ble Prime Minister</p>
+          </li>
+          <li>
+            <span class="portrait portrait-cm">
+              <img src="leaders/chief-minister.png?v=4" alt="Dr. Mohan Yadav" width="500" height="500" />
+            </span>
+            <p class="name">Dr. Mohan Yadav</p>
+            <p class="role">Hon'ble Chief Minister</p>
+          </li>
+        </ul>
+      </div>
+
+      <div class="live-page-shell max-w-7xl w-full mx-auto relative z-10 flex flex-col items-center px-3 sm:px-5">
+        <div class="live-hero-block flex flex-col items-center text-center mb-10 sm:mb-14 w-full">
           <h1 class="reveal-from-left live-page-title font-serif font-black mb-5 sm:mb-6">
             Grand Innovation <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-brand-gold">Challenge</span>
           </h1>
@@ -434,10 +445,16 @@
             <i class="ph-fill ph-download-simple" aria-hidden="true"></i>
             <h2>Who should apply</h2>
           </a>
-          <button type="button" class="download-box is-disabled" disabled aria-disabled="true" title="Process and timeline">
+          <a
+            class="download-box"
+            href="docs/challenge/Process_and_Timeline.pdf"
+            download="Process_and_Timeline.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <i class="ph-fill ph-download-simple" aria-hidden="true"></i>
             <h2>Process and timeline</h2>
-          </button>
+          </a>
           <a class="download-box" href="docs/challenge/FAQs.pdf" download="FAQs.pdf">
             <i class="ph-fill ph-download-simple" aria-hidden="true"></i>
             <h2>Resources and FAQs</h2>
@@ -454,6 +471,6 @@
       </div>
     </section>
 
-    <script src="js/inauguration.js?v=20261022i"></script>
+    <script src="js/inauguration.js?v=20261022j"></script>
   </body>
 </html>

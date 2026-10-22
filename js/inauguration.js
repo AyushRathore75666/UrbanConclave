@@ -173,8 +173,8 @@
       countdownDisplay.classList.add("is-open");
       countdownDisplay.classList.remove("is-go-live");
 
-      const steps = ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "GO LIVE"];
-      const totalTicks = 10;
+      const steps = ["3", "2", "1", "GO LIVE"];
+      const totalTicks = 3;
       let index = 0;
 
       if (countdownTicks) {
@@ -269,7 +269,7 @@
         }
 
         const spoke = speakCountdownPhrase(COUNTDOWN_VOICE[n] || String(n));
-        if (!spoke) playTone(140 + (10 - index) * 28, 0.28, "square");
+        if (!spoke) playTone(220 + (3 - index) * 40, 0.28, "square");
         index += 1;
         setTimeout(updateCounter, 1100);
       }

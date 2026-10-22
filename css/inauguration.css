@@ -25,6 +25,7 @@ body {
 
 #live-view {
   overscroll-behavior: contain;
+  overflow-x: hidden;
 }
 
 .challenge-logo {
@@ -43,6 +44,12 @@ body {
   width: min(16rem, 70vw);
   max-height: 5.5rem;
   padding: 0.35rem 0.5rem;
+}
+
+.challenge-logo-live {
+  width: min(24rem, 36vw);
+  max-height: 8rem;
+  padding: 0.45rem 0.65rem;
 }
 
 .challenge-logo-xs {
@@ -104,9 +111,10 @@ body {
 .download-boxes {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 0.85rem;
   width: min(960px, 100%);
   margin: 0 auto 2.5rem;
+  padding-inline: 0.15rem;
 }
 
 .download-box {
@@ -122,6 +130,7 @@ body {
   background: linear-gradient(160deg, rgba(24, 30, 48, 0.95), rgba(10, 15, 28, 0.98));
   color: #fff;
   text-align: center;
+  text-decoration: none;
   transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -131,26 +140,12 @@ body {
   box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35), 0 0 20px rgba(230, 36, 41, 0.15);
 }
 
-.download-box.is-disabled,
-.download-box:disabled {
-  cursor: not-allowed;
-  pointer-events: none;
-  opacity: 1;
-  filter: none;
-}
-
-.download-box.is-disabled:hover,
-.download-box:disabled:hover {
-  transform: none;
-  border-color: rgba(255, 255, 255, 0.12);
-  box-shadow: none;
-}
-
 .download-box h2 {
   margin: 0;
   font-family: "Playfair Display", serif;
-  font-size: 1.45rem;
+  font-size: clamp(1.15rem, 3.5vw, 1.45rem);
   font-weight: 700;
+  line-height: 1.2;
 }
 
 /* Sticky challenge header */
@@ -180,12 +175,33 @@ body {
   visibility: hidden;
 }
 
+.challenge-topbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
 .challenge-topbar-title {
   margin: 0;
   display: flex;
   align-items: center;
   gap: 0.7rem;
   min-width: 0;
+}
+
+.topbar-simhasth-icon {
+  display: block;
+  height: 2.55rem;
+  width: auto;
+  max-width: min(11rem, 28vw);
+  object-fit: contain;
+  border-radius: 0.45rem;
+  background: #fff;
+  padding: 0.18rem 0.3rem;
+  box-shadow: 0 0 16px rgba(230, 36, 41, 0.28);
+  flex-shrink: 0;
 }
 
 .topbar-title-mark {
@@ -248,8 +264,9 @@ body {
   filter: brightness(1.08);
 }
 
-/* PM / CM on hero top-right */
+/* PM / CM on hero top-right — match live page sizes */
 .hero-corner-leaders {
+  --hero-portrait: 9.75rem;
   position: absolute;
   top: 1rem;
   right: 1rem;
@@ -258,7 +275,7 @@ body {
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 0.85rem;
+  gap: 1rem;
 }
 
 .hero-page-title {
@@ -271,31 +288,33 @@ body {
   padding-inline: 0.25rem;
 }
 
-/* Live page top row: status center, PM/CM exact top-right */
+/* Live page top row: badge left · logo center · PM/CM right (one line) */
 .live-page-shell {
   position: relative;
 }
 
 .live-top-row {
+  --live-portrait: 9.75rem;
   position: relative;
+  z-index: 20;
   display: flex;
-  justify-content: center;
   align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
   width: 100%;
-  min-height: 7.5rem;
-  margin-bottom: 0.75rem;
-  padding-right: 0;
-}
-
-.live-top-spacer {
-  display: none;
+  margin: 0.65rem 0 1.1rem;
+  padding: 0.25rem 0.85rem 0.5rem;
+  box-sizing: border-box;
 }
 
 .live-status-badge {
+  position: relative;
+  z-index: 3;
+  flex: 0 0 auto;
   display: inline-flex;
   align-items: center;
   gap: 0.65rem;
-  margin-top: 0.35rem;
+  margin: calc((var(--live-portrait) - 2.3rem) / 2) 0 0;
   padding: 0.45rem 1.1rem;
   border-radius: 999px;
   background: rgba(230, 36, 41, 0.2);
@@ -307,6 +326,27 @@ body {
   text-transform: uppercase;
   white-space: nowrap;
   box-shadow: 0 0 20px rgba(230, 36, 41, 0.35);
+}
+
+.live-logo-slot {
+  position: absolute;
+  left: 50%;
+  top: 0.25rem;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--live-portrait);
+  pointer-events: none;
+}
+
+.live-logo-wrap {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
 }
 
 .hero-corner-leaders li,
@@ -331,12 +371,39 @@ body {
   background: #143154;
 }
 
+.hero-corner-leaders .portrait {
+  width: var(--hero-portrait, 9.75rem);
+  height: var(--hero-portrait, 9.75rem);
+}
+
+.live-corner-leaders .portrait {
+  width: var(--live-portrait, 7.5rem);
+  height: var(--live-portrait, 7.5rem);
+}
+
 .hero-corner-leaders .portrait img,
 .live-corner-leaders .portrait img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top center;
+}
+
+/* Tighter face crop for CM — matches requested zoom (hero + live) */
+.hero-corner-leaders .portrait-cm img,
+.live-corner-leaders .portrait-cm img {
+  object-fit: cover;
+  object-position: 50% 12%;
+  transform: scale(1.28);
+  transform-origin: center 18%;
+}
+
+.hero-corner-leaders .name {
+  font-size: 0.82rem;
+}
+
+.hero-corner-leaders .role {
+  font-size: 0.7rem;
 }
 
 .hero-corner-leaders .name,
@@ -350,6 +417,10 @@ body {
   overflow: visible;
 }
 
+.live-corner-leaders .name {
+  font-size: 0.82rem;
+}
+
 .hero-corner-leaders .role,
 .live-corner-leaders .role {
   margin: 0.12rem 0 0;
@@ -360,80 +431,143 @@ body {
   overflow: visible;
 }
 
-/* Live page: PM / CM exact top-right of content (scrolls with page) */
+.live-corner-leaders .role {
+  font-size: 0.7rem;
+}
+
+/* Live page: PM / CM on the same row, flush to screen right */
 .live-corner-leaders {
-  position: absolute;
-  top: 0;
-  right: 0;
+  position: relative;
+  z-index: 3;
   list-style: none;
-  margin: 0;
+  margin: 0 0 0 auto;
   padding: 0;
   display: flex;
-  flex-shrink: 0;
-  gap: 0.75rem;
-  z-index: 5;
+  flex: 0 0 auto;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.live-corner-leaders li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 @media (min-width: 900px) {
   .hero-corner-leaders {
+    --hero-portrait: 11.5rem;
     right: 1.5rem;
-    gap: 1.1rem;
+    gap: 1.2rem;
+  }
+
+  .live-top-row {
+    --live-portrait: 11.5rem;
+    padding: 0.35rem 1.25rem 0.65rem;
+    margin-top: 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .hero-corner-leaders .portrait-cm img,
+  .live-corner-leaders .portrait-cm img {
+    transform: scale(1.32);
+    object-position: 50% 10%;
   }
 
   .live-corner-leaders {
-    gap: 1rem;
+    gap: 1.2rem;
   }
 
-  .hero-corner-leaders .portrait,
-  .live-corner-leaders .portrait {
-    width: 5.8rem;
-    height: 5.8rem;
+  .hero-corner-leaders .name {
+    font-size: 0.95rem;
   }
 
-  .hero-corner-leaders .name,
   .live-corner-leaders .name {
+    font-size: 0.95rem;
+  }
+
+  .hero-corner-leaders .role {
     font-size: 0.8rem;
   }
 
-  .hero-corner-leaders .role,
   .live-corner-leaders .role {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
+  }
+
+  .challenge-logo-live {
+    width: min(28rem, 38vw);
+    max-height: 9.25rem;
+  }
+
+  .topbar-simhasth-icon {
+    height: 2.85rem;
+    max-width: min(12.5rem, 26vw);
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 720px) {
   .live-top-row {
-    min-height: 0;
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.85rem;
-    padding-top: 0;
+    --live-portrait: 6.75rem;
+    padding: 0.25rem 0.65rem 0.45rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.9rem;
   }
 
-  .live-corner-leaders {
-    position: relative;
-    top: auto;
-    right: auto;
-    align-self: flex-end;
+  .hero-corner-leaders {
+    --hero-portrait: 6.75rem;
+    gap: 0.85rem;
+  }
+
+  .hero-corner-leaders .portrait-cm img,
+  .live-corner-leaders .portrait-cm img {
+    transform: scale(1.26);
+  }
+
+  .challenge-logo-live {
+    width: min(14rem, 38vw);
+    max-height: 5rem;
+    padding: 0.28rem 0.4rem;
   }
 
   .live-status-badge {
-    align-self: center;
-    margin-top: 0;
+    padding: 0.35rem 0.7rem;
+    letter-spacing: 0.1em;
+    font-size: 0.58rem;
   }
 }
 
 @media (max-width: 640px) {
   .hero-corner-leaders {
+    --hero-portrait: 5.25rem;
     top: 0.65rem;
     right: 0.45rem;
-    gap: 0.4rem;
+    gap: 0.55rem;
   }
 
-  .hero-corner-leaders .portrait,
   .live-corner-leaders .portrait {
-    width: 3.35rem;
-    height: 3.35rem;
+    width: 4.75rem;
+    height: 4.75rem;
+  }
+
+  .live-corner-leaders .name,
+  .live-corner-leaders .role {
+    display: none;
+  }
+
+  .topbar-simhasth-icon {
+    height: 2.1rem;
+    max-width: 5.5rem;
+  }
+
+  .live-top-row {
+    min-height: 6.25rem;
+    margin-top: 0.55rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .challenge-logo-live {
+    width: min(9.5rem, 30vw);
+    max-height: 3.5rem;
   }
 
   .hero-corner-leaders .name,
@@ -442,7 +576,7 @@ body {
   }
 
   .live-corner-leaders {
-    gap: 0.5rem;
+    gap: 0.55rem;
   }
 
   .live-corner-leaders .name {
@@ -453,6 +587,11 @@ body {
     font-size: 0.52rem;
   }
 
+  .challenge-logo-live {
+    width: min(16rem, 78vw);
+    max-height: 5.5rem;
+  }
+
   .hero-main-copy {
     padding-top: 3.25rem;
   }
@@ -460,6 +599,10 @@ body {
   .challenge-topbar {
     min-height: 3.35rem;
     padding: 0.55rem 0.7rem;
+  }
+
+  .challenge-topbar-brand {
+    gap: 0.45rem;
   }
 
   .challenge-topbar-apply {
@@ -473,21 +616,43 @@ body {
   }
 
   #live-view {
-    padding-top: 4.5rem;
+    padding-top: 4.1rem;
+  }
+
+  .download-boxes {
+    gap: 0.7rem;
+    margin-bottom: 1.75rem;
   }
 
   .download-box {
-    min-height: 5.5rem;
-    padding: 1rem 1.1rem;
+    min-height: 5.25rem;
+    padding: 0.95rem 1rem;
   }
 
   .download-box h2 {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
   }
 
   .track-download {
     font-size: 0.72rem;
     white-space: normal;
+  }
+
+  #tracks.grid {
+    gap: 1rem;
+  }
+
+  #tracks .p-7 {
+    padding: 1.15rem !important;
+  }
+
+  .live-page-title {
+    font-size: clamp(1.55rem, 7vw, 2.4rem);
+    padding-inline: 0.5rem;
+  }
+
+  .glass-panel {
+    margin-inline: 0.15rem;
   }
 }
 
@@ -524,11 +689,30 @@ body {
   text-decoration: underline;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) and (max-width: 899px) {
   .download-boxes {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
   }
 
+  .download-box {
+    min-height: 5.75rem;
+    padding: 1rem 0.75rem;
+  }
+
+  .download-box h2 {
+    font-size: 1.05rem;
+  }
+}
+
+@media (min-width: 900px) {
+  .download-boxes {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
   .challenge-leaders li {
     width: 9.5rem;
   }
