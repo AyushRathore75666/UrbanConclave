@@ -74,45 +74,73 @@
         },
       };
     </script>
-    <link rel="stylesheet" href="css/inauguration.css?v=20261021c" />
+    <link rel="stylesheet" href="css/inauguration.css?v=20261022h" />
   </head>
   <body class="font-sans antialiased text-gray-200 selection:bg-brand-red selection:text-white">
     <div id="flash-overlay"></div>
 
+    <header class="challenge-topbar is-hidden" id="challenge-topbar" aria-hidden="true">
+      <p class="challenge-topbar-title">
+        <span class="topbar-title-mark" aria-hidden="true"></span>
+        <span class="topbar-title-text">
+          <span class="topbar-title-grand">Grand Innovation</span>
+          <span class="topbar-title-challenge">Challenge</span>
+        </span>
+      </p>
+      <a class="challenge-topbar-apply" href="register.html?session=hackathon">Apply Now</a>
+    </header>
+
     <!-- STATE 1: HERO -->
-    <section id="hero-view" class="relative min-h-screen flex flex-col items-center justify-center transition-opacity duration-1000 p-6 hero-bg">
+    <section id="hero-view" class="relative flex flex-col items-center justify-center transition-opacity duration-1000 p-4 sm:p-6 pt-8 sm:pt-10 hero-bg">
       <div class="absolute inset-0 bg-brand-navy/75 backdrop-blur-[1px]"></div>
       <div class="hero-aurora" aria-hidden="true"></div>
 
-      <div class="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto animate-slide-up">
-        <div class="w-32 h-32 md:w-40 md:h-40 mb-8 animate-float relative">
-          <div class="absolute inset-0 bg-brand-gold rounded-2xl blur-xl opacity-40"></div>
+      <ul class="hero-corner-leaders" aria-label="Leadership">
+        <li>
+          <span class="portrait">
+            <img src="leaders/prime-minister.png?v=2" alt="Shri. Narendra Modi" width="368" height="368" />
+          </span>
+          <p class="name">Shri. Narendra Modi</p>
+          <p class="role">Hon'ble Prime Minister</p>
+        </li>
+        <li>
+          <span class="portrait">
+            <img src="leaders/chief-minister.png?v=4" alt="Dr. Mohan Yadav" width="500" height="500" />
+          </span>
+          <p class="name">Dr. Mohan Yadav</p>
+          <p class="role">Hon'ble Chief Minister</p>
+        </li>
+      </ul>
+
+      <div class="relative z-10 flex flex-col items-center text-center max-w-5xl mx-auto animate-slide-up hero-main-copy px-1">
+        <div class="mb-5 sm:mb-8 relative">
+          <div class="absolute inset-0 bg-brand-gold rounded-2xl blur-xl opacity-35"></div>
           <img
-            src="brand/challenge/ujjain-simhastha.png"
-            alt="Ujjain Simhastha Logo"
-            class="w-full h-full object-contain relative z-10 bg-white p-3 rounded-2xl shadow-[0_0_40px_rgba(230,36,41,0.65)]"
+            src="brand/challenge/simhasth-2028-logo.jpg?v=1"
+            alt="Simhasth 2028 Ujjain Grand Innovation Challenge"
+            class="challenge-logo relative z-10"
           />
         </div>
 
-        <span class="text-brand-gold font-bold tracking-[0.22em] uppercase text-sm md:text-base mb-4 block">
+        <span class="text-brand-gold font-bold tracking-[0.18em] sm:tracking-[0.22em] uppercase text-xs sm:text-sm md:text-base mb-3 sm:mb-4 block">
           Government of Madhya Pradesh
         </span>
 
-        <h1 class="text-5xl md:text-8xl font-serif font-extrabold mb-6 leading-tight drop-shadow-lg">
+        <h1 class="hero-page-title font-serif font-extrabold mb-4 sm:mb-6 leading-tight drop-shadow-lg">
           Grand Innovation<br />
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red via-brand-gold to-yellow-300 animate-shimmer bg-[length:200%_auto]">
             Challenge
           </span>
         </h1>
 
-        <p class="text-xl md:text-2xl text-gray-200 mb-12 font-light max-w-3xl mx-auto">
+        <p class="text-base sm:text-xl md:text-2xl text-gray-200 mb-8 sm:mb-12 font-light max-w-3xl mx-auto px-1">
           Shaping tech-enabled, scalable, and predictive solutions for the world's largest gathering.
         </p>
 
-        <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-6 justify-center items-stretch sm:items-center w-full max-w-lg sm:max-w-none px-2 sm:px-0">
           <a
             href="index.html"
-            class="px-8 py-4 rounded-full border border-gray-500 text-gray-200 hover:border-brand-gold hover:text-brand-gold transition-all duration-300 w-full sm:w-auto font-medium uppercase tracking-wider text-sm"
+            class="px-6 sm:px-8 py-3.5 sm:py-4 rounded-full border border-gray-500 text-gray-200 hover:border-brand-gold hover:text-brand-gold transition-all duration-300 w-full sm:w-auto font-medium uppercase tracking-wider text-xs sm:text-sm text-center"
           >
             Back to Conclave
           </a>
@@ -120,18 +148,13 @@
           <button
             type="button"
             id="open-cm-portal"
-            class="ripple-btn relative group px-8 py-4 rounded-full bg-gradient-to-r from-brand-red to-red-700 text-white font-bold hover:from-red-600 hover:to-brand-red transition-all duration-300 w-full sm:w-auto animate-pulse-glow flex items-center justify-center gap-3 transform hover:scale-105 shadow-[0_0_30px_rgba(230,36,41,0.45)]"
+            class="ripple-btn relative group px-6 sm:px-8 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-brand-red to-red-700 text-white font-bold hover:from-red-600 hover:to-brand-red transition-all duration-300 w-full sm:w-auto animate-pulse-glow flex items-center justify-center gap-2 sm:gap-3 transform hover:scale-105 shadow-[0_0_30px_rgba(230,36,41,0.45)]"
           >
             <span class="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 rounded-full transition-opacity"></span>
-            <i class="ph-fill ph-rocket-launch text-2xl relative z-10"></i>
-            <span class="relative z-10 uppercase tracking-wide text-sm">Hackathon Inauguration</span>
+            <i class="ph-fill ph-rocket-launch text-xl sm:text-2xl relative z-10"></i>
+            <span class="relative z-10 uppercase tracking-wide text-xs sm:text-sm">Hackathon Inauguration</span>
           </button>
         </div>
-
-        <p class="mt-14 text-xs tracking-[0.2em] uppercase text-gray-400 flex flex-col items-center gap-2">
-          Scroll to discover
-          <span class="scroll-line"></span>
-        </p>
       </div>
     </section>
 
@@ -159,7 +182,7 @@
 
         <div class="cm-launch-copy">
           <div class="cm-launch-logo">
-            <img src="brand/challenge/ujjain-simhastha.png" alt="Simhastha" />
+            <img src="brand/challenge/simhasth-2028-logo.jpg?v=1" alt="Simhasth 2028 Ujjain Grand Innovation Challenge" />
           </div>
 
           <p class="cm-launch-role">
@@ -194,13 +217,14 @@
         </div>
         <div class="countdown-content">
           <span class="countdown-label">Launching in</span>
+          <span id="countdown-word" class="countdown-word"></span>
           <span id="countdown-number" class="countdown-number"></span>
         </div>
       </div>
     </section>
 
     <!-- STATE 3: LIVE CHALLENGE -->
-    <section id="live-view" class="fixed inset-0 z-30 live-bg hidden flex-col items-center pt-20 pb-16 px-5 overflow-y-auto opacity-0">
+    <section id="live-view" class="fixed inset-0 z-30 live-bg hidden flex-col items-center pt-20 pb-12 px-3 sm:px-5 overflow-y-auto opacity-0">
       <!-- Red theater curtains -->
       <div id="curtain-stage" class="curtain-stage" aria-hidden="true">
         <div class="curtain curtain-left">
@@ -223,59 +247,60 @@
         <div class="curtain-seam"></div>
       </div>
 
-      <div class="max-w-7xl w-full mx-auto relative z-10 flex flex-col items-center">
-        <div class="reveal-from-left inline-flex items-center gap-3 px-6 py-2 rounded-full bg-brand-red/20 border border-brand-red/50 text-red-300 font-bold tracking-[0.2em] uppercase mb-8 shadow-[0_0_20px_rgba(230,36,41,0.35)]">
-          <span class="relative flex h-3 w-3">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
-          </span>
-          Challenge is Live
+      <div class="live-page-shell max-w-7xl w-full mx-auto relative z-10 flex flex-col items-center">
+        <div class="live-top-row">
+          <div class="live-top-spacer" aria-hidden="true"></div>
+          <div class="reveal-from-left live-status-badge">
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+            </span>
+            Challenge is Live
+          </div>
+          <ul class="live-corner-leaders" aria-label="Leadership">
+            <li>
+              <span class="portrait">
+                <img src="leaders/prime-minister.png?v=2" alt="Shri. Narendra Modi" width="368" height="368" />
+              </span>
+              <p class="name">Shri. Narendra Modi</p>
+              <p class="role">Hon'ble Prime Minister</p>
+            </li>
+            <li>
+              <span class="portrait">
+                <img src="leaders/chief-minister.png?v=4" alt="Dr. Mohan Yadav" width="500" height="500" />
+              </span>
+              <p class="name">Dr. Mohan Yadav</p>
+              <p class="role">Hon'ble Chief Minister</p>
+            </li>
+          </ul>
         </div>
 
-        <div class="flex flex-col items-center text-center mb-14 w-full">
-          <div class="reveal-from-left">
-            <img src="brand/challenge/ujjain-simhastha.png" alt="Simhastha" class="w-20 h-20 mb-6 drop-shadow-[0_0_18px_rgba(230,36,41,0.55)] bg-white rounded-xl p-2 mx-auto" />
+        <div class="live-hero-block flex flex-col items-center text-center mb-10 sm:mb-14 w-full">
+          <div class="reveal-from-left mb-5 sm:mb-6">
+            <img
+              src="brand/challenge/simhasth-2028-logo.jpg?v=1"
+              alt="Simhasth 2028 Ujjain Grand Innovation Challenge"
+              class="challenge-logo challenge-logo-sm mx-auto"
+            />
           </div>
-          <h1 class="reveal-from-right text-4xl md:text-7xl font-serif font-black mb-6">
+
+          <h1 class="reveal-from-left live-page-title font-serif font-black mb-5 sm:mb-6">
             Grand Innovation <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-red to-brand-gold">Challenge</span>
           </h1>
 
-          <div class="reveal-from-left glass-panel p-7 md:p-9 rounded-2xl max-w-4xl mt-2 border-l-4 border-l-brand-gold text-left md:text-center">
-            <p class="text-lg md:text-xl text-gray-100 leading-relaxed font-light">
+          <div class="reveal-from-right glass-panel p-5 sm:p-7 md:p-9 rounded-2xl max-w-4xl mt-2 border-l-4 border-l-brand-gold text-left md:text-center">
+            <p class="text-base sm:text-lg md:text-xl text-gray-100 leading-relaxed font-light">
               The Grand Innovation Challenge seeks technology-enabled, scalable, interoperable and field-deployable solutions that can help authorities transition from predominantly reactive management to predictive, preventive and real-time decision making.
             </p>
-            <p class="mt-4 text-brand-gold font-medium">
+            <p class="mt-4 text-brand-gold font-medium text-sm sm:text-base">
               The challenge is organised under four interconnected problem areas. Participants are encouraged to submit proposals that comprehensively address one of these areas.
             </p>
-            <div class="mt-8 flex flex-wrap justify-center gap-4">
-              <a href="register.html?session=hackathon" class="bg-brand-gold text-brand-navy font-bold px-10 py-4 rounded-full uppercase tracking-wider hover:bg-brand-goldHover transition-colors shadow-[0_0_24px_rgba(245,158,11,0.45)]">
+            <div class="mt-6 sm:mt-8 flex flex-wrap justify-center gap-4">
+              <a href="register.html?session=hackathon" class="bg-brand-gold text-brand-navy font-bold px-8 sm:px-10 py-3.5 sm:py-4 rounded-full uppercase tracking-wider hover:bg-brand-goldHover transition-colors shadow-[0_0_24px_rgba(245,158,11,0.45)] text-sm sm:text-base">
                 Apply Now
-              </a>
-              <a href="#tracks" class="px-8 py-4 rounded-full border border-gray-500 text-gray-200 hover:border-brand-gold hover:text-brand-gold transition-all uppercase tracking-wider text-sm font-semibold">
-                Scroll to discover
               </a>
             </div>
           </div>
-        </div>
-
-        <!-- Vibrant track mosaic -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 w-full max-w-6xl mb-10">
-          <button type="button" data-scroll="#track-mobility" class="mosaic-tile group reveal-from-left">
-            <img src="scenes/transit.jpg" alt="" />
-            <span><i class="ph-fill ph-traffic-signal"></i> Mobility</span>
-          </button>
-          <button type="button" data-scroll="#track-crowd" class="mosaic-tile group reveal-from-left" style="--reveal-delay: 0.08s">
-            <img src="scenes/simhastha.webp" alt="" />
-            <span><i class="ph-fill ph-users-three"></i> Crowd Safety</span>
-          </button>
-          <button type="button" data-scroll="#track-sanitation" class="mosaic-tile group reveal-from-right" style="--reveal-delay: 0.08s">
-            <img src="scenes/smart-city.jpg" alt="" />
-            <span><i class="ph-fill ph-recycle"></i> Sanitation</span>
-          </button>
-          <button type="button" data-scroll="#track-supply" class="mosaic-tile group reveal-from-right">
-            <img src="scenes/infrastructure.jpg" alt="" />
-            <span><i class="ph-fill ph-truck"></i> Logistics</span>
-          </button>
         </div>
 
         <div id="tracks" class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-6xl mb-16">
@@ -296,7 +321,14 @@
                 <p class="text-white">The challenge is to develop solutions that help authorities monitor, predict and manage mobility across the Mela area in real time.</p>
                 <p class="italic text-xs text-gray-400">Applicants should demonstrate capabilities in technology, urban planning and/or transport planning. Proposals may address one or more of the challenges.</p>
               </div>
-              <p class="mt-5 pt-4 border-t border-gray-700/50 text-blue-400 text-sm font-semibold uppercase tracking-wider">Track 1 · Mobility and Traffic Management</p>
+              <a
+                class="track-download text-blue-400"
+                href="docs/challenge/Track_1_Mobility_and_Traffic_Management.pdf"
+                download="Track_1_Mobility_and_Traffic_Management.pdf"
+              >
+                <i class="ph-fill ph-download-simple"></i>
+                Track 1 · Mobility and Traffic Management
+              </a>
             </div>
           </article>
 
@@ -316,7 +348,14 @@
                 <p class="text-white">Authorities need solutions that provide real-time situational awareness, help anticipate risks and support timely interventions while preserving the safety, dignity and experience of pilgrims.</p>
                 <p class="italic text-xs text-gray-400">Applicants should demonstrate capabilities in technology, urban design and planning, and/or behavioural science. Proposals may address one or more of the challenges.</p>
               </div>
-              <p class="mt-5 pt-4 border-t border-gray-700/50 text-brand-gold text-sm font-semibold uppercase tracking-wider">Track 2 · Crowd Management and Pilgrim Safety</p>
+              <a
+                class="track-download text-brand-gold"
+                href="docs/challenge/Track_2_Crowd_Management_and_Pilgrim_Safety.pdf"
+                download="Track_2_Crowd_Management_and_Pilgrim_Safety.pdf"
+              >
+                <i class="ph-fill ph-download-simple"></i>
+                Track 2 · Crowd Management and Pilgrim Safety
+              </a>
             </div>
           </article>
 
@@ -337,7 +376,14 @@
                 <p class="text-white">The challenge is to develop solutions that help authorities maintain cleanliness, improve operational efficiency and ensure reliable sanitation services throughout the event.</p>
                 <p class="italic text-xs text-gray-400">Applicants should demonstrate capabilities in technology and/or planning. Proposals may address one or more of the challenges.</p>
               </div>
-              <p class="mt-5 pt-4 border-t border-gray-700/50 text-teal-400 text-sm font-semibold uppercase tracking-wider">Track 3 · Sanitation and Cleanliness Management</p>
+              <a
+                class="track-download text-teal-400"
+                href="docs/challenge/Track_3_Sanitation_and_Cleanliness_Management.pdf"
+                download="Track_3_Sanitation_and_Cleanliness_Management.pdf"
+              >
+                <i class="ph-fill ph-download-simple"></i>
+                Track 3 · Sanitation and Cleanliness Management
+              </a>
             </div>
           </article>
 
@@ -358,49 +404,35 @@
                 <p>Authorities need solutions that can help forecast demand, manage inventories and coordinate logistics efficiently in a rapidly changing environment.</p>
                 <p class="italic text-xs text-gray-400">Applicants should demonstrate capabilities in technology and/or supply chain and logistics planning. Proposals may address one or more of the challenges.</p>
               </div>
-              <p class="mt-5 pt-4 border-t border-gray-700/50 text-brand-red text-sm font-semibold uppercase tracking-wider">Track 4 · Supply Chain Management and Logistics</p>
+              <a
+                class="track-download text-brand-red"
+                href="docs/challenge/Track_4_Supply_Chain_Management_and_Logistics_.pdf"
+                download="Track_4_Supply_Chain_Management_and_Logistics.pdf"
+              >
+                <i class="ph-fill ph-download-simple"></i>
+                Track 4 · Supply Chain Management and Logistics
+              </a>
             </div>
           </article>
         </div>
 
-        <div class="w-full max-w-6xl grid grid-cols-1 lg:grid-cols-3 gap-6 mb-14">
-          <section id="who" class="glass-panel rounded-2xl p-7 lg:col-span-1">
-            <p class="text-brand-gold text-xs tracking-[0.18em] uppercase font-bold mb-2">Eligibility</p>
-            <h2 class="text-2xl font-serif font-bold mb-4">Who Should Apply</h2>
-            <ul class="space-y-3 text-sm text-gray-300">
-              <li class="flex gap-3"><i class="ph-fill ph-buildings text-brand-gold text-xl"></i><span>Startups &amp; enterprises building scalable urban platforms</span></li>
-              <li class="flex gap-3"><i class="ph-fill ph-graduation-cap text-brand-gold text-xl"></i><span>Research labs and academic teams</span></li>
-              <li class="flex gap-3"><i class="ph-fill ph-compass-tool text-brand-gold text-xl"></i><span>Urban, transport and behavioural planners</span></li>
-              <li class="flex gap-3"><i class="ph-fill ph-handshake text-brand-gold text-xl"></i><span>Cross-disciplinary consortia ready for field deployment</span></li>
-            </ul>
-          </section>
-
-          <section id="timeline" class="glass-panel rounded-2xl p-7 lg:col-span-1">
-            <p class="text-brand-gold text-xs tracking-[0.18em] uppercase font-bold mb-2">How it works</p>
-            <h2 class="text-2xl font-serif font-bold mb-4">Process &amp; Timeline</h2>
-            <ol class="space-y-3 text-sm text-gray-300">
-              <li><span class="text-brand-red font-bold">01</span> Submit a track-focused proposal</li>
-              <li><span class="text-brand-red font-bold">02</span> Expert shortlisting for feasibility &amp; impact</li>
-              <li><span class="text-brand-red font-bold">03</span> Prototype refinement and live demo</li>
-              <li><span class="text-brand-red font-bold">04</span> Pilot consideration for Simhastha operations</li>
-            </ol>
-          </section>
-
-          <section id="resources" class="glass-panel rounded-2xl p-7 lg:col-span-1">
-            <p class="text-brand-gold text-xs tracking-[0.18em] uppercase font-bold mb-2">Support</p>
-            <h2 class="text-2xl font-serif font-bold mb-4">Resources &amp; FAQs</h2>
-            <div class="space-y-3 text-sm text-gray-300">
-              <p><strong class="text-white">Strong proposal?</strong> Predictive capability, interoperability and a clear field path.</p>
-              <p><strong class="text-white">Multiple tracks?</strong> Choose one primary track and note cross-track value.</p>
-              <p><strong class="text-white">Only software?</strong> No — hardware, sensing and hybrid systems are welcome.</p>
-            </div>
-          </section>
+        <div id="resources" class="download-boxes">
+          <a class="download-box" href="docs/challenge/Who_Can_Apply.pdf" download="Who_Can_Apply.pdf">
+            <i class="ph-fill ph-download-simple" aria-hidden="true"></i>
+            <h2>Who should apply</h2>
+          </a>
+          <button type="button" class="download-box is-disabled" disabled aria-disabled="true" title="Process and timeline">
+            <i class="ph-fill ph-download-simple" aria-hidden="true"></i>
+            <h2>Process and timeline</h2>
+          </button>
+          <a class="download-box" href="docs/challenge/FAQs.pdf" download="FAQs.pdf">
+            <i class="ph-fill ph-download-simple" aria-hidden="true"></i>
+            <h2>Resources and FAQs</h2>
+          </a>
         </div>
 
         <div class="flex flex-wrap justify-center gap-4 mb-10">
           <a href="register.html?session=hackathon" class="bg-gradient-to-r from-brand-red to-red-700 text-white font-bold px-10 py-4 rounded-full uppercase tracking-wider shadow-[0_0_30px_rgba(230,36,41,0.4)] hover:scale-105 transition-transform">Apply Now</a>
-          <a href="docs/Event_Brochure-MPUGC_2026.pdf" download class="px-8 py-4 rounded-full border border-gray-500 hover:border-brand-gold hover:text-brand-gold transition-all uppercase tracking-wider text-sm font-semibold">Download Brochure</a>
-          <a href="index.html" class="px-8 py-4 rounded-full border border-gray-500 hover:border-brand-gold hover:text-brand-gold transition-all uppercase tracking-wider text-sm font-semibold">Conclave Home</a>
         </div>
 
         <button type="button" id="replay-inauguration" class="text-xs tracking-widest uppercase text-gray-600 hover:text-brand-red transition-colors pb-8">
@@ -409,6 +441,6 @@
       </div>
     </section>
 
-    <script src="js/inauguration.js?v=20261021c"></script>
+    <script src="js/inauguration.js?v=20261022h"></script>
   </body>
 </html>
