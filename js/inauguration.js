@@ -5,6 +5,10 @@
   const countdownDisplay = document.getElementById("countdown-display");
   const countdownNumber = document.getElementById("countdown-number");
   const countdownWord = document.getElementById("countdown-word");
+  const countdownLead = document.getElementById("countdown-lead");
+  const countdownUnit = document.getElementById("countdown-unit");
+  const countdownTicks = document.getElementById("countdown-ticks");
+  const countdownSubline = document.getElementById("countdown-subline");
   const liveView = document.getElementById("live-view");
   const flashOverlay = document.getElementById("flash-overlay");
   const challengeTopbar = document.getElementById("challenge-topbar");
@@ -170,20 +174,62 @@
       countdownDisplay.classList.remove("is-go-live");
 
       const steps = ["10", "9", "8", "7", "6", "5", "4", "3", "2", "1", "GO LIVE"];
+      const totalTicks = 10;
       let index = 0;
+
+      if (countdownTicks) {
+        countdownTicks.innerHTML = Array.from({ length: totalTicks }, (_, i) => {
+          return `<span class="countdown-tick" data-tick="${totalTicks - i}"></span>`;
+        }).join("");
+      }
+
+      if (countdownLead) {
+        countdownLead.textContent = "is going live within";
+        countdownLead.classList.remove("is-live");
+      }
+      if (countdownUnit) {
+        countdownUnit.textContent = "seconds";
+        countdownUnit.classList.remove("is-hidden");
+      }
+      if (countdownSubline) {
+        countdownSubline.textContent = "Get ready to build for the world’s largest gathering";
+      }
+
+      function paintTicks(remaining) {
+        if (!countdownTicks) return;
+        countdownTicks.querySelectorAll(".countdown-tick").forEach((tick) => {
+          const value = Number(tick.dataset.tick);
+          tick.classList.toggle("is-done", value > remaining);
+          tick.classList.toggle("is-current", value === remaining);
+        });
+      }
 
       function updateCounter() {
         const value = steps[index];
         const isGoLive = value === "GO LIVE";
-        const label = countdownDisplay.querySelector(".countdown-label");
         const n = Number(value);
 
-        if (label) {
-          label.textContent = isGoLive ? "Challenge status" : "Launching in";
+        if (countdownLead) {
+          countdownLead.textContent = isGoLive ? "is now" : "is going live within";
+          countdownLead.classList.toggle("is-live", isGoLive);
+        }
+
+        if (countdownUnit) {
+          if (isGoLive) {
+            countdownUnit.classList.add("is-hidden");
+          } else {
+            countdownUnit.textContent = n === 1 ? "second" : "seconds";
+            countdownUnit.classList.remove("is-hidden");
+          }
+        }
+
+        if (countdownSubline) {
+          countdownSubline.textContent = isGoLive
+            ? "Welcome to the Grand Innovation Challenge"
+            : "Get ready to build for the world’s largest gathering";
         }
 
         if (countdownWord) {
-          // Spoken words only — hide TEN/NINE text; keep on-screen GO LIVE
           countdownWord.textContent = isGoLive ? "GO LIVE" : "";
           countdownWord.classList.toggle("is-go-live", isGoLive);
           countdownWord.hidden = !isGoLive;
@@ -202,6 +248,14 @@
         countdownNumber.classList.remove("is-pop");
         void countdownNumber.offsetWidth;
         if (!isGoLive) countdownNumber.classList.add("is-pop");
+
+        if (!isGoLive) paintTicks(n);
+        else if (countdownTicks) {
+          countdownTicks.querySelectorAll(".countdown-tick").forEach((tick) => {
+            tick.classList.add("is-done");
+            tick.classList.remove("is-current");
+          });
+        }
 
         if (isGoLive) {
           const spoke = speakCountdownPhrase("go live");

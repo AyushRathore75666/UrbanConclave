@@ -74,7 +74,7 @@
         },
       };
     </script>
-    <link rel="stylesheet" href="css/inauguration.css?v=20261022h" />
+    <link rel="stylesheet" href="css/inauguration.css?v=20261022i" />
   </head>
   <body class="font-sans antialiased text-gray-200 selection:bg-brand-red selection:text-white">
     <div id="flash-overlay"></div>
@@ -214,11 +214,24 @@
           <span class="countdown-ripple r2"></span>
           <span class="countdown-ripple r3"></span>
           <span class="countdown-core-glow"></span>
+          <span class="countdown-spark s1"></span>
+          <span class="countdown-spark s2"></span>
+          <span class="countdown-spark s3"></span>
         </div>
         <div class="countdown-content">
-          <span class="countdown-label">Launching in</span>
-          <span id="countdown-word" class="countdown-word"></span>
-          <span id="countdown-number" class="countdown-number"></span>
+          <p class="countdown-kicker">Simhastha 2028 · Ujjain</p>
+          <h2 class="countdown-headline">
+            The Grand Innovation
+            <span>Challenge</span>
+          </h2>
+          <p id="countdown-lead" class="countdown-lead">is going live within</p>
+          <div class="countdown-stage">
+            <span id="countdown-word" class="countdown-word" hidden></span>
+            <span id="countdown-number" class="countdown-number"></span>
+          </div>
+          <p id="countdown-unit" class="countdown-unit">seconds</p>
+          <div id="countdown-ticks" class="countdown-ticks" aria-hidden="true"></div>
+          <p id="countdown-subline" class="countdown-subline">Get ready to build for the world’s largest gathering</p>
         </div>
       </div>
     </section>
@@ -441,6 +454,6 @@
       </div>
     </section>
 
-    <script src="js/inauguration.js?v=20261022h"></script>
+    <script src="js/inauguration.js?v=20261022i"></script>
   </body>
 </html>
