@@ -180,29 +180,29 @@ body {
 }
 
 .challenge-topbar.is-leaders-visible {
-  min-height: 7.25rem;
-  padding-top: 1.05rem;
-  padding-bottom: 1.05rem;
-  gap: 1.25rem;
+  min-height: 0;
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  gap: 1rem;
 }
 
 .challenge-topbar.is-leaders-visible .topbar-title-grand {
-  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
 }
 
 .challenge-topbar.is-leaders-visible .topbar-title-challenge {
-  font-size: clamp(1.45rem, 3.1vw, 2rem);
+  font-size: clamp(1.6rem, 3.4vw, 2.25rem);
 }
 
 .challenge-topbar.is-leaders-visible .topbar-title-mark {
-  height: 3rem;
-  width: 0.45rem;
+  height: 3.35rem;
+  width: 0.48rem;
 }
 
 .challenge-topbar.is-leaders-visible .topbar-simhasth-icon {
-  height: 4.25rem;
-  max-width: min(18rem, 36vw);
-  padding: 0.28rem 0.48rem;
+  height: 5rem;
+  max-width: min(21rem, 38vw);
+  padding: 0.22rem 0.4rem;
 }
 
 .topbar-title-grand,
@@ -239,11 +239,11 @@ body {
 }
 
 .challenge-topbar.is-leaders-visible .topbar-leaders {
-  max-width: 30rem;
+  max-width: 40rem;
   opacity: 1;
   transform: translateX(0);
   pointer-events: auto;
-  gap: 1rem;
+  gap: 1.15rem;
 }
 
 .topbar-leaders li {
@@ -266,8 +266,8 @@ body {
 }
 
 .challenge-topbar.is-leaders-visible .topbar-leaders .portrait {
-  width: 5.15rem;
-  height: 5.15rem;
+  width: 6.75rem;
+  height: 6.75rem;
   border-width: 2px;
   transition: width 0.55s ease, height 0.55s ease, border-width 0.55s ease;
 }
@@ -290,76 +290,133 @@ body {
   flex-direction: column;
   line-height: 1.15;
   min-width: 0;
+  opacity: 0;
+  transform: translateX(12px);
+  transition:
+    opacity 0.85s ease,
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    font-size 0.55s ease;
+}
+
+.challenge-topbar.is-leaders-visible .topbar-leader-meta {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .topbar-leader-meta .name {
-  font-size: 0.78rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: #fff;
   white-space: nowrap;
+  transition: font-size 0.55s ease;
 }
 
 .topbar-leader-meta .role {
-  font-size: 0.66rem;
+  font-size: 0.78rem;
   color: #c4d0df;
   white-space: nowrap;
+  transition: font-size 0.55s ease;
+}
+
+.challenge-topbar.is-leaders-visible .topbar-leader-meta .name {
+  font-size: 1.05rem;
+}
+
+.challenge-topbar.is-leaders-visible .topbar-leader-meta .role {
+  font-size: 0.86rem;
 }
 
 @media (min-width: 1100px) {
+  .challenge-topbar.is-leaders-visible {
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+
   .challenge-topbar.is-leaders-visible .topbar-leader-meta {
     display: flex;
   }
 
   .challenge-topbar.is-leaders-visible .topbar-leaders {
-    max-width: 42rem;
+    max-width: 52rem;
   }
 
   .challenge-topbar.is-leaders-visible .topbar-leaders .portrait {
-    width: 5.75rem;
-    height: 5.75rem;
+    width: 7.35rem;
+    height: 7.35rem;
+  }
+
+  .challenge-topbar.is-leaders-visible .topbar-leader-meta .name {
+    font-size: 1.15rem;
+  }
+
+  .challenge-topbar.is-leaders-visible .topbar-leader-meta .role {
+    font-size: 0.92rem;
   }
 
   .challenge-topbar.is-leaders-visible .topbar-simhasth-icon {
-    height: 4.75rem;
-    max-width: min(20rem, 34vw);
+    height: 5.5rem;
+    max-width: min(23rem, 36vw);
   }
 
   .challenge-topbar.is-leaders-visible .topbar-title-grand {
-    font-size: 1.4rem;
+    font-size: 1.55rem;
   }
 
   .challenge-topbar.is-leaders-visible .topbar-title-challenge {
-    font-size: 2.1rem;
+    font-size: 2.35rem;
+  }
+
+  .challenge-topbar.is-leaders-visible .topbar-title-mark {
+    height: 3.75rem;
+  }
+}
+
+@media (max-width: 1099px) and (min-width: 721px) {
+  .challenge-topbar.is-leaders-visible .topbar-leader-meta {
+    display: flex;
+  }
+
+  .challenge-topbar.is-leaders-visible .topbar-leaders .portrait {
+    width: 6.25rem;
+    height: 6.25rem;
+  }
+
+  .challenge-topbar.is-leaders-visible .topbar-leader-meta .name {
+    font-size: 0.98rem;
+  }
+
+  .challenge-topbar.is-leaders-visible .topbar-leader-meta .role {
+    font-size: 0.8rem;
   }
 }
 
 @media (max-width: 720px) {
   .challenge-topbar.is-leaders-visible {
-    min-height: 5.6rem;
-    padding-top: 0.75rem;
-    padding-bottom: 0.75rem;
+    min-height: 0;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
   }
 
   .challenge-topbar-actions {
-    gap: 0.5rem;
+    gap: 0.45rem;
   }
 
   .challenge-topbar.is-leaders-visible .topbar-leaders .portrait {
-    width: 3.85rem;
-    height: 3.85rem;
+    width: 4.85rem;
+    height: 4.85rem;
   }
 
   .challenge-topbar.is-leaders-visible .topbar-title-grand {
-    font-size: 0.88rem;
+    font-size: 0.95rem;
   }
 
   .challenge-topbar.is-leaders-visible .topbar-title-challenge {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 
   .challenge-topbar.is-leaders-visible .topbar-simhasth-icon {
-    height: 3.1rem;
-    max-width: 8.5rem;
+    height: 3.45rem;
+    max-width: 9.5rem;
   }
 }
 
