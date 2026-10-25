@@ -524,7 +524,13 @@ body {
 }
 
 .hero-page-title {
-  font-size: clamp(2.35rem, 9vw, 6rem);
+  font-size: clamp(1.65rem, 5.5vw, 3.75rem);
+}
+
+.hero-page-title .hero-year {
+  font-variant-numeric: lining-nums;
+  letter-spacing: 0.04em;
+  font-feature-settings: "lnum" 1;
 }
 
 .live-page-title {

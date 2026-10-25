@@ -172,7 +172,18 @@ p {
 .hackathon-cta-text {
   position: relative;
   z-index: 1;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
+  max-width: 16.5rem;
+  line-height: 1.25;
+  text-wrap: balance;
+  font-size: 0.82rem;
+}
+
+@media (min-width: 640px) {
+  .hackathon-cta-text {
+    max-width: 20rem;
+    font-size: 0.9rem;
+  }
 }
 
 .hackathon-cta-shine {
