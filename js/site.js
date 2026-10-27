@@ -86,6 +86,9 @@
     const show = () => {
       node.classList.remove("reveal-wait");
       node.classList.add(node.hasAttribute("data-stagger") ? "is-shown" : "rise");
+      if (node.classList.contains("home-ebook")) {
+        node.classList.add("is-live");
+      }
     };
     if (reduce.matches) {
       show();
