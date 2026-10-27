@@ -15,7 +15,7 @@
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Sans:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,500;0,8..60,600;0,8..60,700;1,8..60,500;1,8..60,600&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="css/site.css?v=20261027back2" />
+    <link rel="stylesheet" href="css/site.css?v=20261028sidenav5" />
   </head>
   <body>
     <a class="skip-link" href="#main" data-hi="मुख्य सामग्री पर जाएँ">Skip to content</a>
@@ -98,26 +98,6 @@
       </div>
     </footer>
 
-    <div id="ebook-choice" class="ebook-choice" hidden aria-hidden="true">
-      <div class="ebook-choice-panel" role="dialog" aria-modal="true" aria-labelledby="ebook-choice-title">
-        <button type="button" class="ebook-choice-x" data-ebook-choice-close aria-label="Close">×</button>
-        <p class="ebook-choice-kicker">Digital edition</p>
-        <h2 id="ebook-choice-title">E-Book</h2>
-        <p class="ebook-choice-copy">How would you like to open this edition?</p>
-        <div class="ebook-choice-actions">
-          <button type="button" id="ebook-choice-read" class="btn btn-accent ebook-choice-btn">
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            E-Read
-          </button>
-          <a id="ebook-choice-download" class="btn btn-primary ebook-choice-btn" href="#" download>
-            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true"><path d="M12 3v12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="m7 10 5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 21h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-            Download
-          </a>
-        </div>
-        <button type="button" class="ebook-choice-cancel" data-ebook-choice-close>Cancel</button>
-      </div>
-    </div>
-
     <div id="ebook-reader" class="ebook-reader" hidden aria-hidden="true">
       <header class="ebook-reader-bar">
         <button
@@ -128,10 +108,7 @@
           data-ebook-back
         >← Back</button>
         <p id="ebook-reader-title" class="ebook-reader-title">E-Book</p>
-        <div class="ebook-reader-bar-actions">
-          <button type="button" id="ebook-reader-prev" class="ebook-reader-nav" aria-label="Previous page">‹</button>
-          <button type="button" id="ebook-reader-next" class="ebook-reader-nav" aria-label="Next page">›</button>
-        </div>
+        <span class="ebook-reader-bar-spacer" aria-hidden="true"></span>
       </header>
       <div id="ebook-reader-stage" class="ebook-reader-stage">
         <div id="ebook-reader-loading" class="ebook-reader-loading" hidden>
@@ -144,9 +121,19 @@
         </div>
         <p id="ebook-reader-error" class="ebook-reader-error" hidden></p>
         <iframe id="ebook-reader-frame" class="ebook-reader-frame" title="E-Book PDF" hidden></iframe>
-        <div class="ebook-reader-sheet">
-          <div id="ebook-reader-book" class="ebook-reader-book"></div>
-          <p class="ebook-reader-curl-hint" aria-hidden="true">Drag a corner to turn the page</p>
+        <div class="ebook-reader-viewport">
+          <button type="button" id="ebook-reader-prev" class="ebook-reader-nav ebook-reader-nav-prev" aria-label="Previous page">
+            <span class="ebook-reader-nav-icon" aria-hidden="true">‹</span>
+            <span class="ebook-reader-nav-label">Previous</span>
+          </button>
+          <div class="ebook-reader-sheet">
+            <div id="ebook-reader-book" class="ebook-reader-book"></div>
+            <p class="ebook-reader-curl-hint" aria-hidden="true">Drag a corner to turn the page</p>
+          </div>
+          <button type="button" id="ebook-reader-next" class="ebook-reader-nav ebook-reader-nav-next" aria-label="Next page">
+            <span class="ebook-reader-nav-icon" aria-hidden="true">›</span>
+            <span class="ebook-reader-nav-label">Next</span>
+          </button>
         </div>
       </div>
       <footer class="ebook-reader-footer">
@@ -159,6 +146,6 @@
     <script src="https://cdn.jsdelivr.net/npm/page-flip@2.0.7/dist/js/page-flip.browser.js"></script>
     <script src="js/version.js?v=103"></script>
     <script src="js/site.js?v=20261025ebook"></script>
-    <script src="js/ebook.js?v=20261027navfix1"></script>
+    <script src="js/ebook.js?v=20261028directread1"></script>
   </body>
 </html>

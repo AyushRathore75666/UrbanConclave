@@ -409,11 +409,7 @@
 
   loadCatalog();
 
-  const choice = document.getElementById("ebook-choice");
   const reader = document.getElementById("ebook-reader");
-  const choiceTitle = document.getElementById("ebook-choice-title");
-  const choiceRead = document.getElementById("ebook-choice-read");
-  const choiceDownload = document.getElementById("ebook-choice-download");
   const readerTitle = document.getElementById("ebook-reader-title");
   const readerClose = document.getElementById("ebook-reader-close");
   const readerPrev = document.getElementById("ebook-reader-prev");
@@ -427,7 +423,7 @@
   const readerSheet = readerBook ? readerBook.parentElement : null;
   const readerHint = reader ? reader.querySelector(".ebook-reader-hint") : null;
 
-  if (!choice || !reader || !window.pdfjsLib || !window.St) return;
+  if (!reader || !window.pdfjsLib || !window.St) return;
 
   pdfjsLib.GlobalWorkerOptions.workerSrc =
     "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
@@ -481,23 +477,6 @@
         pdfjsLib.cleanup();
       } catch (_) {}
     }
-  }
-
-  function openChoice(pdf, file, title) {
-    active = { pdf: pdf, file: file || "ebook.pdf", title: title || "E-Book" };
-    choiceTitle.textContent = active.title;
-    choiceDownload.setAttribute("href", active.pdf);
-    choiceDownload.setAttribute("download", active.file);
-    choice.hidden = false;
-    choice.setAttribute("aria-hidden", "false");
-    lockScroll(true);
-    choiceRead.focus();
-  }
-
-  function closeChoice() {
-    choice.hidden = true;
-    choice.setAttribute("aria-hidden", "true");
-    if (reader.hidden) lockScroll(false);
   }
 
   function clearFrame() {
@@ -891,7 +870,6 @@
     if (!active.pdf || isOpening) return;
     isOpening = true;
     const token = ++loadingToken;
-    closeChoice();
     destroyFlip();
     if (readerSheet) readerSheet.hidden = false;
 
@@ -944,7 +922,7 @@
       readerLoading.hidden = true;
       readerError.hidden = false;
       readerError.innerHTML =
-        "Could not open the flipbook. Please try again or use <strong>Download</strong>." +
+        "Could not open the flipbook. Please try again." +
         '<div style="margin-top:0.85rem"><button type="button" class="btn btn-line" data-ebook-retry-read>Try E-Read again</button></div>';
       const retry = readerError.querySelector("[data-ebook-retry-read]");
       if (retry) {
@@ -961,53 +939,13 @@
     const trigger = event.target.closest("[data-ebook-open]");
     if (!trigger) return;
     event.preventDefault();
-    openChoice(
-      trigger.getAttribute("href") || trigger.getAttribute("data-ebook-pdf"),
-      trigger.getAttribute("download") || trigger.getAttribute("data-ebook-file") || "ebook.pdf",
-      trigger.getAttribute("data-ebook-title") || "E-Book"
-    );
-  });
-
-  choice.addEventListener("click", function (event) {
-    if (event.target === choice) closeChoice();
-  });
-
-  choice.querySelectorAll("[data-ebook-choice-close]").forEach(function (btn) {
-    btn.addEventListener("click", closeChoice);
-  });
-
-  choiceRead.addEventListener("click", function () {
+    active = {
+      pdf: trigger.getAttribute("href") || trigger.getAttribute("data-ebook-pdf") || "",
+      file: trigger.getAttribute("download") || trigger.getAttribute("data-ebook-file") || "ebook.pdf",
+      title: trigger.getAttribute("data-ebook-title") || "E-Book",
+      blobUrl: "",
+    };
     openReader();
-  });
-
-  choiceDownload.addEventListener("click", function (event) {
-    // Keep native download behavior (direct file download).
-    closeChoice();
-    // If the browser ignores cross-origin download attrs, force blob download.
-    if (!active.pdf) return;
-    const sameOrigin = active.pdf.indexOf("://") === -1 || active.pdf.indexOf(location.origin) === 0;
-    if (sameOrigin) return;
-    event.preventDefault();
-    fetch(active.pdf, { mode: "cors", credentials: "omit" })
-      .then(function (response) {
-        if (!response.ok) throw new Error("download failed");
-        return response.blob();
-      })
-      .then(function (blob) {
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = active.file || "ebook.pdf";
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        setTimeout(function () {
-          URL.revokeObjectURL(url);
-        }, 1500);
-      })
-      .catch(function () {
-        window.open(active.pdf, "_blank", "noopener");
-      });
   });
 
   document.addEventListener(
@@ -1056,10 +994,6 @@
   });
 
   document.addEventListener("keydown", function (event) {
-    if (!choice.hidden && event.key === "Escape") {
-      closeChoice();
-      return;
-    }
     if (reader.hidden) return;
     if (event.key === "Escape") {
       closeReader(event);
